@@ -7,6 +7,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+
 #ifndef OQS_SIG_STATEFUL_H
 #define OQS_SIG_STATEFUL_H
 
