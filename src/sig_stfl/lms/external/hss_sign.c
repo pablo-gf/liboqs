@@ -16,6 +16,7 @@
 #include "lm_ots.h"
 #include "lm_ots_common.h"
 #include "hss_derive.h"
+#include "../../../common/common.h" // For OQS_MEM_cleanse
 
 /*
  * This adds one leaf to the building and next subtree.
@@ -701,7 +702,7 @@ done_advancing:
     /* And we've set things up for the next signature... */
 
     if (trash_private_key) {
-        memset( w->private_key, PARM_SET_END, PRIVATE_KEY_LEN );
+        OQS_MEM_cleanse( w->private_key, PRIVATE_KEY_LEN );
     }
 
     return true;
@@ -709,12 +710,12 @@ done_advancing:
 failed:
 
     if (trash_private_key) {
-        memset( w->private_key, PARM_SET_END, PRIVATE_KEY_LEN );
+        OQS_MEM_cleanse( w->private_key, PRIVATE_KEY_LEN );
     }
 
     /* On failure, make sure that we don't return anything that might be */
     /* misconstrued as a real signature */
-    memset( signature, 0, signature_buf_len );
+    OQS_MEM_cleanse( signature, signature_buf_len );
     return false;
 }
 

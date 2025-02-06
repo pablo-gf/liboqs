@@ -32,6 +32,7 @@
 #include "pack_unpack.h"
 #include "randombytes.h"
 #include "seedtree.h"
+#include "../../../common/common.h" // For OQS_MEM_cleanse
 
 static
 void expand_public_seed(FQ_ELEM V_tr[K][N - K],
@@ -113,7 +114,7 @@ void PQCLEAN_CROSSRSDP192FAST_CLEAN_CROSS_sign(const prikey_t *const SK,
         CROSS_sig_t *const sig) {
 	/* Wipe any residual information in the sig structure allocated by the
 	 * caller */
-	memset(sig, 0, sizeof(CROSS_sig_t));
+	OQS_MEM_cleanse(sig, sizeof(CROSS_sig_t));
 	/* Key material expansion */
 	FQ_ELEM V_tr[K][N - K];
 	FZ_ELEM eta[N];

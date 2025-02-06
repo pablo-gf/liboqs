@@ -13,6 +13,7 @@
 #include "thash.h"
 #include "utils.h"
 #include "wots.h"
+#include "../../../common/common.h" // For OQS_MEM_cleanse
 
 /*
  * Returns the length of a secret key, in bytes
@@ -265,7 +266,7 @@ int crypto_sign_open(uint8_t *m, size_t *mlen,
     /* The API caller does not necessarily know what size a signature should be
        but SPHINCS+ signatures are always exactly SPX_BYTES. */
     if (smlen < SPX_BYTES) {
-        memset(m, 0, smlen);
+        OQS_MEM_cleanse(m, smlen);
         *mlen = 0;
         return -1;
     }
@@ -273,7 +274,7 @@ int crypto_sign_open(uint8_t *m, size_t *mlen,
     *mlen = smlen - SPX_BYTES;
 
     if (crypto_sign_verify(sm, SPX_BYTES, sm + SPX_BYTES, *mlen, pk)) {
-        memset(m, 0, smlen);
+        OQS_MEM_cleanse(m, smlen);
         *mlen = 0;
         return -1;
     }

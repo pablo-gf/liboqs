@@ -11,6 +11,7 @@
 #define NONCELEN   40
 
 #include "randombytes.h"
+#include "../../../common/common.h" // For OQS_MEM_cleanse
 
 /*
  * Encoding formats (nnnn = log of degree, 9 for Falcon-512, 10 for Falcon-1024)
@@ -202,7 +203,7 @@ do_sign(uint8_t *nonce, uint8_t *sigbuf, size_t sigbuflen,
         v = PQCLEAN_FALCONPADDED512_CLEAN_comp_encode(sigbuf, sigbuflen, r.sig, 9);
         if (v != 0) {
             inner_shake256_ctx_release(&sc);
-            memset(sigbuf + v, 0, sigbuflen - v);
+            OQS_MEM_cleanse(sigbuf + v, sigbuflen - v);
             return 0;
         }
     }
