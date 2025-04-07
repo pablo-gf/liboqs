@@ -85,6 +85,14 @@ upstreams:
     git_commit: 7e0832b6732a476119742c4acabd11b7c767aefb
     sig_scheme_path: '.'
     sig_meta_path: 'integration/liboqs/{pretty_name_full}_META.yml'
+
+  - 
+    name: sdith
+    git_url: https://github.com/sdith/sdith/tree/main
+    git_branch: main
+    git_commit: 
+    sig_scheme_path: 
+    sig_meta_path: 
 kems:
   -
     name: classic_mceliece
@@ -521,3 +529,13 @@ sigs:
         pqclean_scheme: ov_V_pkc_skc
         pretty_name_full: OV-V-pkc-skc
         signed_msg_order: msg_then_sig
+  -
+    name: sdith
+    default_implementation: ref
+    upstream_location: 
+    schemes:
+      -
+        scheme: 
+        pqclean_scheme: 
+        pretty_name_full: 
+        signed_msg_order: 
