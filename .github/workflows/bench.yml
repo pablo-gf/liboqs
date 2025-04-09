@@ -1,0 +1,121 @@
+name: benchmark
+
+on:
+  workflow_dispatch: # Manual trigger
+  push:
+    branches: [bench]
+
+permissions:
+  contents: write # Allows this workflow to push to the gh-pages branch
+  pull-requests: write
+
+jobs:
+  benchmark:
+    name: benchmark
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build gcc g++ python3 python3-pip
+          pip3 install matplotlib
+
+      - name: Setup Environment
+        run: |
+          ARCH=$(uname -m)
+          echo "## Setup" >> $GITHUB_STEP_SUMMARY
+          echo "Architecture: $ARCH" >> $GITHUB_STEP_SUMMARY
+          echo "- $(uname -a)" >> $GITHUB_STEP_SUMMARY
+          echo "- $(gcc --version | head -n 1)" >> $GITHUB_STEP_SUMMARY
+          echo "- $(bash --version | head -n 1)" >> $GITHUB_STEP_SUMMARY
+          echo "## CPU Info" >> $GITHUB_STEP_SUMMARY
+          cat /proc/cpuinfo >> $GITHUB_STEP_SUMMARY
+  
+      - name: Build liboqs
+        run: |
+          mkdir build && cd build
+          cmake -GNinja .. -DCMAKE_C_FLAGS="-O3 -march=native" -DBUILD_SHARED_LIBS=ON
+          ninja
+
+      - name: Run benchmarks
+        run: |
+          cd build/tests
+          
+          # Initialize JSON array
+          echo '[' > benchmark_results.json
+          
+          # Process KEM memory tests
+          ./test_kem_mem --help | grep -oP '(?<=algname: ).*' | tr ',' '\n' | sed 's/^ *//;s/ *$//' > algorithms.txt
+          op_names=("keygen" "encaps" " "decaps")
+          while read -r alg; do
+            for op in 0 1 2; do
+              result=$(./test_kem_mem "$alg" "$op" 2>&1 | tail -n1 || echo "null")
+              if [ "$result" != "null" ]; then
+                echo '    {
+                  "name": "'"liboqs-mem-${alg}-${op_names[$op]}"'",
+                  "unit": "bytes",
+                  "value": '"$result"'
+                },' >> benchmark_results.json
+              fi
+            done
+          done < algorithms.txt
+          
+          # Process speed tests
+          process_speed_test() {
+            local test_type=$1
+            local test_binary=$2
+            
+            $test_binary | awk '
+              BEGIN { op_names["keygen"] = "keygen"; op_names["encaps"] = "encaps"; op_names["decaps"] = "decaps" }
+              /^-+$/ { in_table=1; next }
+              /^===/ { in_table=0 }
+              in_table && NF >= 7 {
+                # Clean algorithm name
+                gsub(/[^a-zA-Z0-9_-]/, "", $1);
+                
+                # Determine operation type
+                op = "operation";
+                for (o in op_names) {
+                  if (index(tolower($1), o)) {
+                    op = op_names[o];
+                    break;
+                  }
+                }
+                
+                print "    {";
+                print "      \"name\": \"liboqs-speed-" $1 "-" op "\",";
+                print "      \"unit\": \"microseconds\",";
+                print "      \"value\": " $4 ",";
+                print "      \"range\": \"" $5 "\",";
+                print "      \"extra\": \"Iterations: " $2 "\\nTotal Time: " $3 "s\\nCycles Mean: " $6 "\\nCycles Stdev: " $7 "\"";
+                print "    },";
+              }
+            ' >> benchmark_results.json
+          }
+          
+          process_speed_test "kem" "./speed_kem"
+          process_speed_test "sig" "./speed_sig"
+          process_speed_test "sig-stfl" "./speed_sig_stfl"
+          
+          # Remove trailing comma and close array
+          sed -i '$ s/,$//' benchmark_results.json
+          echo ']' >> benchmark_results.json
+          
+          # Validate JSON
+          python3 -c "import json; f=open('benchmark_results.json'); json.load(f); f.close()"
+
+      - name: Store benchmark results
+        uses: benchmark-action/github-action-benchmark@v1.20.4
+        with:
+          name: liboqs-benchmark
+          tool: "customSmallerIsBetter"
+          output-file-path: build/tests/benchmark_results.json
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: true
+          comment-on-alert: true
+          summary-always: true
+          alert-threshold: "105%"
