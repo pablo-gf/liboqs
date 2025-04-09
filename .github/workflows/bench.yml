@@ -41,34 +41,41 @@ jobs:
           cmake -GNinja .. -DCMAKE_C_FLAGS="-O3 -march=native" -DBUILD_SHARED_LIBS=ON
           ninja
 
-      - name: Run benchmarks
-        run: |
-          cd build/tests
-          ./test_kem_mem > test_kem_mem.txt
-          ./test_sig_mem > test_sig_mem.txt
-          ./speed_kem > speed_kem_results.txt
-          ./speed_sig > speed_sig_results.txt
-          ./speed_sig_stfl > speed_sig_stfl.txt
-          
-      - name: Generate JSON results
-        run: |
-          echo '{' > build/tests/benchmark_results.json
-          echo '  "KEM Memory": {' >> build/tests/benchmark_results.json
-          awk '/Algorithm/ {alg=$2} /Memory/ {print "    \"" alg "\": " $2 ","}' test_kem_mem.txt >> build/tests/benchmark_results.json
-          echo '  },' >> build/tests/benchmark_results.json
-          echo '  "Signature Memory": {' >> build/tests/benchmark_results.json
-          awk '/Algorithm/ {alg=$2} /Memory/ {print "    \"" alg "\": " $2 ","}' test_sig_mem.txt >> build/tests/benchmark_results.json
-          echo '  },' >> build/tests/benchmark_results.json
-          echo '  "KEM Speed": {' >> build/tests/benchmark_results.json
-          awk '/Algorithm/ {alg=$2} /Time/ {print "    \"" alg "\": " $2 ","}' speed_kem_results.txt >> build/tests/benchmark_results.json
-          echo '  },' >> build/tests/benchmark_results.json
-          echo '  "Signature Speed": {' >> build/tests/benchmark_results.json
-          awk '/Algorithm/ {alg=$2} /Time/ {print "    \"" alg "\": " $2 ","}' speed_sig_results.txt >> build/tests/benchmark_results.json
-          echo '  },' >> build/tests/benchmark_results.json
-          echo '  "Signature STFL Speed": {' >> build/tests/benchmark_results.json
-          awk '/Algorithm/ {alg=$2} /Time/ {print "    \"" alg "\": " $2 ","}' speed_sig_stfl.txt >> build/tests/benchmark_results.json
-          echo '  }' >> build/tests/benchmark_results.json
-          echo '}' >> build/tests/benchmark_results.json
+          - name: Run benchmarks
+          run: |
+            cd build/tests
+            
+            # Extract all supported algorithms for test_kem_mem
+            echo "Extracting supported algorithms for test_kem_mem..."
+            ./test_kem_mem --help | grep -oP '(?<=algname: ).*' | tr ',' '\n' > algorithms.txt
+            
+            # Run test_kem_mem for all algorithms and operations
+            echo '{' > benchmark_results.json
+            echo '  "KEM Memory": {' >> benchmark_results.json
+            while read -r alg; do
+              for op in 0 1 2; do
+                result=$(./test_kem_mem "$alg" "$op" 2>/dev/null || echo "error")
+                echo "    \"$alg-$op\": \"$result\"," >> benchmark_results.json
+              done
+            done < algorithms.txt
+            echo '  },' >> benchmark_results.json
+            
+            # Run speed_kem and append results to JSON
+            echo '  "KEM Speed": {' >> benchmark_results.json
+            ./speed_kem | awk '/^[A-Za-z]/ {print "    \"" $1 "\": \"" $2 "\","}' >> benchmark_results.json
+            echo '  },' >> benchmark_results.json
+            
+            # Run speed_sig and append results to JSON
+            echo '  "Signature Speed": {' >> benchmark_results.json
+            ./speed_sig | awk '/^[A-Za-z]/ {print "    \"" $1 "\": \"" $2 "\","}' >> benchmark_results.json
+            echo '  },' >> benchmark_results.json
+            
+            # Run speed_sig_stfl and append results to JSON
+            echo '  "Signature STFL Speed": {' >> benchmark_results.json
+            ./speed_sig_stfl | awk '/^[A-Za-z]/ {print "    \"" $1 "\": \"" $2 "\","}' >> benchmark_results.json
+            echo '  }' >> benchmark_results.json
+            
+            echo '}' >> benchmark_results.json
 
       - name: Store benchmark results
         uses: benchmark-action/github-action-benchmark@v1.20.4
