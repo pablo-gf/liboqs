@@ -2,6 +2,8 @@ name: benchmark
 
 on:
   workflow_dispatch: # Manual trigger
+  push:
+    branches: [bench]
 
 permissions:
   contents: write # Allows this workflow to push to the gh-pages branch
@@ -13,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
-      matrix:
+      matrix: # Defines the two architectures that will be used for benchmarking
         target:
           - name: x86_64 (Intel)
             archflags: "-march=native"
