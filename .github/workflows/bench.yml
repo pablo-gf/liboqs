@@ -13,16 +13,6 @@ jobs:
   benchmark:
     name: benchmark
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: true
-      matrix: # Defines the two architectures that will be used for benchmarking
-        target:
-          - name: x86_64 (Intel)
-            archflags: "-march=native"
-            cflags: "-O3"
-          - name: ARMv8-A
-            archflags: "-march=armv8-a"
-            cflags: "-O3"
 
     steps:
       - name: Checkout repository
@@ -37,7 +27,7 @@ jobs:
       - name: Build liboqs
         run: |
           mkdir build && cd build
-          cmake -GNinja .. -DCMAKE_C_FLAGS="${{ matrix.target.cflags }} ${{ matrix.target.archflags }}" -DBUILD_SHARED_LIBS=ON
+          cmake -GNinja .. -DCMAKE_C_FLAGS="-O3 -march=native" -DBUILD_SHARED_LIBS=ON
           ninja
 
       - name: Run benchmarks
