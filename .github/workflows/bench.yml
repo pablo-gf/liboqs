@@ -70,8 +70,14 @@ jobs:
           echo '}' >> benchmark_results.json
 
       # Step 5: Upload benchmark results
-      - name: Upload benchmark results
-        uses: actions/upload-artifact@v3
+      - name: Publish benchmark results
+        uses: benchmark-action/github-action-benchmark@v1.20.4
         with:
-          name: benchmark-results
-          path: build/tests/benchmark_results.json
+          name: liboqs-benchmark
+          tool: "customSmallerIsBetter"
+          output-file-path: build/tests/benchmark_results.json
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: true
+          comment-on-alert: true
+          summary-always: true
+          alert-threshold: "105%"
