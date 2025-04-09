@@ -1,4 +1,4 @@
-name: benchmark liboqs
+name: benchmark
 
 on:
   workflow_dispatch: # Manual trigger
@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   benchmark:
-    name: Benchmark liboqs
+    name: benchmark
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
@@ -22,47 +22,47 @@ jobs:
             archflags: "-mcpu=cortex-a72"
             cflags: "-O3"
 
-  steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y cmake ninja-build gcc g++ python3 python3-pip
-        pip3 install matplotlib
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build gcc g++ python3 python3-pip
+          pip3 install matplotlib
 
-    - name: Build liboqs
-      run: |
-        mkdir build && cd build
-        cmake -GNinja .. -DCMAKE_C_FLAGS="${{ matrix.target.cflags }} ${{ matrix.target.archflags }}" -DBUILD_SHARED_LIBS=ON
-        ninja
+      - name: Build liboqs
+        run: |
+          mkdir build && cd build
+          cmake -GNinja .. -DCMAKE_C_FLAGS="${{ matrix.target.cflags }} ${{ matrix.target.archflags }}" -DBUILD_SHARED_LIBS=ON
+          ninja
 
-    - name: Run benchmarks
-      run: |
-        cd build/tests
-        ./speed_kem > speed_kem_results.txt
-        ./speed_sig > speed_sig_results.txt
-      
-    - name: Generate JSON results
-      run: |
-        echo '{' > benchmark_results.json
-        echo '  "KEM": {' >> benchmark_results.json
-        awk '/Algorithm/ {alg=$2} /Time/ {print "    \"" alg "\": " $2 ","}' speed_kem_results.txt >> benchmark_results.json
-        echo '  },' >> benchmark_results.json
-        echo '  "Signature": {' >> benchmark_results.json
-        awk '/Algorithm/ {alg=$2} /Time/ {print "    \"" alg "\": " $2 ","}' speed_sig_results.txt >> benchmark_results.json
-        echo '  }' >> benchmark_results.json
-        echo '}' >> benchmark_results.json
+      - name: Run benchmarks
+        run: |
+          cd build/tests
+          ./speed_kem > speed_kem_results.txt
+          ./speed_sig > speed_sig_results.txt
+        
+      - name: Generate JSON results
+        run: |
+          echo '{' > benchmark_results.json
+          echo '  "KEM": {' >> benchmark_results.json
+          awk '/Algorithm/ {alg=$2} /Time/ {print "    \"" alg "\": " $2 ","}' speed_kem_results.txt >> benchmark_results.json
+          echo '  },' >> benchmark_results.json
+          echo '  "Signature": {' >> benchmark_results.json
+          awk '/Algorithm/ {alg=$2} /Time/ {print "    \"" alg "\": " $2 ","}' speed_sig_results.txt >> benchmark_results.json
+          echo '  }' >> benchmark_results.json
+          echo '}' >> benchmark_results.json
 
-    - name: Publish benchmark results
-      uses: benchmark-action/github-action-benchmark@v1.20.4
-      with:
-        name: liboqs-benchmark
-        tool: "customSmallerIsBetter"
-        output-file-path: build/tests/benchmark_results.json
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        auto-push: true
-        comment-on-alert: true
-        summary-always: true
-        alert-threshold: "105%"
+      - name: Publish benchmark results
+        uses: benchmark-action/github-action-benchmark@v1.20.4
+        with:
+          name: liboqs-benchmark
+          tool: "customSmallerIsBetter"
+          output-file-path: build/tests/benchmark_results.json
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: true
+          comment-on-alert: true
+          summary-always: true
+          alert-threshold: "105%"
