@@ -20,8 +20,8 @@ jobs:
           - name: x86_64 (Intel)
             archflags: "-march=native"
             cflags: "-O3"
-          - name: ARM Cortex-A72
-            archflags: "-mcpu=cortex-a72"
+          - name: ARMv8-A
+            archflags: "-march=armv8-a"
             cflags: "-O3"
 
     steps:
