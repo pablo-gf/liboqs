@@ -24,6 +24,17 @@ jobs:
           sudo apt-get install -y cmake ninja-build gcc g++ python3 python3-pip
           pip3 install matplotlib
 
+          - name: Setup Environment
+          run: |
+            ARCH=$(uname -m)
+            echo "## Setup" >> $GITHUB_STEP_SUMMARY
+            echo "Architecture: $ARCH" >> $GITHUB_STEP_SUMMARY
+            echo "- $(uname -a)" >> $GITHUB_STEP_SUMMARY
+            echo "- $(gcc --version | head -n 1)" >> $GITHUB_STEP_SUMMARY
+            echo "- $(bash --version | head -n 1)" >> $GITHUB_STEP_SUMMARY
+            echo "## CPU Info" >> $GITHUB_STEP_SUMMARY
+            cat /proc/cpuinfo >> $GITHUB_STEP_SUMMARY
+  
       - name: Build liboqs
         run: |
           mkdir build && cd build
@@ -33,21 +44,33 @@ jobs:
       - name: Run benchmarks
         run: |
           cd build/tests
+          ./test_kem_mem > test_kem_mem.txt
+          ./test_sig_mem > test_sig_mem.txt
           ./speed_kem > speed_kem_results.txt
           ./speed_sig > speed_sig_results.txt
-        
+          ./speed_sig_stfl > speed_sig_stfl.txt
+          
       - name: Generate JSON results
         run: |
-          echo '{' > benchmark_results.json
-          echo '  "KEM": {' >> benchmark_results.json
-          awk '/Algorithm/ {alg=$2} /Time/ {print "    \"" alg "\": " $2 ","}' speed_kem_results.txt >> benchmark_results.json
-          echo '  },' >> benchmark_results.json
-          echo '  "Signature": {' >> benchmark_results.json
-          awk '/Algorithm/ {alg=$2} /Time/ {print "    \"" alg "\": " $2 ","}' speed_sig_results.txt >> benchmark_results.json
-          echo '  }' >> benchmark_results.json
-          echo '}' >> benchmark_results.json
+          echo '{' > build/tests/benchmark_results.json
+          echo '  "KEM Memory": {' >> build/tests/benchmark_results.json
+          awk '/Algorithm/ {alg=$2} /Memory/ {print "    \"" alg "\": " $2 ","}' test_kem_mem.txt >> build/tests/benchmark_results.json
+          echo '  },' >> build/tests/benchmark_results.json
+          echo '  "Signature Memory": {' >> build/tests/benchmark_results.json
+          awk '/Algorithm/ {alg=$2} /Memory/ {print "    \"" alg "\": " $2 ","}' test_sig_mem.txt >> build/tests/benchmark_results.json
+          echo '  },' >> build/tests/benchmark_results.json
+          echo '  "KEM Speed": {' >> build/tests/benchmark_results.json
+          awk '/Algorithm/ {alg=$2} /Time/ {print "    \"" alg "\": " $2 ","}' speed_kem_results.txt >> build/tests/benchmark_results.json
+          echo '  },' >> build/tests/benchmark_results.json
+          echo '  "Signature Speed": {' >> build/tests/benchmark_results.json
+          awk '/Algorithm/ {alg=$2} /Time/ {print "    \"" alg "\": " $2 ","}' speed_sig_results.txt >> build/tests/benchmark_results.json
+          echo '  },' >> build/tests/benchmark_results.json
+          echo '  "Signature STFL Speed": {' >> build/tests/benchmark_results.json
+          awk '/Algorithm/ {alg=$2} /Time/ {print "    \"" alg "\": " $2 ","}' speed_sig_stfl.txt >> build/tests/benchmark_results.json
+          echo '  }' >> build/tests/benchmark_results.json
+          echo '}' >> build/tests/benchmark_results.json
 
-      - name: Publish benchmark results
+      - name: Store benchmark results
         uses: benchmark-action/github-action-benchmark@v1.20.4
         with:
           name: liboqs-benchmark
