@@ -24,16 +24,16 @@ jobs:
           sudo apt-get install -y cmake ninja-build gcc g++ python3 python3-pip
           pip3 install matplotlib
 
-          - name: Setup Environment
-          run: |
-            ARCH=$(uname -m)
-            echo "## Setup" >> $GITHUB_STEP_SUMMARY
-            echo "Architecture: $ARCH" >> $GITHUB_STEP_SUMMARY
-            echo "- $(uname -a)" >> $GITHUB_STEP_SUMMARY
-            echo "- $(gcc --version | head -n 1)" >> $GITHUB_STEP_SUMMARY
-            echo "- $(bash --version | head -n 1)" >> $GITHUB_STEP_SUMMARY
-            echo "## CPU Info" >> $GITHUB_STEP_SUMMARY
-            cat /proc/cpuinfo >> $GITHUB_STEP_SUMMARY
+      - name: Setup Environment
+        run: |
+          ARCH=$(uname -m)
+          echo "## Setup" >> $GITHUB_STEP_SUMMARY
+          echo "Architecture: $ARCH" >> $GITHUB_STEP_SUMMARY
+          echo "- $(uname -a)" >> $GITHUB_STEP_SUMMARY
+          echo "- $(gcc --version | head -n 1)" >> $GITHUB_STEP_SUMMARY
+          echo "- $(bash --version | head -n 1)" >> $GITHUB_STEP_SUMMARY
+          echo "## CPU Info" >> $GITHUB_STEP_SUMMARY
+          cat /proc/cpuinfo >> $GITHUB_STEP_SUMMARY
   
       - name: Build liboqs
         run: |
