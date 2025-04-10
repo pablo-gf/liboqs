@@ -68,5 +68,5 @@ jobs:
           auto-push: true
           comment-on-alert: true
           summary-always: true
-          alert-threshold: 5
+          alert-threshold: 5%
           comment-always: true
