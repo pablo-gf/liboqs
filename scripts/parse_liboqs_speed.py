@@ -63,17 +63,22 @@ with open(fn) as fp:
            print("Unknown state: %s" % (line))
 
 # Transform data into the required format
-output = []
+output = {
+    "name": "Speed KEM Benchmark",
+    "unit": "Microseconds",
+    "measurements": []
+}
+
 for alg, metrics in data.items():
     if alg == "config":
         continue
     for metric, value in metrics.items():
         entry = {
-            "name": f"{alg} - {metric}",
-            "unit": "Microseconds",
+            "name": metric,
+            "algorithm": alg,
             "value": value
         }
-        output.append(entry)
+        output["measurements"].append(entry)
 
 # Dump transformed data
 with open(os.path.splitext(fn)[0] + "_formatted.json", 'w') as outfile:
