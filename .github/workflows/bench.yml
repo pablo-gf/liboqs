@@ -18,73 +18,39 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Step 2: Install dependencies
+      # Step 2: Set up dependencies
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y cmake ninja-build gcc g++ python3 python3-pip
-          pip3 install matplotlib
+          sudo apt-get install -y cmake ninja-build gcc g++ python3
 
-      # Step 3: Build liboqs
-      - name: Build liboqs
+      # Step 3: Build the project
+      - name: Build speed_kem
         run: |
-          mkdir build && cd build
-          cmake -GNinja .. -DCMAKE_C_FLAGS="-O3 -march=native" -DBUILD_SHARED_LIBS=ON
-          ninja
+          mkdir -p build
+          cd build
+          cmake -GNinja .. -DBUILD_SHARED_LIBS=OFF
+          ninja speed_kem
 
-      # Step 4: Run memory and speed tests
-      - name: Run liboqs tests
+      # Step 4: Run the speed_kem test
+      - name: Run speed_kem test
         run: |
           cd build/tests
+          ./speed_kem > speed_kem_output.txt
 
-          # Initialize JSON file
-          echo '{' > benchmark_results.json
-
-          # Run memory tests (test_kem_mem and test_sig_mem)
-          echo '  "Memory Tests": {' >> benchmark_results.json
-          for test in test_kem_mem test_sig_mem; do
-            if [ -f "$test" ]; then
-              echo "Running $test..."
-              ./$test --help | grep -oP '(?<=algname: ).*' | tr ',' '\n' > algorithms.txt
-              while read -r alg; do
-                for op in 0 1 2; do
-                  result=$(./$test "$alg" "$op" 2>/dev/null || echo "error")
-                  echo "    \"$test-$alg-$op\": \"$result\"," >> benchmark_results.json
-                done
-              done < algorithms.txt
-            fi
-          done
-          echo '  },' >> benchmark_results.json
-
-          # Run speed tests (speed_kem and speed_sig)
-          echo '  "Speed Tests": {' >> benchmark_results.json
-          for test in speed_kem speed_sig; do
-            if [ -f "$test" ]; then
-              echo "Running $test..."
-              ./$test | awk '/^[A-Za-z]/ {print "    \"" $1 "\": \"" $2 "\","}' >> benchmark_results.json
-            fi
-          done
-          echo '  }' >> benchmark_results.json
-
-          # Finalize JSON file
-          echo '}' >> benchmark_results.json
-
-      # Step 5: Upload benchmark results
-      - name: Publish benchmark results
-        uses: benchmark-action/github-action-benchmark@v1.20.4
+      # Step 5: Upload the results as an artifact
+      - name: Upload speed_kem results
+        uses: actions/upload-artifact@v3
         with:
-          name: liboqs-benchmark
-          tool: "customSmallerIsBetter"
-          output-file-path: build/tests/benchmark_results.json
+          name: speed-kem-results
+          path: build/tests/speed_kem_output.txt
+
+      # Step 6: Store benchmark results (optional)
+      - name: Store benchmark result
+        uses: benchmark-action/github-action-benchmark@v1
+        with:
+          name: Speed KEM Benchmark
+          tool: 'custom'
+          output-file-path: build/tests/speed_kem_output.txt
           github-token: ${{ secrets.GITHUB_TOKEN }}
           auto-push: true
-          comment-on-alert: true
-          summary-always: true
-          alert-threshold: "105%"
-
-      # Step 6: Upload benchmark results as an artifact
-      - name: Upload benchmark results as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: benchmark-results
-          path: build/tests/benchmark_results.json
