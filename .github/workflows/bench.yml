@@ -55,7 +55,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: parsed-speed-kem-results
-          path: build/tests/speed_kem_output.json
+          path: build/tests/speed_kem_output_formatted.json
 
       # Push to GitHub pages
       - name: Store benchmark result
