@@ -81,3 +81,10 @@ jobs:
           comment-on-alert: true
           summary-always: true
           alert-threshold: "105%"
+
+      # Step 6: Upload benchmark results as an artifact
+      - name: Upload benchmark results as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: benchmark-results
+          path: build/tests/benchmark_results.json
