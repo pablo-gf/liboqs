@@ -22,10 +22,11 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y cmake ninja-build gcc g++ python3
+          sudo apt-get install -y cmake ninja-build gcc g++ python3 python3-pip
+          pip3 install py-cpuinfo
 
-      # Step 3: Build the project
-      - name: Build speed_kem
+      # Step 3: Build the speed_kem binary
+      - name: Build speed_kem binary
         run: |
           mkdir -p build
           cd build
@@ -38,19 +39,14 @@ jobs:
           cd build/tests
           ./speed_kem > speed_kem_output.txt
 
-      # Step 5: Upload the results as an artifact
-      - name: Upload speed_kem results
+      # Step 5: Parse the speed_kem results
+      - name: Parse speed_kem results
+        run: |
+          python3 /home/pablo/Desktop/liboqs/scripts/parse_liboqs_speed.py build/tests/speed_kem_output.txt
+
+      # Step 6: Upload the parsed results as an artifact
+      - name: Upload parsed speed_kem results
         uses: actions/upload-artifact@v4
         with:
-          name: speed-kem-results
-          path: build/tests/speed_kem_output.txt
-
-      # Step 6: Store benchmark results
-      - name: Store benchmark result
-        uses: benchmark-action/github-action-benchmark@v1
-        with:
-          name: Speed KEM Benchmark
-          tool: 'custom'
-          output-file-path: build/tests/speed_kem_output.txt
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          auto-push: true
+          name: parsed-speed-kem-results
+          path: build/tests/speed_kem_output.json
