@@ -3,17 +3,12 @@ import re
 import subprocess
 import sys
 import os
-from get_cpuinfo import getcpuinfo
-from get_cpuinfo import getestimatedcpufrequency
+from cpuinfo import get_cpu_info
+
 data = {}
 # fetch both x86 and aarch64 CPU details:
-data["cpuinfo"]=getcpuinfo(["flags", "model name", "cpu MHz", "Features", "CPU implementer", "CPU variant", "CPU part", "BogoMIPS"])
+data["cpuinfo"]=get_cpu_info(["flags", "model name", "cpu MHz", "Features", "CPU implementer", "CPU variant", "CPU part", "BogoMIPS"])
 data["config"]={}
-estfrequency = getestimatedcpufrequency()
-if estfrequency != None:
-    data["cpuinfo"]["estfrequency"] = estfrequency
-else:
-    data["cpuinfo"]["estfreqency"] = "Unavailable"
 
 def get_peak(lines):
     peak = -1
