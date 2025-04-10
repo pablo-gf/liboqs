@@ -14,18 +14,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository
+      # Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Step 2: Set up dependencies
+      # Set up dependencies
       - name: Install dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y cmake ninja-build gcc g++ python3 python3-pip
           pip3 install py-cpuinfo
 
-      # Step 3: Build the speed_kem binary
+      # Build the speed_kem binary
       - name: Build speed_kem binary
         run: |
           mkdir -p build
@@ -33,26 +33,40 @@ jobs:
           cmake -GNinja .. -DBUILD_SHARED_LIBS=OFF
           ninja speed_kem
 
-      # Step 4: Copy the parse_liboqs_speed.py script
+      # Copy the parse_liboqs_speed.py script
       - name: Copy parse_liboqs_speed.py
         run: |
           cp scripts/parse_liboqs_speed.py build/tests/
 
-      # Step 5: Run the speed_kem test
+      # Run the speed_kem test
       - name: Run speed_kem test
         run: |
           cd build/tests
           ./speed_kem > speed_kem_output.txt
 
-      # Step 6: Parse the speed_kem results
+      # Parse the speed_kem results
       - name: Parse speed_kem results
         run: |
           cd build/tests
           python3 parse_liboqs_speed.py speed_kem_output.txt
 
-      # Step 7: Upload the parsed results as an artifact
+      # Upload the parsed results as an artifact
       - name: Upload parsed speed_kem results
         uses: actions/upload-artifact@v4
         with:
           name: parsed-speed-kem-results
           path: build/tests/speed_kem_output.json
+
+      # Push to GitHub pages
+      - name: Store benchmark result
+        uses: benchmark-action/github-action-benchmark@d48d326b4ca9ba73ca0cd0d59f108f9e02a381c7 # v1.20.4
+        with:
+          name: Speed KEM Benchmark
+          tool: "customSmallerIsBetter"
+          output-file-path: build/tests/speed_kem_output_formatted.json
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: true
+          comment-on-alert: true
+          summary-always: true
+          alert-threshold: 5
+          comment-always: true
