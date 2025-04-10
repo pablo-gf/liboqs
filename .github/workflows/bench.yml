@@ -45,7 +45,7 @@ jobs:
           name: speed-kem-results
           path: build/tests/speed_kem_output.txt
 
-      # Step 6: Store benchmark results (optional)
+      # Step 6: Store benchmark results
       - name: Store benchmark result
         uses: benchmark-action/github-action-benchmark@v1
         with:
