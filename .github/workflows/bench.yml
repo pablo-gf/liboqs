@@ -1,0 +1,72 @@
+name: benchmark
+
+on:
+  workflow_dispatch: # Manual trigger
+  push:
+    branches: [bench]
+
+permissions:
+  contents: write # Allows this workflow to push to the gh-pages branch
+  pull-requests: write
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Set up dependencies
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build gcc g++ python3 python3-pip
+          pip3 install py-cpuinfo
+
+      # Build the speed_kem binary
+      - name: Build speed_kem binary
+        run: |
+          mkdir -p build
+          cd build
+          cmake -GNinja .. -DBUILD_SHARED_LIBS=OFF
+          ninja speed_kem
+
+      # Copy the parse_liboqs_speed.py script
+      - name: Copy parse_liboqs_speed.py
+        run: |
+          cp scripts/parse_liboqs_speed.py build/tests/
+
+      # Run the speed_kem test
+      - name: Run speed_kem test
+        run: |
+          cd build/tests
+          ./speed_kem > speed_kem_output.txt
+
+      # Parse the speed_kem results
+      - name: Parse speed_kem results
+        run: |
+          cd build/tests
+          python3 parse_liboqs_speed.py speed_kem_output.txt
+
+      # Upload the parsed results as an artifact
+      - name: Upload parsed speed_kem results
+        uses: actions/upload-artifact@v4
+        with:
+          name: parsed-speed-kem-results
+          path: build/tests/speed_kem_output.json
+
+      # Push to GitHub pages
+      - name: Store benchmark result
+        uses: benchmark-action/github-action-benchmark@d48d326b4ca9ba73ca0cd0d59f108f9e02a381c7 # v1.20.4
+        with:
+          name: Speed KEM Benchmark
+          tool: "customSmallerIsBetter"
+          output-file-path: build/tests/speed_kem_output_formatted.json
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: true
+          comment-on-alert: true
+          summary-always: true
+          alert-threshold: 5%
+          comment-always: true
