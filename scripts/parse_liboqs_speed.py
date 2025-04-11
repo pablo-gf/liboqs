@@ -54,17 +54,19 @@ with open(fn) as fp:
                     t = float(x[2][:x[2].index(" ")])
                     cycles = float(x[5][:x[5].index(" ")])
                     val = iterations / t
-                    # Append benchmark results
-                    results.append({
-                        "name": f"{alg} - {tag}",
-                        "value": round(val, 2),
-                        "unit": "Microseconds"
-                    })
-                    results.append({
-                        "name": f"{alg} - {ctag}",
-                        "value": int(cycles),
-                        "unit": "Cycles"
-                    })
+                    # Append benchmark results based on tag
+                    if "cycles" in tag.lower():
+                        results.append({
+                            "name": f"{alg} - {ctag}",
+                            "value": int(cycles),
+                            "unit": "Cycles"
+                        })
+                    else:
+                        results.append({
+                            "name": f"{alg} - {tag}",
+                            "value": round(val, 2),
+                            "unit": "Microseconds"
+                        })
         else:
             print("Unknown state: %s" % (line))
 
