@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1744371316938,
+  "lastUpdate": 1744373350361,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "Speed KEM Benchmark": [
@@ -3600,6 +3600,465 @@ window.BENCHMARK_DATA = {
             "name": "FrodoKEM-1344-SHAKE - decapscycles",
             "value": 10452474,
             "unit": "Cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "9acae4d16085993679359282a907f020b5fde15c",
+          "message": "Added cycles logic\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-11T14:00:41+02:00",
+          "tree_id": "0ef82c4b1f16bc4ae2bb52566743c7dca760f188",
+          "url": "https://github.com/pablo-gf/liboqs/commit/9acae4d16085993679359282a907f020b5fde15c"
+        },
+        "date": 1744373344218,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "BIKE-L1 - keygen",
+            "value": 4007,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "BIKE-L1 - encaps",
+            "value": 23154.67,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "BIKE-L1 - decaps",
+            "value": 1481.67,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "BIKE-L3 - keygen",
+            "value": 1461.33,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "BIKE-L3 - encaps",
+            "value": 10192.67,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "BIKE-L3 - decaps",
+            "value": 494.33,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "BIKE-L5 - keygen",
+            "value": 577,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "BIKE-L5 - encaps",
+            "value": 5007.33,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "BIKE-L5 - decaps",
+            "value": 193.2,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-348864 - keygen",
+            "value": 25.02,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-348864 - encaps",
+            "value": 63843.33,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-348864 - decaps",
+            "value": 26618.33,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-348864f - keygen",
+            "value": 30.26,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-348864f - encaps",
+            "value": 63317,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-348864f - decaps",
+            "value": 26042,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-460896 - keygen",
+            "value": 8.1,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-460896 - encaps",
+            "value": 30659.67,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-460896 - decaps",
+            "value": 10768,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-460896f - keygen",
+            "value": 10.63,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-460896f - encaps",
+            "value": 30556.67,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-460896f - decaps",
+            "value": 10873.33,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-6688128 - keygen",
+            "value": 5.19,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-6688128 - encaps",
+            "value": 17345,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-6688128 - decaps",
+            "value": 9594.33,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-6688128f - keygen",
+            "value": 7.82,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-6688128f - encaps",
+            "value": 17084.67,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-6688128f - decaps",
+            "value": 9576.33,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-6960119 - keygen",
+            "value": 5.47,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-6960119 - encaps",
+            "value": 17384.33,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-6960119 - decaps",
+            "value": 9921.67,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-6960119f - keygen",
+            "value": 8.28,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-6960119f - encaps",
+            "value": 17228,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-6960119f - decaps",
+            "value": 9972.67,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-8192128 - keygen",
+            "value": 5.3,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-8192128 - encaps",
+            "value": 15892.33,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-8192128 - decaps",
+            "value": 9577,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-8192128f - keygen",
+            "value": 7.05,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-8192128f - encaps",
+            "value": 15629,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Classic-McEliece-8192128f - decaps",
+            "value": 9647.33,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "HQC-128 - keygen",
+            "value": 530.31,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "HQC-128 - encaps",
+            "value": 264,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "HQC-128 - decaps",
+            "value": 174.33,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "HQC-192 - keygen",
+            "value": 173.55,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "HQC-192 - encaps",
+            "value": 86.61,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "HQC-192 - decaps",
+            "value": 57.46,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "HQC-256 - keygen",
+            "value": 94.68,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "HQC-256 - encaps",
+            "value": 47.29,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "HQC-256 - decaps",
+            "value": 31.44,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Kyber512 - keygen",
+            "value": 96345,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Kyber512 - encaps",
+            "value": 77201.33,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Kyber512 - decaps",
+            "value": 109012.67,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Kyber768 - keygen",
+            "value": 61552.67,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Kyber768 - encaps",
+            "value": 49762,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Kyber768 - decaps",
+            "value": 65394,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Kyber1024 - keygen",
+            "value": 45667.33,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Kyber1024 - encaps",
+            "value": 37672,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "Kyber1024 - decaps",
+            "value": 48257.67,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "ML-KEM-512 - keygen",
+            "value": 102509.67,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "ML-KEM-512 - encaps",
+            "value": 93652.33,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "ML-KEM-512 - decaps",
+            "value": 81805.33,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "ML-KEM-768 - keygen",
+            "value": 63277.33,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "ML-KEM-768 - encaps",
+            "value": 61704.67,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "ML-KEM-768 - decaps",
+            "value": 52460,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "ML-KEM-1024 - keygen",
+            "value": 45171.67,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "ML-KEM-1024 - encaps",
+            "value": 43572.33,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "ML-KEM-1024 - decaps",
+            "value": 37090.67,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "sntrup761 - keygen",
+            "value": 3640.33,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "sntrup761 - encaps",
+            "value": 82261.67,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "sntrup761 - decaps",
+            "value": 75365.33,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "FrodoKEM-640-AES - keygen",
+            "value": 3381.67,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "FrodoKEM-640-AES - encaps",
+            "value": 2446.33,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "FrodoKEM-640-AES - decaps",
+            "value": 2579.33,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "FrodoKEM-640-SHAKE - keygen",
+            "value": 943.67,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "FrodoKEM-640-SHAKE - encaps",
+            "value": 872.67,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "FrodoKEM-640-SHAKE - decaps",
+            "value": 886.7,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "FrodoKEM-976-AES - keygen",
+            "value": 1706.33,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "FrodoKEM-976-AES - encaps",
+            "value": 1248.92,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "FrodoKEM-976-AES - decaps",
+            "value": 1346.33,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "FrodoKEM-976-SHAKE - keygen",
+            "value": 436.71,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "FrodoKEM-976-SHAKE - encaps",
+            "value": 406.06,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "FrodoKEM-976-SHAKE - decaps",
+            "value": 414.67,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "FrodoKEM-1344-AES - keygen",
+            "value": 1017.33,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "FrodoKEM-1344-AES - encaps",
+            "value": 744,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "FrodoKEM-1344-AES - decaps",
+            "value": 783.74,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "FrodoKEM-1344-SHAKE - keygen",
+            "value": 244.09,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "FrodoKEM-1344-SHAKE - encaps",
+            "value": 228.67,
+            "unit": "Microseconds"
+          },
+          {
+            "name": "FrodoKEM-1344-SHAKE - decaps",
+            "value": 234.84,
+            "unit": "Microseconds"
           }
         ]
       }
