@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1744370635152,
+  "lastUpdate": 1744371316938,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "Speed KEM Benchmark": [
@@ -3141,6 +3141,465 @@ window.BENCHMARK_DATA = {
             "name": "FrodoKEM-1344-SHAKE - decaps",
             "value": 233.67,
             "unit": "Microseconds"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "08d26d27ad62ce237927043d20b98ba569745ea4",
+          "message": "Added cycles 2\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-11T13:27:46+02:00",
+          "tree_id": "b761672037f830bde634b24426f6bd27f3328079",
+          "url": "https://github.com/pablo-gf/liboqs/commit/08d26d27ad62ce237927043d20b98ba569745ea4"
+        },
+        "date": 1744371310774,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "BIKE-L1 - keygencycles",
+            "value": 604798,
+            "unit": "Cycles"
+          },
+          {
+            "name": "BIKE-L1 - encapscycles",
+            "value": 105549,
+            "unit": "Cycles"
+          },
+          {
+            "name": "BIKE-L1 - decapscycles",
+            "value": 1642720,
+            "unit": "Cycles"
+          },
+          {
+            "name": "BIKE-L3 - keygencycles",
+            "value": 1673989,
+            "unit": "Cycles"
+          },
+          {
+            "name": "BIKE-L3 - encapscycles",
+            "value": 239733,
+            "unit": "Cycles"
+          },
+          {
+            "name": "BIKE-L3 - decapscycles",
+            "value": 4910441,
+            "unit": "Cycles"
+          },
+          {
+            "name": "BIKE-L5 - keygencycles",
+            "value": 4319714,
+            "unit": "Cycles"
+          },
+          {
+            "name": "BIKE-L5 - encapscycles",
+            "value": 492398,
+            "unit": "Cycles"
+          },
+          {
+            "name": "BIKE-L5 - decapscycles",
+            "value": 12186885,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-348864 - keygencycles",
+            "value": 96289500,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-348864 - encapscycles",
+            "value": 36774,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-348864 - decapscycles",
+            "value": 94949,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-348864f - keygencycles",
+            "value": 79926935,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-348864f - encapscycles",
+            "value": 36946,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-348864f - decapscycles",
+            "value": 93634,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-460896 - keygencycles",
+            "value": 305724169,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-460896 - encapscycles",
+            "value": 80204,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-460896 - decapscycles",
+            "value": 227837,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-460896f - keygencycles",
+            "value": 228979160,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-460896f - encapscycles",
+            "value": 80486,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-460896f - decapscycles",
+            "value": 226310,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-6688128 - keygencycles",
+            "value": 447402611,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-6688128 - encapscycles",
+            "value": 145800,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-6688128 - decapscycles",
+            "value": 255322,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-6688128f - keygencycles",
+            "value": 312697494,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-6688128f - encapscycles",
+            "value": 149822,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-6688128f - decapscycles",
+            "value": 256476,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-6960119 - keygencycles",
+            "value": 426138570,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-6960119 - encapscycles",
+            "value": 140172,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-6960119 - decapscycles",
+            "value": 246762,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-6960119f - keygencycles",
+            "value": 295694392,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-6960119f - encapscycles",
+            "value": 142545,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-6960119f - decapscycles",
+            "value": 245095,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-8192128 - keygencycles",
+            "value": 476074308,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-8192128 - encapscycles",
+            "value": 149218,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-8192128 - decapscycles",
+            "value": 254860,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-8192128f - keygencycles",
+            "value": 345702494,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-8192128f - encapscycles",
+            "value": 154702,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Classic-McEliece-8192128f - decapscycles",
+            "value": 253874,
+            "unit": "Cycles"
+          },
+          {
+            "name": "HQC-128 - keygencycles",
+            "value": 4620413,
+            "unit": "Cycles"
+          },
+          {
+            "name": "HQC-128 - encapscycles",
+            "value": 9250747,
+            "unit": "Cycles"
+          },
+          {
+            "name": "HQC-128 - decapscycles",
+            "value": 14034158,
+            "unit": "Cycles"
+          },
+          {
+            "name": "HQC-192 - keygencycles",
+            "value": 14077242,
+            "unit": "Cycles"
+          },
+          {
+            "name": "HQC-192 - encapscycles",
+            "value": 28235475,
+            "unit": "Cycles"
+          },
+          {
+            "name": "HQC-192 - decapscycles",
+            "value": 42597483,
+            "unit": "Cycles"
+          },
+          {
+            "name": "HQC-256 - keygencycles",
+            "value": 25960317,
+            "unit": "Cycles"
+          },
+          {
+            "name": "HQC-256 - encapscycles",
+            "value": 51774169,
+            "unit": "Cycles"
+          },
+          {
+            "name": "HQC-256 - decapscycles",
+            "value": 78069506,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Kyber512 - keygencycles",
+            "value": 25266,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Kyber512 - encapscycles",
+            "value": 31512,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Kyber512 - decapscycles",
+            "value": 22322,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Kyber768 - keygencycles",
+            "value": 39486,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Kyber768 - encapscycles",
+            "value": 47173,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Kyber768 - decapscycles",
+            "value": 35511,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Kyber1024 - keygencycles",
+            "value": 53301,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Kyber1024 - encapscycles",
+            "value": 65104,
+            "unit": "Cycles"
+          },
+          {
+            "name": "Kyber1024 - decapscycles",
+            "value": 50602,
+            "unit": "Cycles"
+          },
+          {
+            "name": "ML-KEM-512 - keygencycles",
+            "value": 23774,
+            "unit": "Cycles"
+          },
+          {
+            "name": "ML-KEM-512 - encapscycles",
+            "value": 26021,
+            "unit": "Cycles"
+          },
+          {
+            "name": "ML-KEM-512 - decapscycles",
+            "value": 29883,
+            "unit": "Cycles"
+          },
+          {
+            "name": "ML-KEM-768 - keygencycles",
+            "value": 38598,
+            "unit": "Cycles"
+          },
+          {
+            "name": "ML-KEM-768 - encapscycles",
+            "value": 39538,
+            "unit": "Cycles"
+          },
+          {
+            "name": "ML-KEM-768 - decapscycles",
+            "value": 46628,
+            "unit": "Cycles"
+          },
+          {
+            "name": "ML-KEM-1024 - keygencycles",
+            "value": 53683,
+            "unit": "Cycles"
+          },
+          {
+            "name": "ML-KEM-1024 - encapscycles",
+            "value": 55658,
+            "unit": "Cycles"
+          },
+          {
+            "name": "ML-KEM-1024 - decapscycles",
+            "value": 66215,
+            "unit": "Cycles"
+          },
+          {
+            "name": "sntrup761 - keygencycles",
+            "value": 679546,
+            "unit": "Cycles"
+          },
+          {
+            "name": "sntrup761 - encapscycles",
+            "value": 29823,
+            "unit": "Cycles"
+          },
+          {
+            "name": "sntrup761 - decapscycles",
+            "value": 32480,
+            "unit": "Cycles"
+          },
+          {
+            "name": "FrodoKEM-640-AES - keygencycles",
+            "value": 721577,
+            "unit": "Cycles"
+          },
+          {
+            "name": "FrodoKEM-640-AES - encapscycles",
+            "value": 1001260,
+            "unit": "Cycles"
+          },
+          {
+            "name": "FrodoKEM-640-AES - decapscycles",
+            "value": 947915,
+            "unit": "Cycles"
+          },
+          {
+            "name": "FrodoKEM-640-SHAKE - keygencycles",
+            "value": 2586334,
+            "unit": "Cycles"
+          },
+          {
+            "name": "FrodoKEM-640-SHAKE - encapscycles",
+            "value": 2797970,
+            "unit": "Cycles"
+          },
+          {
+            "name": "FrodoKEM-640-SHAKE - decapscycles",
+            "value": 2763377,
+            "unit": "Cycles"
+          },
+          {
+            "name": "FrodoKEM-976-AES - keygencycles",
+            "value": 1448467,
+            "unit": "Cycles"
+          },
+          {
+            "name": "FrodoKEM-976-AES - encapscycles",
+            "value": 1950793,
+            "unit": "Cycles"
+          },
+          {
+            "name": "FrodoKEM-976-AES - decapscycles",
+            "value": 1812114,
+            "unit": "Cycles"
+          },
+          {
+            "name": "FrodoKEM-976-SHAKE - keygencycles",
+            "value": 5662631,
+            "unit": "Cycles"
+          },
+          {
+            "name": "FrodoKEM-976-SHAKE - encapscycles",
+            "value": 6068652,
+            "unit": "Cycles"
+          },
+          {
+            "name": "FrodoKEM-976-SHAKE - decapscycles",
+            "value": 5878951,
+            "unit": "Cycles"
+          },
+          {
+            "name": "FrodoKEM-1344-AES - keygencycles",
+            "value": 2425320,
+            "unit": "Cycles"
+          },
+          {
+            "name": "FrodoKEM-1344-AES - encapscycles",
+            "value": 3302226,
+            "unit": "Cycles"
+          },
+          {
+            "name": "FrodoKEM-1344-AES - decapscycles",
+            "value": 3121418,
+            "unit": "Cycles"
+          },
+          {
+            "name": "FrodoKEM-1344-SHAKE - keygencycles",
+            "value": 10039217,
+            "unit": "Cycles"
+          },
+          {
+            "name": "FrodoKEM-1344-SHAKE - encapscycles",
+            "value": 10690904,
+            "unit": "Cycles"
+          },
+          {
+            "name": "FrodoKEM-1344-SHAKE - decapscycles",
+            "value": 10452474,
+            "unit": "Cycles"
           }
         ]
       }
