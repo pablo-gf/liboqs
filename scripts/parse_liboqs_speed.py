@@ -59,14 +59,14 @@ with open(fn) as fp:
                  cycles = float(x[5][:x[5].index(" ")])
                  val = iterations / t
                  data[alg].append({
-                     "metric": tag,
-                     "unit": "Microseconds",
-                     "value": round(val, 2)
+                     "name": tag,
+                     "value": round(val, 2),
+                     "unit": "Microseconds"
                  })
                  data[alg].append({
-                     "metric": ctag,
-                     "unit": "Microseconds",
-                     "value": int(cycles)
+                     "name": ctag,
+                     "value": int(cycles),
+                     "unit": "Cycles"
                  })
       else:
            print("Unknown state: %s" % (line))
