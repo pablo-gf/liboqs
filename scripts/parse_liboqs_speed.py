@@ -55,7 +55,7 @@ with open(fn) as fp:
                     cycles = float(x[5][:x[5].index(" ")])
                     val = iterations / t
                     # Append benchmark results based on tag
-                    if "cycles" in tag.lower():
+                    if "cycles" in ctag.lower():
                         results.append({
                             "name": f"{alg} - {ctag}",
                             "value": int(cycles),
