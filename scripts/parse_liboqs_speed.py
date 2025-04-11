@@ -49,15 +49,14 @@ with open(fn) as fp:
                 for i in 0, 1, 2:
                     x = p.findall(fp.readline().rstrip())
                     tag = x[0][:x[0].index(" ")]
-                    ctag = tag + "cycles"
                     iterations = float(x[1][:x[1].index(" ")])
                     t = float(x[2][:x[2].index(" ")])
                     cycles = float(x[5][:x[5].index(" ")])
                     val = iterations / t
                     # Append benchmark results based on tag
-                    if "cycles" in ctag.lower():
+                    if "cycles" in tag.lower():  # Check the original tag, not ctag
                         results.append({
-                            "name": f"{alg} - {ctag}",
+                            "name": f"{alg} - {tag}",
                             "value": int(cycles),
                             "unit": "Cycles"
                         })
