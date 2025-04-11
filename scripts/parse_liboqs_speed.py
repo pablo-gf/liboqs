@@ -47,7 +47,8 @@ with open(fn) as fp:
               break
            else:
                alg = line[:line.index(" ")]
-               data[alg] = {}
+               if alg not in data:
+                   data[alg] = []
                p = re.compile('\S+\s*\|')
                for i in 0, 1, 2:
                  x = p.findall(fp.readline().rstrip())
@@ -57,24 +58,22 @@ with open(fn) as fp:
                  t = float(x[2][:x[2].index(" ")])
                  cycles = float(x[5][:x[5].index(" ")])
                  val = iterations / t
-                 data[alg][tag] = round(val, 2)
-                 data[alg][ctag] = int(cycles)
+                 data[alg].append({
+                     "metric": tag,
+                     "unit": "Microseconds",
+                     "value": round(val, 2)
+                 })
+                 data[alg].append({
+                     "metric": ctag,
+                     "unit": "Microseconds",
+                     "value": int(cycles)
+                 })
       else:
            print("Unknown state: %s" % (line))
 
-# Transform data into the required format
-output = []
-for alg, metrics in data.items():
-    if alg == "config":
-        continue
-    for metric, value in metrics.items():
-        entry = {
-            "name": f"{alg} - {metric}",
-            "unit": "Microseconds",
-            "value": value
-        }
-        output.append(entry)
+# Remove "config" from the output if not needed
+data.pop("config", None)
 
-# Dump transformed data
+# Dump grouped data
 with open(os.path.splitext(fn)[0] + "_formatted.json", 'w') as outfile:
-    json.dump(output, outfile, indent=4)
+    json.dump(data, outfile, indent=4)
