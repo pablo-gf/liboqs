@@ -2,7 +2,9 @@ import json
 import sys
 import os
 import re
+import argparse
 from enum import Enum
+
 class State(Enum):
    starting=0
    config=1
@@ -10,13 +12,15 @@ class State(Enum):
 
 data=[]
 
-if len(sys.argv)!=2:
-   print("Usage: %s <logfile to parse>" % (sys.argv[0]))
-   exit(-1)
+# Parse command-line arguments
+parser = argparse.ArgumentParser(description="Parse speed_kem output and extract cycles.")
+parser.add_argument("logfile", help="Log file to parse")
+parser.add_argument("--algorithm", help="Algorithm name (e.g., BIKE-L1)", required=True)
+args = parser.parse_args()
 
-fn = sys.argv[1]
+fn = args.logfile
+alg = args.algorithm
 state = State.starting
-alg=""
 
 with open(fn) as fp: 
    while True:
@@ -41,31 +45,19 @@ with open(fn) as fp:
            if line.startswith("Ended"): # Finish
               break
            else:
-               alg = line[:line.index(" ")]
-               p = re.compile('\S+\s*\|')
-               for i in 0,1,2:
-                 x=p.findall(fp.readline().rstrip())
-                 tag = x[0][:x[0].index(" ")] # keygen, encaps, decaps
-                 ctag = tag+"cycles" # keygencycles, encapscycles, decapscycles
-                 iterations = float(x[1][:x[1].index(" ")]) # Iterations
-                 total_t = float(x[2][:x[2].index(" ")]) # Total time
-                 mean_t = float(x[3][:x[3].index(" ")]) # Mean time in microseconds
-                 cycles = float(x[5][:x[5].index(" ")]) # Cycles
-                 val = iterations/total_t # Number of iterations per second
+               p = re.compile(r'\|\s*([^|]+?)\s*(?=\|)')
+               for i in range(3):  # keygen, encaps, decaps
+                   x = p.findall(fp.readline().rstrip())
+                   tag = x[0].strip()  # keygen, encaps, decaps
+                   ctag = tag + "cycles"  # keygencycles, encapscycles, decapscycles
+                   cycles = int(x[5].strip())  # Cycles
 
-               
-                 # Add record to dictionary (total time)
-                 data.append({"name": alg + " " + tag,
-                    "value": round(mean_t,3),
-                    "unit": "microseconds"})
-
-                 # Add record to dictionary (total cycles)
-                 data.append({"name": alg + " " + tag,
-                    "value": int(cycles),
-                    "unit": "cycles"})
+                   # Add record to dictionary (total cycles)
+                   data.append({"name": alg + " " + tag, "value": cycles, "unit": "cycles"})
       else:
            print("Unknown state: %s" % (line))
 
 # Dump data
-with open(os.path.splitext(fn)[0]+"_formatted.json", 'w') as outfile:
+output_file = f"{alg}_formatted.json"
+with open(output_file, 'w') as outfile:
     json.dump(data, outfile)
