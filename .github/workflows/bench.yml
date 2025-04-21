@@ -6,6 +6,7 @@ on:
     branches: [bench]
 
 permissions:
+  deployments: write # Allows this workflow to to deploy to the gh-pages branch
   contents: write # Allows this workflow to push to the gh-pages branch
   pull-requests: write
 
@@ -25,7 +26,7 @@ jobs:
           sudo apt-get install -y cmake ninja-build gcc g++ python3 python3-pip
           pip3 install py-cpuinfo
 
-      # Build the speed_kem binary
+      # Build the speed_kem binary only
       - name: Build speed_kem binary
         run: |
           mkdir -p build
@@ -33,18 +34,18 @@ jobs:
           cmake -GNinja .. -DBUILD_SHARED_LIBS=OFF
           ninja speed_kem
 
-      # Copy the parse_liboqs_speed.py script
+      # Copy the parse_liboqs_speed.py script inside the directory where the binary speed_kem is located
       - name: Copy parse_liboqs_speed.py
         run: |
           cp scripts/parse_liboqs_speed.py build/tests/
 
-      # Run the speed_kem test
+      # Run the speed_kem test and load the results into a txt file
       - name: Run speed_kem test
         run: |
           cd build/tests
           ./speed_kem > speed_kem_output.txt
 
-      # Parse the speed_kem results
+      # Parse the speed_kem results into a json file using the python script and the previously generated txt file
       - name: Parse speed_kem results
         run: |
           cd build/tests
@@ -57,7 +58,7 @@ jobs:
           name: parsed-speed-kem-results
           path: build/tests/speed_kem_output_formatted.json
 
-      # Push to GitHub pages
+      # Push to GitHub pages using the continuous-benchmarking action
       - name: Store benchmark result
         uses: benchmark-action/github-action-benchmark@d48d326b4ca9ba73ca0cd0d59f108f9e02a381c7 # v1.20.4
         with:
