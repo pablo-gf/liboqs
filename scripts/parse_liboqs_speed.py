@@ -55,17 +55,17 @@ with open(fn) as fp:
 
                
                  # Add record to dictionary (total time)
-                 data.append({"name": alg,
+                 data.append({"name": alg + " " + tag,
                     "value": round(mean_t,3),
                     "unit": "microseconds"})
 
                  # Add record to dictionary (total cycles)
-                 data.append({"name": alg,
+                 data.append({"name": alg + " " + tag,
                     "value": int(cycles),
                     "unit": "cycles"})
       else:
            print("Unknown state: %s" % (line))
 
 # Dump data
-with open(os.path.splitext(fn)[0]+".json", 'w') as outfile:
+with open(os.path.splitext(fn)[0]+"_formatted.json", 'w') as outfile:
     json.dump(data, outfile)
