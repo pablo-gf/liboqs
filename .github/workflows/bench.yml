@@ -56,9 +56,8 @@ jobs:
       - name: Run speed_kem tests for all algorithms
         run: |
           cd build/tests
-          while read -r algorithm; do
-            ./speed_kem "${{matrix.algorithm}}" > "${{matrix.algorithm}}_output.txt"
-            python3 parse_liboqs_speed.py "${{matrix.algorithm}}_output.txt" --algorithm "${{matrix.algorithm}}"
+          ./speed_kem "${{matrix.algorithm}}" > "${{matrix.algorithm}}_output.txt"
+          python3 parse_liboqs_speed.py "${{matrix.algorithm}}_output.txt" --algorithm "${{matrix.algorithm}}"
 
       # Upload all parsed results as artifacts
       - name: Upload parsed speed_kem results
