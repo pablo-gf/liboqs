@@ -6,8 +6,8 @@ on:
     branches: [bench]
 
 permissions:
-  deployments: write # Allows this workflow to to deploy to the gh-pages branch
-  contents: write # Allows this workflow to push to the gh-pages branch
+  deployments: write
+  contents: write
   pull-requests: write
 
 jobs:
