@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745320866300,
+  "lastUpdate": 1745320867259,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "Classic-McEliece-8192128f": [
@@ -885,6 +885,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "FrodoKEM-1344-SHAKE decaps",
             "value": 10535216,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "cba3b8e6c4e6c04e31de70002439c7f577f61b08",
+          "message": "deleted artifacts\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-22T13:17:45+02:00",
+          "tree_id": "b30782a7bbce297e443ba52248396ec533178416",
+          "url": "https://github.com/pablo-gf/liboqs/commit/cba3b8e6c4e6c04e31de70002439c7f577f61b08"
+        },
+        "date": 1745320858295,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "FrodoKEM-1344-SHAKE keygen",
+            "value": 10128060,
+            "unit": "cycles"
+          },
+          {
+            "name": "FrodoKEM-1344-SHAKE encaps",
+            "value": 10635318,
+            "unit": "cycles"
+          },
+          {
+            "name": "FrodoKEM-1344-SHAKE decaps",
+            "value": 10460182,
             "unit": "cycles"
           }
         ]
