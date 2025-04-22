@@ -64,7 +64,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: parsed-speed-kem-results
-          path: build/tests/*_formatted.json
+          path: build/tests/${{matrix.algorithm}}_formatted.json
 
       # Push to GitHub pages using the continuous-benchmarking action
       - name: Store benchmark result
