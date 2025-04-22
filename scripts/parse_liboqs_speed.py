@@ -1,6 +1,4 @@
 import json
-import sys
-import os
 import re
 import argparse
 from enum import Enum
@@ -45,17 +43,20 @@ with open(fn) as fp:
            if line.startswith("Ended"): # Finish
               break
            else:
-               p = re.compile(r'\|\s*([^|]+?)\s*(?=\|)')
-               for i in range(3):  # keygen, encaps, decaps
-                   x = p.findall(fp.readline().rstrip())
-                   tag = x[0].strip()  # keygen, encaps, decaps
-                   ctag = tag + "cycles"  # keygencycles, encapscycles, decapscycles
-                   cycles = int(x[5].strip())  # Cycles
+               alg = line[:line.index(" ")]
+               p = re.compile('\S+\s*\|')
+               for i in 0,1,2:
+                  x=p.findall(fp.readline().rstrip())
+                  tag = x[0][:x[0].index(" ")] # keygen, encaps, decaps
+                  iterations = float(x[1][:x[1].index(" ")]) # Iterations
+                  total_t = float(x[2][:x[2].index(" ")]) # Total time
+                  mean_t = float(x[3][:x[3].index(" ")]) # Mean time in microseconds
+                  cycles = int(x[5][:x[5].index(" ")]) # Cycles
+                  val = iterations/total_t # Number of iterations per second
 
-                   # Add record to dictionary (total cycles)
-                   data.append({"name": alg + " " + tag, "value": cycles, "unit": "cycles"})
+                  data.append({"name": alg + " " + tag, "value": cycles, "unit": "cycles"})
       else:
-           print("Unknown state: %s" % (line))
+         print("Unknown state: %s" % (line))
 
 # Dump data
 output_file = f"{alg}_formatted.json"
