@@ -59,13 +59,6 @@ jobs:
           ./speed_kem "${{matrix.algorithm}}" > ${{matrix.algorithm}}_output.txt
           python3 parse_liboqs_speed.py ${{matrix.algorithm}}_output.txt --algorithm ${{matrix.algorithm}}
 
-      # Upload all parsed results as artifacts
-      # - name: Upload parsed speed_kem results
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: parsed-speed-kem-results-${{ github.run_id }}
-      #     path: build/tests/${{matrix.algorithm}}_formatted.json
-
       # Push to GitHub pages using the continuous-benchmarking action
       - name: Store benchmark result
         uses: benchmark-action/github-action-benchmark@d48d326b4ca9ba73ca0cd0d59f108f9e02a381c7 # v1.20.4
