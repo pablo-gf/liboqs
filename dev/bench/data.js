@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745321280019,
+  "lastUpdate": 1745321280728,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "Classic-McEliece-8192128f": [
@@ -1154,6 +1154,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "FrodoKEM-976-AES decaps",
             "value": 1811864,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "017dbff7e65d7563493c4d5e6596cbed987e7898",
+          "message": "cleaned comments\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-22T13:24:47+02:00",
+          "tree_id": "44b75fcafbf23f0d43bdc55e939ac5845fcce3e1",
+          "url": "https://github.com/pablo-gf/liboqs/commit/017dbff7e65d7563493c4d5e6596cbed987e7898"
+        },
+        "date": 1745321273618,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "FrodoKEM-976-AES keygen",
+            "value": 1413672,
+            "unit": "cycles"
+          },
+          {
+            "name": "FrodoKEM-976-AES encaps",
+            "value": 1972184,
+            "unit": "cycles"
+          },
+          {
+            "name": "FrodoKEM-976-AES decaps",
+            "value": 1815225,
             "unit": "cycles"
           }
         ]
