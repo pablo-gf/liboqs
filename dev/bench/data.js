@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745580722840,
+  "lastUpdate": 1745580748993,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "Classic-McEliece-348864f": [
@@ -735,6 +735,47 @@ window.BENCHMARK_DATA = {
           {
             "name": "Classic-McEliece-6960119 decaps",
             "value": 246963,
+            "unit": "cycles"
+          }
+        ]
+      }
+    ],
+    "Classic-McEliece-6960119f": [
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "2f4a6ecf541d675947a971e1a3d5f541e580aee4",
+          "message": "auto-push set to false\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-25T13:28:03+02:00",
+          "tree_id": "f67c86f791ccc7ed22c7021feb72a53bcc8d6293",
+          "url": "https://github.com/pablo-gf/liboqs/commit/2f4a6ecf541d675947a971e1a3d5f541e580aee4"
+        },
+        "date": 1745580742716,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Classic-McEliece-6960119f keygen",
+            "value": 297337389,
+            "unit": "cycles"
+          },
+          {
+            "name": "Classic-McEliece-6960119f encaps",
+            "value": 144292,
+            "unit": "cycles"
+          },
+          {
+            "name": "Classic-McEliece-6960119f decaps",
+            "value": 246556,
             "unit": "cycles"
           }
         ]
