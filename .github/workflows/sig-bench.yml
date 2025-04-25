@@ -11,7 +11,42 @@ permissions:
   pull-requests: write
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Set up dependencies
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build gcc g++ python3 python3-pip
+          pip3 install py-cpuinfo
+
+      # Build the speed_sig binary only
+      - name: Build speed_sig binary
+        run: |
+          mkdir -p build
+          cd build
+          cmake -GNinja .. -DBUILD_SHARED_LIBS=OFF
+          ninja speed_sig
+
+      # Copy the parse_liboqs_speed.py script
+      - name: Copy parse_liboqs_speed.py
+        run: |
+          cp scripts/parse_liboqs_speed.py build/tests/
+
+      # Upload the built binary and script as an artifact
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: built-sig-binary
+          path: build/tests/
+
   benchmark:
+    needs: build
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -76,40 +111,23 @@ jobs:
       max-parallel: 1 
 
     steps:
-      # Checkout the repository
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      # Download the built binary and script
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: built-sig-binary
+          path: build/tests/
 
-      # Set up dependencies
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y cmake ninja-build gcc g++ python3 python3-pip
-          pip3 install py-cpuinfo
-
-      # Build the speed_sig binary only
-      - name: Build speed_sig binary
-        run: |
-          mkdir -p build
-          cd build
-          cmake -GNinja .. -DBUILD_SHARED_LIBS=OFF
-          ninja speed_sig
-
-      # Copy the parse_liboqs_speed.py script inside the directory where the binary speed_sig is located
-      - name: Copy parse_liboqs_speed.py
-        run: |
-          cp scripts/parse_liboqs_speed.py build/tests/
-
-      # Iterate through all algorithms and run tests
-      - name: Run speed_sig tests for all algorithms
+      # Run speed_sig tests for each algorithm
+      - name: Run speed_sig tests
         run: |
           cd build/tests
           ./speed_sig "${{matrix.algorithm}}" > ${{matrix.algorithm}}_output.txt
           python3 parse_liboqs_speed.py ${{matrix.algorithm}}_output.txt --algorithm ${{matrix.algorithm}}
 
-      # Push to GitHub pages using the continuous-benchmarking action
+      # Push to GitHub pages
       - name: Store benchmark result
-        uses: benchmark-action/github-action-benchmark@d48d326b4ca9ba73ca0cd0d59f108f9e02a381c7 # v1.20.4
+        uses: benchmark-action/github-action-benchmark@d48d326b4ca9ba73ca0cd0d59f108f9e02a381c7
         with:
           name: ${{matrix.algorithm}}
           tool: "customSmallerIsBetter"
