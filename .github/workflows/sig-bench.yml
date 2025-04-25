@@ -128,7 +128,7 @@ jobs:
 
       # Set execute permissions for the binary
       - name: Set execute permissions
-        run: chmod +x build/tests/speed_kem
+        run: chmod +x build/tests/speed_sig
 
       # Run speed_sig tests for each algorithm
       - name: Run speed_sig tests
