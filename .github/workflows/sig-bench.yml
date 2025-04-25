@@ -73,6 +73,7 @@ jobs:
           "OV-III-pkc-skc",
           "OV-V-pkc-skc"
         ]
+      max-parallel: 1 
 
     steps:
       # Checkout the repository

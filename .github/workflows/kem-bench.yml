@@ -33,6 +33,7 @@ jobs:
           "FrodoKEM-976-AES", "FrodoKEM-976-SHAKE",
           "FrodoKEM-1344-AES", "FrodoKEM-1344-SHAKE"
         ]
+      max-parallel: 1 
 
     steps:
       # Checkout the repository
