@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745574288099,
+  "lastUpdate": 1745574289343,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "BIKE-L5": [
@@ -1258,6 +1258,47 @@ window.BENCHMARK_DATA = {
           {
             "name": "Dilithium3 verify",
             "value": 123628,
+            "unit": "cycles"
+          }
+        ]
+      }
+    ],
+    "cross-rsdpg-128-fast": [
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "660f01d300dcf778a82d7787ee00fdfa8f78be1f",
+          "message": "added speed_sig\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-25T11:38:08+02:00",
+          "tree_id": "bb29d3d75cdc5a640140a80df865c33ff900e286",
+          "url": "https://github.com/pablo-gf/liboqs/commit/660f01d300dcf778a82d7787ee00fdfa8f78be1f"
+        },
+        "date": 1745574281123,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "cross-rsdpg-128-fast keypair",
+            "value": 23774,
+            "unit": "cycles"
+          },
+          {
+            "name": "cross-rsdpg-128-fast sign",
+            "value": 782382,
+            "unit": "cycles"
+          },
+          {
+            "name": "cross-rsdpg-128-fast verify",
+            "value": 477253,
             "unit": "cycles"
           }
         ]
