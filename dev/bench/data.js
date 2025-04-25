@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745576244370,
+  "lastUpdate": 1745576279720,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "BIKE-L1": [
@@ -1295,6 +1295,47 @@ window.BENCHMARK_DATA = {
           {
             "name": "ML-DSA-87 verify",
             "value": 197823,
+            "unit": "cycles"
+          }
+        ]
+      }
+    ],
+    "Falcon-512": [
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "8db81c2fc589980b47f700e486396dcefc8ae280",
+          "message": "added max-parallel: 1\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-25T11:52:18+02:00",
+          "tree_id": "e1500fead74e0c9b23581ea8e8cd2a45d13aa0e8",
+          "url": "https://github.com/pablo-gf/liboqs/commit/8db81c2fc589980b47f700e486396dcefc8ae280"
+        },
+        "date": 1745576273482,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Falcon-512 keypair",
+            "value": 16718091,
+            "unit": "cycles"
+          },
+          {
+            "name": "Falcon-512 sign",
+            "value": 589414,
+            "unit": "cycles"
+          },
+          {
+            "name": "Falcon-512 verify",
+            "value": 108214,
             "unit": "cycles"
           }
         ]
