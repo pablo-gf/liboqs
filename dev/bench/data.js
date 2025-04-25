@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745577625743,
+  "lastUpdate": 1745577626598,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "Classic-McEliece-6688128f": [
@@ -161,6 +161,47 @@ window.BENCHMARK_DATA = {
           {
             "name": "Classic-McEliece-348864f decaps",
             "value": 93685,
+            "unit": "cycles"
+          }
+        ]
+      }
+    ],
+    "BIKE-L3": [
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "8c946a78d914f259ba4ff2e11ba9ff9f5913bbde",
+          "message": "build-then-benchmark approach\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-25T12:33:06+02:00",
+          "tree_id": "e0e748ca4596f45ca34768302d0ac24ad8da4e90",
+          "url": "https://github.com/pablo-gf/liboqs/commit/8c946a78d914f259ba4ff2e11ba9ff9f5913bbde"
+        },
+        "date": 1745577618297,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "BIKE-L3 keygen",
+            "value": 1686127,
+            "unit": "cycles"
+          },
+          {
+            "name": "BIKE-L3 encaps",
+            "value": 239582,
+            "unit": "cycles"
+          },
+          {
+            "name": "BIKE-L3 decaps",
+            "value": 5514925,
             "unit": "cycles"
           }
         ]
