@@ -40,7 +40,7 @@ jobs:
 
       # Upload the built binary and script as an artifact
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: built-binary
           path: build/tests/
