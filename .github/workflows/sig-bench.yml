@@ -14,9 +14,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # Checkout the repository
+      # Ensure the repository is checked out
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       # Set up dependencies
       - name: Install dependencies
