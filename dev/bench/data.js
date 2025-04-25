@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745615617514,
+  "lastUpdate": 1745615645994,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "BIKE-L1": [
@@ -1121,6 +1121,47 @@ window.BENCHMARK_DATA = {
           {
             "name": "Kyber1024 decaps",
             "value": 50860,
+            "unit": "cycles"
+          }
+        ]
+      }
+    ],
+    "ML-KEM-512": [
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "6cd4502c1b31428a93ff850d8e971528d0ccda63",
+          "message": "cleaned sig-bench\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-25T23:02:22+02:00",
+          "tree_id": "4e91037e7d4c4f6dec235907058e1eca65e37d60",
+          "url": "https://github.com/pablo-gf/liboqs/commit/6cd4502c1b31428a93ff850d8e971528d0ccda63"
+        },
+        "date": 1745615644928,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "ML-KEM-512 keygen",
+            "value": 23927,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-KEM-512 encaps",
+            "value": 26007,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-KEM-512 decaps",
+            "value": 29865,
             "unit": "cycles"
           }
         ]
