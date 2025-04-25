@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745577631102,
+  "lastUpdate": 1745577632448,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "Classic-McEliece-6688128f": [
@@ -407,6 +407,47 @@ window.BENCHMARK_DATA = {
           {
             "name": "FrodoKEM-640-SHAKE decaps",
             "value": 2778610,
+            "unit": "cycles"
+          }
+        ]
+      }
+    ],
+    "BIKE-L5": [
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "8c946a78d914f259ba4ff2e11ba9ff9f5913bbde",
+          "message": "build-then-benchmark approach\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-25T12:33:06+02:00",
+          "tree_id": "e0e748ca4596f45ca34768302d0ac24ad8da4e90",
+          "url": "https://github.com/pablo-gf/liboqs/commit/8c946a78d914f259ba4ff2e11ba9ff9f5913bbde"
+        },
+        "date": 1745577621873,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "BIKE-L5 keygen",
+            "value": 4335566,
+            "unit": "cycles"
+          },
+          {
+            "name": "BIKE-L5 encaps",
+            "value": 490798,
+            "unit": "cycles"
+          },
+          {
+            "name": "BIKE-L5 decaps",
+            "value": 13365903,
             "unit": "cycles"
           }
         ]
