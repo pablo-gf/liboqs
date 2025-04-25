@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745574283421,
+  "lastUpdate": 1745574284549,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "BIKE-L5": [
@@ -1053,6 +1053,47 @@ window.BENCHMARK_DATA = {
           {
             "name": "Falcon-1024 verify",
             "value": 204141,
+            "unit": "cycles"
+          }
+        ]
+      }
+    ],
+    "cross-rsdpg-192-small": [
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "660f01d300dcf778a82d7787ee00fdfa8f78be1f",
+          "message": "added speed_sig\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-25T11:38:08+02:00",
+          "tree_id": "bb29d3d75cdc5a640140a80df865c33ff900e286",
+          "url": "https://github.com/pablo-gf/liboqs/commit/660f01d300dcf778a82d7787ee00fdfa8f78be1f"
+        },
+        "date": 1745574278199,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "cross-rsdpg-192-small keypair",
+            "value": 45450,
+            "unit": "cycles"
+          },
+          {
+            "name": "cross-rsdpg-192-small sign",
+            "value": 4282392,
+            "unit": "cycles"
+          },
+          {
+            "name": "cross-rsdpg-192-small verify",
+            "value": 2921449,
             "unit": "cycles"
           }
         ]
