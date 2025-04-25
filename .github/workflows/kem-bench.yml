@@ -93,8 +93,18 @@ jobs:
           tool: "customSmallerIsBetter"
           output-file-path: build/tests/${{matrix.algorithm}}_formatted.json
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          auto-push: true
+          auto-push: false
           comment-on-alert: true
           summary-always: true
           alert-threshold: 5%
           comment-always: true
+
+      # Handle potential conflicts and push changes
+      - name: Push changes to gh-pages
+        run: |
+          git config user.name "github-action-benchmark"
+          git config user.email "github@users.noreply.github.com"
+          for i in {1..5}; do
+            git pull --rebase origin gh-pages && break || sleep 5;
+          done
+          git push origin gh-pages
