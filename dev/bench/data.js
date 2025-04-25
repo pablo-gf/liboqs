@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745575677855,
+  "lastUpdate": 1745575719094,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "BIKE-L1": [
@@ -1055,6 +1055,47 @@ window.BENCHMARK_DATA = {
           {
             "name": "Dilithium5 verify",
             "value": 197287,
+            "unit": "cycles"
+          }
+        ]
+      }
+    ],
+    "ML-DSA-44": [
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "8db81c2fc589980b47f700e486396dcefc8ae280",
+          "message": "added max-parallel: 1\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-25T11:52:18+02:00",
+          "tree_id": "e1500fead74e0c9b23581ea8e8cd2a45d13aa0e8",
+          "url": "https://github.com/pablo-gf/liboqs/commit/8db81c2fc589980b47f700e486396dcefc8ae280"
+        },
+        "date": 1745575712876,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "ML-DSA-44 keypair",
+            "value": 75743,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-DSA-44 sign",
+            "value": 190478,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-DSA-44 verify",
+            "value": 72503,
             "unit": "cycles"
           }
         ]
