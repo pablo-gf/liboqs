@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745580680027,
+  "lastUpdate": 1745580680858,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "Classic-McEliece-348864f": [
@@ -243,6 +243,47 @@ window.BENCHMARK_DATA = {
           {
             "name": "Classic-McEliece-8192128 decaps",
             "value": 254330,
+            "unit": "cycles"
+          }
+        ]
+      }
+    ],
+    "FrodoKEM-640-SHAKE": [
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "2f4a6ecf541d675947a971e1a3d5f541e580aee4",
+          "message": "auto-push set to false\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-25T13:28:03+02:00",
+          "tree_id": "f67c86f791ccc7ed22c7021feb72a53bcc8d6293",
+          "url": "https://github.com/pablo-gf/liboqs/commit/2f4a6ecf541d675947a971e1a3d5f541e580aee4"
+        },
+        "date": 1745580675089,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "FrodoKEM-640-SHAKE keygen",
+            "value": 2599961,
+            "unit": "cycles"
+          },
+          {
+            "name": "FrodoKEM-640-SHAKE encaps",
+            "value": 2834602,
+            "unit": "cycles"
+          },
+          {
+            "name": "FrodoKEM-640-SHAKE decaps",
+            "value": 2781568,
             "unit": "cycles"
           }
         ]
