@@ -118,6 +118,10 @@ jobs:
           name: built-sig-binary
           path: build/tests/
 
+      # Set execute permissions for the binary
+      - name: Set execute permissions
+        run: chmod +x build/tests/speed_kem
+
       # Run speed_sig tests for each algorithm
       - name: Run speed_sig tests
         run: |

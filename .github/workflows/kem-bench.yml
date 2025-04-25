@@ -78,6 +78,10 @@ jobs:
           name: built-binary
           path: build/tests/
 
+      # Set execute permissions for the binary
+      - name: Set execute permissions
+        run: chmod +x build/tests/speed_kem
+
       # Run speed_kem tests for each algorithm
       - name: Run speed_kem tests
         run: |
@@ -93,18 +97,8 @@ jobs:
           tool: "customSmallerIsBetter"
           output-file-path: build/tests/${{matrix.algorithm}}_formatted.json
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          auto-push: false
+          auto-push: true
           comment-on-alert: true
           summary-always: true
           alert-threshold: 5%
           comment-always: true
-
-      # Handle potential conflicts and push changes
-      - name: Push changes to gh-pages
-        run: |
-          git config user.name "github-action-benchmark"
-          git config user.email "github@users.noreply.github.com"
-          for i in {1..5}; do
-            git pull --rebase origin gh-pages && break || sleep 5;
-          done
-          git push origin gh-pages
