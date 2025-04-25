@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745574102489,
+  "lastUpdate": 1745574277391,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "BIKE-L5": [
@@ -807,6 +807,47 @@ window.BENCHMARK_DATA = {
           {
             "name": "FrodoKEM-640-SHAKE decaps",
             "value": 2785128,
+            "unit": "cycles"
+          }
+        ]
+      }
+    ],
+    "cross-rsdp-192-small": [
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "660f01d300dcf778a82d7787ee00fdfa8f78be1f",
+          "message": "added speed_sig\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-25T11:38:08+02:00",
+          "tree_id": "bb29d3d75cdc5a640140a80df865c33ff900e286",
+          "url": "https://github.com/pablo-gf/liboqs/commit/660f01d300dcf778a82d7787ee00fdfa8f78be1f"
+        },
+        "date": 1745574271205,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "cross-rsdp-192-small keypair",
+            "value": 104197,
+            "unit": "cycles"
+          },
+          {
+            "name": "cross-rsdp-192-small sign",
+            "value": 6227628,
+            "unit": "cycles"
+          },
+          {
+            "name": "cross-rsdp-192-small verify",
+            "value": 4362025,
             "unit": "cycles"
           }
         ]
