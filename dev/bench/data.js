@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745574095867,
+  "lastUpdate": 1745574096613,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "BIKE-L5": [
@@ -528,6 +528,47 @@ window.BENCHMARK_DATA = {
           {
             "name": "FrodoKEM-976-AES decaps",
             "value": 1835094,
+            "unit": "cycles"
+          }
+        ]
+      }
+    ],
+    "Kyber512": [
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "660f01d300dcf778a82d7787ee00fdfa8f78be1f",
+          "message": "added speed_sig\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-25T11:38:08+02:00",
+          "tree_id": "bb29d3d75cdc5a640140a80df865c33ff900e286",
+          "url": "https://github.com/pablo-gf/liboqs/commit/660f01d300dcf778a82d7787ee00fdfa8f78be1f"
+        },
+        "date": 1745574088467,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Kyber512 keygen",
+            "value": 25341,
+            "unit": "cycles"
+          },
+          {
+            "name": "Kyber512 encaps",
+            "value": 31401,
+            "unit": "cycles"
+          },
+          {
+            "name": "Kyber512 decaps",
+            "value": 22355,
             "unit": "cycles"
           }
         ]
