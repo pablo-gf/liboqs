@@ -73,7 +73,7 @@ jobs:
     steps:
       # Download the built binary and script
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: built-binary
           path: build/tests/
