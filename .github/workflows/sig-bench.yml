@@ -145,7 +145,7 @@ jobs:
           tool: "customSmallerIsBetter"
           output-file-path: build/tests/${{matrix.algorithm}}_formatted.json
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          auto-push: false
+          auto-push: true
           comment-on-alert: true
           summary-always: true
           alert-threshold: 5%
