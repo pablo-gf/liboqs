@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745769423978,
+  "lastUpdate": 1745769450044,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "BIKE-L1": [
@@ -3277,6 +3277,47 @@ window.BENCHMARK_DATA = {
           {
             "name": "OV-Ip-pkc-skc verify",
             "value": 169584,
+            "unit": "cycles"
+          }
+        ]
+      }
+    ],
+    "OV-III-pkc-skc": [
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "89e0a01cd18ab08acfa69aa74b6c459f87b42050",
+          "message": "sig_speed auto-push on\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-27T17:28:43+02:00",
+          "tree_id": "7401baf8d56e87f41fd37d2bc1d5052aba4c7945",
+          "url": "https://github.com/pablo-gf/liboqs/commit/89e0a01cd18ab08acfa69aa74b6c459f87b42050"
+        },
+        "date": 1745769449160,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "OV-III-pkc-skc keypair",
+            "value": 9376032,
+            "unit": "cycles"
+          },
+          {
+            "name": "OV-III-pkc-skc sign",
+            "value": 5901231,
+            "unit": "cycles"
+          },
+          {
+            "name": "OV-III-pkc-skc verify",
+            "value": 715055,
             "unit": "cycles"
           }
         ]
