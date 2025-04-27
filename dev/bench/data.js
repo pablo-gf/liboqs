@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745768122285,
+  "lastUpdate": 1745768134344,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "BIKE-L1": [
@@ -612,6 +612,47 @@ window.BENCHMARK_DATA = {
           {
             "name": "Classic-McEliece-6688128 decaps",
             "value": 258234,
+            "unit": "cycles"
+          }
+        ]
+      }
+    ],
+    "Falcon-1024": [
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "89e0a01cd18ab08acfa69aa74b6c459f87b42050",
+          "message": "sig_speed auto-push on\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-27T17:28:43+02:00",
+          "tree_id": "7401baf8d56e87f41fd37d2bc1d5052aba4c7945",
+          "url": "https://github.com/pablo-gf/liboqs/commit/89e0a01cd18ab08acfa69aa74b6c459f87b42050"
+        },
+        "date": 1745768133118,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Falcon-1024 keypair",
+            "value": 49431809,
+            "unit": "cycles"
+          },
+          {
+            "name": "Falcon-1024 sign",
+            "value": 1126560,
+            "unit": "cycles"
+          },
+          {
+            "name": "Falcon-1024 verify",
+            "value": 204802,
             "unit": "cycles"
           }
         ]
