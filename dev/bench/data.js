@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745768582378,
+  "lastUpdate": 1745768592155,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "BIKE-L1": [
@@ -1965,6 +1965,47 @@ window.BENCHMARK_DATA = {
           {
             "name": "MAYO-2 verify",
             "value": 49560,
+            "unit": "cycles"
+          }
+        ]
+      }
+    ],
+    "FrodoKEM-1344-AES": [
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "89e0a01cd18ab08acfa69aa74b6c459f87b42050",
+          "message": "sig_speed auto-push on\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-27T17:28:43+02:00",
+          "tree_id": "7401baf8d56e87f41fd37d2bc1d5052aba4c7945",
+          "url": "https://github.com/pablo-gf/liboqs/commit/89e0a01cd18ab08acfa69aa74b6c459f87b42050"
+        },
+        "date": 1745768591315,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "FrodoKEM-1344-AES keygen",
+            "value": 2424831,
+            "unit": "cycles"
+          },
+          {
+            "name": "FrodoKEM-1344-AES encaps",
+            "value": 3280368,
+            "unit": "cycles"
+          },
+          {
+            "name": "FrodoKEM-1344-AES decaps",
+            "value": 3124813,
             "unit": "cycles"
           }
         ]
