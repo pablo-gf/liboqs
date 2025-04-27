@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745769964846,
+  "lastUpdate": 1745769992068,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "BIKE-L1": [
@@ -239,6 +239,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "Dilithium3 verify",
             "value": 123480,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "781af869157db7541100d008135143b25c3d69f7",
+          "message": "cleaned sig-bench\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-27T18:02:40+02:00",
+          "tree_id": "2f686f0987c9203d98ad9a4baf678ebb30bb1525",
+          "url": "https://github.com/pablo-gf/liboqs/commit/781af869157db7541100d008135143b25c3d69f7"
+        },
+        "date": 1745769991049,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Dilithium3 keypair",
+            "value": 129972,
+            "unit": "cycles"
+          },
+          {
+            "name": "Dilithium3 sign",
+            "value": 302847,
+            "unit": "cycles"
+          },
+          {
+            "name": "Dilithium3 verify",
+            "value": 122323,
             "unit": "cycles"
           }
         ]
