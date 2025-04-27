@@ -1,7 +1,7 @@
 name: sig benchmark
 
 on:
-  workflow_dispatch: # Manual trigger
+  workflow_dispatch:
   push:
     branches: [bench]
 
