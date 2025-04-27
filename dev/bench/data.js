@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745773849770,
+  "lastUpdate": 1745773866480,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "BIKE-L1": [
@@ -1347,6 +1347,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "ML-DSA-87 verify",
             "value": 197431,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "02ec569c088c8f7a14e3602685faf72f73aa0d66",
+          "message": "cleaned kem-bench\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-27T19:05:19+02:00",
+          "tree_id": "ce6b6bfa03f4ff3a38999ba463955eb719111968",
+          "url": "https://github.com/pablo-gf/liboqs/commit/02ec569c088c8f7a14e3602685faf72f73aa0d66"
+        },
+        "date": 1745773865594,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "ML-DSA-87 keypair",
+            "value": 207358,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-DSA-87 sign",
+            "value": 374837,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-DSA-87 verify",
+            "value": 197670,
             "unit": "cycles"
           }
         ]
