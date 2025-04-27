@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745770302176,
+  "lastUpdate": 1745770304446,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "BIKE-L1": [
@@ -1878,6 +1878,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "SPHINCS+-SHA2-128s-simple verify",
             "value": 607204,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "781af869157db7541100d008135143b25c3d69f7",
+          "message": "cleaned sig-bench\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-27T18:02:40+02:00",
+          "tree_id": "2f686f0987c9203d98ad9a4baf678ebb30bb1525",
+          "url": "https://github.com/pablo-gf/liboqs/commit/781af869157db7541100d008135143b25c3d69f7"
+        },
+        "date": 1745770303160,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "SPHINCS+-SHA2-128s-simple keypair",
+            "value": 57120900,
+            "unit": "cycles"
+          },
+          {
+            "name": "SPHINCS+-SHA2-128s-simple sign",
+            "value": 430395411,
+            "unit": "cycles"
+          },
+          {
+            "name": "SPHINCS+-SHA2-128s-simple verify",
+            "value": 643039,
             "unit": "cycles"
           }
         ]
