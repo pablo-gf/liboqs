@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745768274251,
+  "lastUpdate": 1745768286141,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "BIKE-L1": [
@@ -1063,6 +1063,47 @@ window.BENCHMARK_DATA = {
           {
             "name": "SPHINCS+-SHA2-192f-simple verify",
             "value": 2485027,
+            "unit": "cycles"
+          }
+        ]
+      }
+    ],
+    "Kyber512": [
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "89e0a01cd18ab08acfa69aa74b6c459f87b42050",
+          "message": "sig_speed auto-push on\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-27T17:28:43+02:00",
+          "tree_id": "7401baf8d56e87f41fd37d2bc1d5052aba4c7945",
+          "url": "https://github.com/pablo-gf/liboqs/commit/89e0a01cd18ab08acfa69aa74b6c459f87b42050"
+        },
+        "date": 1745768285254,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Kyber512 keygen",
+            "value": 25156,
+            "unit": "cycles"
+          },
+          {
+            "name": "Kyber512 encaps",
+            "value": 31336,
+            "unit": "cycles"
+          },
+          {
+            "name": "Kyber512 decaps",
+            "value": 22365,
             "unit": "cycles"
           }
         ]
