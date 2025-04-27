@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745770671687,
+  "lastUpdate": 1745770700222,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "BIKE-L1": [
@@ -4118,6 +4118,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "MAYO-5 verify",
             "value": 921698,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "781af869157db7541100d008135143b25c3d69f7",
+          "message": "cleaned sig-bench\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-27T18:02:40+02:00",
+          "tree_id": "2f686f0987c9203d98ad9a4baf678ebb30bb1525",
+          "url": "https://github.com/pablo-gf/liboqs/commit/781af869157db7541100d008135143b25c3d69f7"
+        },
+        "date": 1745770698972,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "MAYO-5 keypair",
+            "value": 856152,
+            "unit": "cycles"
+          },
+          {
+            "name": "MAYO-5 sign",
+            "value": 2377872,
+            "unit": "cycles"
+          },
+          {
+            "name": "MAYO-5 verify",
+            "value": 925596,
             "unit": "cycles"
           }
         ]
