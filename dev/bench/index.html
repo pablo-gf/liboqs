@@ -100,8 +100,8 @@
         <strong class="header-label">Filter:</strong>
         <select id="filter-select">
           <option value="all">All</option>
-          <option value="kem">KEM</option>
-          <option value="signature">Signature</option>
+          <option value="kem">KEMs</option>
+          <option value="signature">Signatures</option>
         </select>
       </div>
     </header>
@@ -174,6 +174,35 @@
             name,
             dataSet: collectBenchesPerTestCase(data.entries[name]),
           }));
+        }
+
+        function filterData(dataSets, filter) {
+          if (filter === 'all') {
+            return dataSets;
+          }
+          return dataSets.filter(({ name }) => {
+            if (filter === 'kem') {
+              return name.toLowerCase().includes('kem');
+            } else if (filter === 'signature') {
+              return name.toLowerCase().includes('signature');
+            }
+            return false;
+          });
+        }
+
+        function attachFilterListener(dataSets) {
+          const filterSelect = document.getElementById('filter-select');
+          filterSelect.addEventListener('change', () => {
+            const filter = filterSelect.value;
+            const filteredDataSets = filterData(dataSets, filter);
+
+            // Clear existing graphs
+            const main = document.getElementById('main');
+            main.innerHTML = '';
+
+            // Re-render graphs with filtered data
+            renderAllChars(filteredDataSets);
+          });
         }
 
         function renderAllChars(dataSets) {
@@ -282,7 +311,9 @@
           }
         }
 
-        renderAllChars(init()); // Start
+        const dataSets = init(); // Initialize data
+        attachFilterListener(dataSets); // Attach filter logic
+        renderAllChars(dataSets); // Start rendering
       })();
     </script>
   </body>
