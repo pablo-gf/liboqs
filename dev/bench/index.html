@@ -226,7 +226,7 @@
 
           for (const {name, dataSet} of dataSets) {
             if (matchesFilter(name)) {
-              renderBenchSet(name, dataSet, main);
+              renderBenchSet(name, dataSet);
             }
           }
 
@@ -328,13 +328,11 @@
             }
           }
 
-          const main = document.getElementById('main');
           for (const {name, dataSet} of dataSets) {
-            renderBenchSet(name, dataSet, main);
+            renderBenchSet(name, dataSet);
           }
         }
 
-        renderAllChars(init()); // Start
         const allDataSets = init();
         renderAllChars(allDataSets); // initial render
 
