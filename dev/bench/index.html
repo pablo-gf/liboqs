@@ -328,16 +328,16 @@
             "OV-Is-pkc-skc", "OV-Ip-pkc-skc", "OV-III-pkc-skc", "OV-V-pkc-skc"
           ];
 
-          const filteredData = window.BENCHMARK_DATA.entries.filter(entry => {
+          const filteredData = Object.keys(window.BENCHMARK_DATA.entries).filter(name => {
             if (filter === 'all') return true;
-            if (filter === 'kem') return kemAlgorithms.includes(entry.name);
-            if (filter === 'signature') return signatureAlgorithms.includes(entry.name);
+            if (filter === 'kem') return kemAlgorithms.includes(name);
+            if (filter === 'signature') return signatureAlgorithms.includes(name);
             return false;
           });
 
-          filteredData.forEach(entry => {
-            const dataSet = collectBenchesPerTestCase(entry.data);
-            renderBenchSet(entry.name, dataSet, main);
+          filteredData.forEach(name => {
+            const dataSet = collectBenchesPerTestCase(window.BENCHMARK_DATA.entries[name]);
+            renderBenchSet(name, dataSet, main);
           });
         });
       </script>
