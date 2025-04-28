@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745775283537,
+  "lastUpdate": 1745823976591,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "BIKE-L1": [
@@ -116,6 +116,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "BIKE-L1 decaps",
             "value": 1885456,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823112188,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "BIKE-L1 keygen",
+            "value": 650405,
+            "unit": "cycles"
+          },
+          {
+            "name": "BIKE-L1 encaps",
+            "value": 105862,
+            "unit": "cycles"
+          },
+          {
+            "name": "BIKE-L1 decaps",
+            "value": 1856997,
             "unit": "cycles"
           }
         ]
@@ -238,6 +277,45 @@ window.BENCHMARK_DATA = {
             "unit": "cycles"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823055291,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Dilithium2 keypair",
+            "value": 77094,
+            "unit": "cycles"
+          },
+          {
+            "name": "Dilithium2 sign",
+            "value": 189480,
+            "unit": "cycles"
+          },
+          {
+            "name": "Dilithium2 verify",
+            "value": 72307,
+            "unit": "cycles"
+          }
+        ]
       }
     ],
     "BIKE-L3": [
@@ -354,6 +432,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "BIKE-L3 decaps",
             "value": 5542846,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823143652,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "BIKE-L3 keygen",
+            "value": 1684422,
+            "unit": "cycles"
+          },
+          {
+            "name": "BIKE-L3 encaps",
+            "value": 239274,
+            "unit": "cycles"
+          },
+          {
+            "name": "BIKE-L3 decaps",
+            "value": 5521533,
             "unit": "cycles"
           }
         ]
@@ -476,6 +593,45 @@ window.BENCHMARK_DATA = {
             "unit": "cycles"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823087245,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Dilithium3 keypair",
+            "value": 129709,
+            "unit": "cycles"
+          },
+          {
+            "name": "Dilithium3 sign",
+            "value": 304451,
+            "unit": "cycles"
+          },
+          {
+            "name": "Dilithium3 verify",
+            "value": 123892,
+            "unit": "cycles"
+          }
+        ]
       }
     ],
     "BIKE-L5": [
@@ -592,6 +748,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "BIKE-L5 decaps",
             "value": 13461596,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823171696,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "BIKE-L5 keygen",
+            "value": 4262276,
+            "unit": "cycles"
+          },
+          {
+            "name": "BIKE-L5 encaps",
+            "value": 488112,
+            "unit": "cycles"
+          },
+          {
+            "name": "BIKE-L5 decaps",
+            "value": 13307056,
             "unit": "cycles"
           }
         ]
@@ -714,6 +909,45 @@ window.BENCHMARK_DATA = {
             "unit": "cycles"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823125140,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Dilithium5 keypair",
+            "value": 207279,
+            "unit": "cycles"
+          },
+          {
+            "name": "Dilithium5 sign",
+            "value": 376976,
+            "unit": "cycles"
+          },
+          {
+            "name": "Dilithium5 verify",
+            "value": 198147,
+            "unit": "cycles"
+          }
+        ]
       }
     ],
     "Classic-McEliece-348864": [
@@ -830,6 +1064,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "Classic-McEliece-348864 decaps",
             "value": 94565,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823202874,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Classic-McEliece-348864 keygen",
+            "value": 101071682,
+            "unit": "cycles"
+          },
+          {
+            "name": "Classic-McEliece-348864 encaps",
+            "value": 38145,
+            "unit": "cycles"
+          },
+          {
+            "name": "Classic-McEliece-348864 decaps",
+            "value": 94650,
             "unit": "cycles"
           }
         ]
@@ -952,6 +1225,45 @@ window.BENCHMARK_DATA = {
             "unit": "cycles"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823156872,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "ML-DSA-44 keypair",
+            "value": 75586,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-DSA-44 sign",
+            "value": 188212,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-DSA-44 verify",
+            "value": 72598,
+            "unit": "cycles"
+          }
+        ]
       }
     ],
     "Classic-McEliece-348864f": [
@@ -1068,6 +1380,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "Classic-McEliece-348864f decaps",
             "value": 93312,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823236383,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Classic-McEliece-348864f keygen",
+            "value": 81797084,
+            "unit": "cycles"
+          },
+          {
+            "name": "Classic-McEliece-348864f encaps",
+            "value": 36845,
+            "unit": "cycles"
+          },
+          {
+            "name": "Classic-McEliece-348864f decaps",
+            "value": 93763,
             "unit": "cycles"
           }
         ]
@@ -1190,6 +1541,45 @@ window.BENCHMARK_DATA = {
             "unit": "cycles"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823186710,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "ML-DSA-65 keypair",
+            "value": 130294,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-DSA-65 sign",
+            "value": 304663,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-DSA-65 verify",
+            "value": 124842,
+            "unit": "cycles"
+          }
+        ]
       }
     ],
     "Classic-McEliece-460896": [
@@ -1306,6 +1696,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "Classic-McEliece-460896 decaps",
             "value": 226924,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823277140,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Classic-McEliece-460896 keygen",
+            "value": 294544906,
+            "unit": "cycles"
+          },
+          {
+            "name": "Classic-McEliece-460896 encaps",
+            "value": 79400,
+            "unit": "cycles"
+          },
+          {
+            "name": "Classic-McEliece-460896 decaps",
+            "value": 227454,
             "unit": "cycles"
           }
         ]
@@ -1428,6 +1857,45 @@ window.BENCHMARK_DATA = {
             "unit": "cycles"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823221744,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "ML-DSA-87 keypair",
+            "value": 209054,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-DSA-87 sign",
+            "value": 378373,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-DSA-87 verify",
+            "value": 198964,
+            "unit": "cycles"
+          }
+        ]
       }
     ],
     "Classic-McEliece-460896f": [
@@ -1544,6 +2012,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "Classic-McEliece-460896f decaps",
             "value": 225864,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823306718,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Classic-McEliece-460896f keygen",
+            "value": 230125849,
+            "unit": "cycles"
+          },
+          {
+            "name": "Classic-McEliece-460896f encaps",
+            "value": 80694,
+            "unit": "cycles"
+          },
+          {
+            "name": "Classic-McEliece-460896f decaps",
+            "value": 225904,
             "unit": "cycles"
           }
         ]
@@ -1666,6 +2173,45 @@ window.BENCHMARK_DATA = {
             "unit": "cycles"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823263134,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Falcon-512 keypair",
+            "value": 16817912,
+            "unit": "cycles"
+          },
+          {
+            "name": "Falcon-512 sign",
+            "value": 582011,
+            "unit": "cycles"
+          },
+          {
+            "name": "Falcon-512 verify",
+            "value": 108125,
+            "unit": "cycles"
+          }
+        ]
       }
     ],
     "Classic-McEliece-6688128": [
@@ -1782,6 +2328,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "Classic-McEliece-6688128 decaps",
             "value": 257283,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823339612,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Classic-McEliece-6688128 keygen",
+            "value": 430443693,
+            "unit": "cycles"
+          },
+          {
+            "name": "Classic-McEliece-6688128 encaps",
+            "value": 140797,
+            "unit": "cycles"
+          },
+          {
+            "name": "Classic-McEliece-6688128 decaps",
+            "value": 258789,
             "unit": "cycles"
           }
         ]
@@ -1904,6 +2489,45 @@ window.BENCHMARK_DATA = {
             "unit": "cycles"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823292937,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Falcon-1024 keypair",
+            "value": 52550023,
+            "unit": "cycles"
+          },
+          {
+            "name": "Falcon-1024 sign",
+            "value": 1155558,
+            "unit": "cycles"
+          },
+          {
+            "name": "Falcon-1024 verify",
+            "value": 211910,
+            "unit": "cycles"
+          }
+        ]
       }
     ],
     "Classic-McEliece-6688128f": [
@@ -2020,6 +2644,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "Classic-McEliece-6688128f decaps",
             "value": 256598,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823375660,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Classic-McEliece-6688128f keygen",
+            "value": 309328035,
+            "unit": "cycles"
+          },
+          {
+            "name": "Classic-McEliece-6688128f encaps",
+            "value": 139301,
+            "unit": "cycles"
+          },
+          {
+            "name": "Classic-McEliece-6688128f decaps",
+            "value": 256351,
             "unit": "cycles"
           }
         ]
@@ -2142,6 +2805,45 @@ window.BENCHMARK_DATA = {
             "unit": "cycles"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823321570,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Falcon-padded-512 keypair",
+            "value": 16772431,
+            "unit": "cycles"
+          },
+          {
+            "name": "Falcon-padded-512 sign",
+            "value": 572740,
+            "unit": "cycles"
+          },
+          {
+            "name": "Falcon-padded-512 verify",
+            "value": 108327,
+            "unit": "cycles"
+          }
+        ]
       }
     ],
     "Classic-McEliece-6960119": [
@@ -2258,6 +2960,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "Classic-McEliece-6960119 decaps",
             "value": 249109,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823412523,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Classic-McEliece-6960119 keygen",
+            "value": 387115821,
+            "unit": "cycles"
+          },
+          {
+            "name": "Classic-McEliece-6960119 encaps",
+            "value": 140865,
+            "unit": "cycles"
+          },
+          {
+            "name": "Classic-McEliece-6960119 decaps",
+            "value": 248935,
             "unit": "cycles"
           }
         ]
@@ -2380,6 +3121,45 @@ window.BENCHMARK_DATA = {
             "unit": "cycles"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823351009,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Falcon-padded-1024 keypair",
+            "value": 50009097,
+            "unit": "cycles"
+          },
+          {
+            "name": "Falcon-padded-1024 sign",
+            "value": 1163205,
+            "unit": "cycles"
+          },
+          {
+            "name": "Falcon-padded-1024 verify",
+            "value": 205815,
+            "unit": "cycles"
+          }
+        ]
       }
     ],
     "Classic-McEliece-6960119f": [
@@ -2496,6 +3276,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "Classic-McEliece-6960119f decaps",
             "value": 246222,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823459687,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Classic-McEliece-6960119f keygen",
+            "value": 295137758,
+            "unit": "cycles"
+          },
+          {
+            "name": "Classic-McEliece-6960119f encaps",
+            "value": 143119,
+            "unit": "cycles"
+          },
+          {
+            "name": "Classic-McEliece-6960119f decaps",
+            "value": 246003,
             "unit": "cycles"
           }
         ]
@@ -2618,6 +3437,45 @@ window.BENCHMARK_DATA = {
             "unit": "cycles"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823378995,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "SPHINCS+-SHA2-128f-simple keypair",
+            "value": 914323,
+            "unit": "cycles"
+          },
+          {
+            "name": "SPHINCS+-SHA2-128f-simple sign",
+            "value": 21466641,
+            "unit": "cycles"
+          },
+          {
+            "name": "SPHINCS+-SHA2-128f-simple verify",
+            "value": 1647848,
+            "unit": "cycles"
+          }
+        ]
       }
     ],
     "Classic-McEliece-8192128": [
@@ -2734,6 +3592,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "Classic-McEliece-8192128 decaps",
             "value": 253119,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823496233,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Classic-McEliece-8192128 keygen",
+            "value": 514247651,
+            "unit": "cycles"
+          },
+          {
+            "name": "Classic-McEliece-8192128 encaps",
+            "value": 146102,
+            "unit": "cycles"
+          },
+          {
+            "name": "Classic-McEliece-8192128 decaps",
+            "value": 253561,
             "unit": "cycles"
           }
         ]
@@ -2856,6 +3753,45 @@ window.BENCHMARK_DATA = {
             "unit": "cycles"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823414525,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "SPHINCS+-SHA2-128s-simple keypair",
+            "value": 56664785,
+            "unit": "cycles"
+          },
+          {
+            "name": "SPHINCS+-SHA2-128s-simple sign",
+            "value": 430889241,
+            "unit": "cycles"
+          },
+          {
+            "name": "SPHINCS+-SHA2-128s-simple verify",
+            "value": 596494,
+            "unit": "cycles"
+          }
+        ]
       }
     ],
     "Classic-McEliece-8192128f": [
@@ -2972,6 +3908,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "Classic-McEliece-8192128f decaps",
             "value": 254778,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823536054,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Classic-McEliece-8192128f keygen",
+            "value": 346159240,
+            "unit": "cycles"
+          },
+          {
+            "name": "Classic-McEliece-8192128f encaps",
+            "value": 151419,
+            "unit": "cycles"
+          },
+          {
+            "name": "Classic-McEliece-8192128f decaps",
+            "value": 256092,
             "unit": "cycles"
           }
         ]
@@ -3094,6 +4069,45 @@ window.BENCHMARK_DATA = {
             "unit": "cycles"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823450795,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "SPHINCS+-SHA2-192f-simple keypair",
+            "value": 1378865,
+            "unit": "cycles"
+          },
+          {
+            "name": "SPHINCS+-SHA2-192f-simple sign",
+            "value": 36348011,
+            "unit": "cycles"
+          },
+          {
+            "name": "SPHINCS+-SHA2-192f-simple verify",
+            "value": 2444237,
+            "unit": "cycles"
+          }
+        ]
       }
     ],
     "Kyber512": [
@@ -3210,6 +4224,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "Kyber512 decaps",
             "value": 22398,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823569093,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Kyber512 keygen",
+            "value": 25256,
+            "unit": "cycles"
+          },
+          {
+            "name": "Kyber512 encaps",
+            "value": 31505,
+            "unit": "cycles"
+          },
+          {
+            "name": "Kyber512 decaps",
+            "value": 22517,
             "unit": "cycles"
           }
         ]
@@ -3332,6 +4385,45 @@ window.BENCHMARK_DATA = {
             "unit": "cycles"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823483404,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "SPHINCS+-SHA2-192s-simple keypair",
+            "value": 86492866,
+            "unit": "cycles"
+          },
+          {
+            "name": "SPHINCS+-SHA2-192s-simple sign",
+            "value": 807649786,
+            "unit": "cycles"
+          },
+          {
+            "name": "SPHINCS+-SHA2-192s-simple verify",
+            "value": 998468,
+            "unit": "cycles"
+          }
+        ]
       }
     ],
     "Kyber768": [
@@ -3448,6 +4540,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "Kyber768 decaps",
             "value": 35635,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823650717,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Kyber768 keygen",
+            "value": 39702,
+            "unit": "cycles"
+          },
+          {
+            "name": "Kyber768 encaps",
+            "value": 47555,
+            "unit": "cycles"
+          },
+          {
+            "name": "Kyber768 decaps",
+            "value": 35634,
             "unit": "cycles"
           }
         ]
@@ -3570,6 +4701,45 @@ window.BENCHMARK_DATA = {
             "unit": "cycles"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823518172,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "SPHINCS+-SHA2-256f-simple keypair",
+            "value": 3597054,
+            "unit": "cycles"
+          },
+          {
+            "name": "SPHINCS+-SHA2-256f-simple sign",
+            "value": 74926102,
+            "unit": "cycles"
+          },
+          {
+            "name": "SPHINCS+-SHA2-256f-simple verify",
+            "value": 2578735,
+            "unit": "cycles"
+          }
+        ]
       }
     ],
     "Kyber1024": [
@@ -3686,6 +4856,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "Kyber1024 decaps",
             "value": 50701,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823698898,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Kyber1024 keygen",
+            "value": 54244,
+            "unit": "cycles"
+          },
+          {
+            "name": "Kyber1024 encaps",
+            "value": 64860,
+            "unit": "cycles"
+          },
+          {
+            "name": "Kyber1024 decaps",
+            "value": 50724,
             "unit": "cycles"
           }
         ]
@@ -3808,6 +5017,45 @@ window.BENCHMARK_DATA = {
             "unit": "cycles"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823566085,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "SPHINCS+-SHA2-256s-simple keypair",
+            "value": 56858752,
+            "unit": "cycles"
+          },
+          {
+            "name": "SPHINCS+-SHA2-256s-simple sign",
+            "value": 725710233,
+            "unit": "cycles"
+          },
+          {
+            "name": "SPHINCS+-SHA2-256s-simple verify",
+            "value": 1437036,
+            "unit": "cycles"
+          }
+        ]
       }
     ],
     "ML-KEM-512": [
@@ -3924,6 +5172,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "ML-KEM-512 decaps",
             "value": 29878,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823729996,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "ML-KEM-512 keygen",
+            "value": 23842,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-KEM-512 encaps",
+            "value": 25954,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-KEM-512 decaps",
+            "value": 29787,
             "unit": "cycles"
           }
         ]
@@ -4046,6 +5333,45 @@ window.BENCHMARK_DATA = {
             "unit": "cycles"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823593529,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "SPHINCS+-SHAKE-128f-simple keypair",
+            "value": 1828761,
+            "unit": "cycles"
+          },
+          {
+            "name": "SPHINCS+-SHAKE-128f-simple sign",
+            "value": 42890372,
+            "unit": "cycles"
+          },
+          {
+            "name": "SPHINCS+-SHAKE-128f-simple verify",
+            "value": 2991140,
+            "unit": "cycles"
+          }
+        ]
       }
     ],
     "ML-KEM-768": [
@@ -4162,6 +5488,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "ML-KEM-768 decaps",
             "value": 46827,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823764817,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "ML-KEM-768 keygen",
+            "value": 38934,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-KEM-768 encaps",
+            "value": 39665,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-KEM-768 decaps",
+            "value": 46792,
             "unit": "cycles"
           }
         ]
@@ -4284,6 +5649,45 @@ window.BENCHMARK_DATA = {
             "unit": "cycles"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823673593,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "SPHINCS+-SHAKE-128s-simple keypair",
+            "value": 124127295,
+            "unit": "cycles"
+          },
+          {
+            "name": "SPHINCS+-SHAKE-128s-simple sign",
+            "value": 938142558,
+            "unit": "cycles"
+          },
+          {
+            "name": "SPHINCS+-SHAKE-128s-simple verify",
+            "value": 1188324,
+            "unit": "cycles"
+          }
+        ]
       }
     ],
     "ML-KEM-1024": [
@@ -4400,6 +5804,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "ML-KEM-1024 decaps",
             "value": 67237,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823800465,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "ML-KEM-1024 keygen",
+            "value": 53975,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-KEM-1024 encaps",
+            "value": 55428,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-KEM-1024 decaps",
+            "value": 65573,
             "unit": "cycles"
           }
         ]
@@ -4522,6 +5965,45 @@ window.BENCHMARK_DATA = {
             "unit": "cycles"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823706330,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "SPHINCS+-SHAKE-192f-simple keypair",
+            "value": 2672106,
+            "unit": "cycles"
+          },
+          {
+            "name": "SPHINCS+-SHAKE-192f-simple sign",
+            "value": 68975560,
+            "unit": "cycles"
+          },
+          {
+            "name": "SPHINCS+-SHAKE-192f-simple verify",
+            "value": 4508404,
+            "unit": "cycles"
+          }
+        ]
       }
     ],
     "sntrup761": [
@@ -4638,6 +6120,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "sntrup761 decaps",
             "value": 32612,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823840915,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "sntrup761 keygen",
+            "value": 680355,
+            "unit": "cycles"
+          },
+          {
+            "name": "sntrup761 encaps",
+            "value": 29733,
+            "unit": "cycles"
+          },
+          {
+            "name": "sntrup761 decaps",
+            "value": 32267,
             "unit": "cycles"
           }
         ]
@@ -4760,6 +6281,45 @@ window.BENCHMARK_DATA = {
             "unit": "cycles"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823738105,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "SPHINCS+-SHAKE-192s-simple keypair",
+            "value": 177712545,
+            "unit": "cycles"
+          },
+          {
+            "name": "SPHINCS+-SHAKE-192s-simple sign",
+            "value": 1597846560,
+            "unit": "cycles"
+          },
+          {
+            "name": "SPHINCS+-SHAKE-192s-simple verify",
+            "value": 1656473,
+            "unit": "cycles"
+          }
+        ]
       }
     ],
     "FrodoKEM-640-AES": [
@@ -4876,6 +6436,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "FrodoKEM-640-AES decaps",
             "value": 956132,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823875456,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "FrodoKEM-640-AES keygen",
+            "value": 732339,
+            "unit": "cycles"
+          },
+          {
+            "name": "FrodoKEM-640-AES encaps",
+            "value": 1004360,
+            "unit": "cycles"
+          },
+          {
+            "name": "FrodoKEM-640-AES decaps",
+            "value": 950745,
             "unit": "cycles"
           }
         ]
@@ -4998,6 +6597,45 @@ window.BENCHMARK_DATA = {
             "unit": "cycles"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823909733,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "FrodoKEM-640-SHAKE keygen",
+            "value": 2613572,
+            "unit": "cycles"
+          },
+          {
+            "name": "FrodoKEM-640-SHAKE encaps",
+            "value": 2830091,
+            "unit": "cycles"
+          },
+          {
+            "name": "FrodoKEM-640-SHAKE decaps",
+            "value": 2784171,
+            "unit": "cycles"
+          }
+        ]
       }
     ],
     "SPHINCS+-SHAKE-256f-simple": [
@@ -5114,6 +6752,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "SPHINCS+-SHAKE-256f-simple verify",
             "value": 4398377,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823785337,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "SPHINCS+-SHAKE-256f-simple keypair",
+            "value": 6962260,
+            "unit": "cycles"
+          },
+          {
+            "name": "SPHINCS+-SHAKE-256f-simple sign",
+            "value": 139854039,
+            "unit": "cycles"
+          },
+          {
+            "name": "SPHINCS+-SHAKE-256f-simple verify",
+            "value": 4514545,
             "unit": "cycles"
           }
         ]
@@ -5236,6 +6913,45 @@ window.BENCHMARK_DATA = {
             "unit": "cycles"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823940232,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "FrodoKEM-976-AES keygen",
+            "value": 1449271,
+            "unit": "cycles"
+          },
+          {
+            "name": "FrodoKEM-976-AES encaps",
+            "value": 1967973,
+            "unit": "cycles"
+          },
+          {
+            "name": "FrodoKEM-976-AES decaps",
+            "value": 1812611,
+            "unit": "cycles"
+          }
+        ]
       }
     ],
     "SPHINCS+-SHAKE-256s-simple": [
@@ -5352,6 +7068,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "SPHINCS+-SHAKE-256s-simple verify",
             "value": 2261319,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823825135,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "SPHINCS+-SHAKE-256s-simple keypair",
+            "value": 109950895,
+            "unit": "cycles"
+          },
+          {
+            "name": "SPHINCS+-SHAKE-256s-simple sign",
+            "value": 1322489734,
+            "unit": "cycles"
+          },
+          {
+            "name": "SPHINCS+-SHAKE-256s-simple verify",
+            "value": 2260737,
             "unit": "cycles"
           }
         ]
@@ -5474,6 +7229,45 @@ window.BENCHMARK_DATA = {
             "unit": "cycles"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823865651,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "MAYO-1 keypair",
+            "value": 170815,
+            "unit": "cycles"
+          },
+          {
+            "name": "MAYO-1 sign",
+            "value": 506909,
+            "unit": "cycles"
+          },
+          {
+            "name": "MAYO-1 verify",
+            "value": 188918,
+            "unit": "cycles"
+          }
+        ]
       }
     ],
     "FrodoKEM-976-SHAKE": [
@@ -5593,6 +7387,45 @@ window.BENCHMARK_DATA = {
             "unit": "cycles"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823974672,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "FrodoKEM-976-SHAKE keygen",
+            "value": 5697930,
+            "unit": "cycles"
+          },
+          {
+            "name": "FrodoKEM-976-SHAKE encaps",
+            "value": 6051488,
+            "unit": "cycles"
+          },
+          {
+            "name": "FrodoKEM-976-SHAKE decaps",
+            "value": 5871201,
+            "unit": "cycles"
+          }
+        ]
       }
     ],
     "MAYO-2": [
@@ -5709,6 +7542,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "MAYO-2 verify",
             "value": 49597,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823903277,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "MAYO-2 keypair",
+            "value": 93954,
+            "unit": "cycles"
+          },
+          {
+            "name": "MAYO-2 sign",
+            "value": 253692,
+            "unit": "cycles"
+          },
+          {
+            "name": "MAYO-2 verify",
+            "value": 49481,
             "unit": "cycles"
           }
         ]
@@ -5947,6 +7819,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "MAYO-3 verify",
             "value": 406593,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823936484,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "MAYO-3 keypair",
+            "value": 377047,
+            "unit": "cycles"
+          },
+          {
+            "name": "MAYO-3 sign",
+            "value": 953420,
+            "unit": "cycles"
+          },
+          {
+            "name": "MAYO-3 verify",
+            "value": 403388,
             "unit": "cycles"
           }
         ]
