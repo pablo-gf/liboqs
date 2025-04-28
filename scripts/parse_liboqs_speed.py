@@ -20,41 +20,46 @@ fn = args.logfile
 alg = args.algorithm
 state = State.starting
 
+config = ''
+
 with open(fn) as fp: 
    while True:
       line = fp.readline() 
       if not line: 
-            break 
+         break 
       # Remove newlines
       line = line.rstrip()
       if state==State.starting:
-           if line.startswith("Configuration info"):
-             state=State.config
-             fp.readline()
+         if line.startswith("Configuration info"):
+            state=State.config
+            fp.readline()
       elif state==State.config:
-             if line=="\n": # Skip forward
-               fp.readline()
-               fp.readline()
-             if line.startswith("-------"):
-                state=State.parsing
-             elif line.startswith("Started at"):
-                fp.readline()
+         if line=="\n": # Skip forward
+            fp.readline()
+            fp.readline()
+         if line.startswith("-------"):
+            state=State.parsing
+         elif line.startswith("Started at"):
+            fp.readline()
+         elif ":" in line:
+            config = config + line[:line.index(":")] + ": " + line[line.index(":")+1:].lstrip() + " | "
+            
       elif state==State.parsing:
-           if line.startswith("Ended"): # Finish
-              break
-           else:
-               alg = line[:line.index(" ")]
-               p = re.compile('\S+\s*\|')
-               for i in 0,1,2:
-                  x=p.findall(fp.readline().rstrip())
-                  tag = x[0][:x[0].index(" ")] # keygen, encaps, decaps
-                  iterations = float(x[1][:x[1].index(" ")]) # Iterations
-                  total_t = float(x[2][:x[2].index(" ")]) # Total time
-                  mean_t = float(x[3][:x[3].index(" ")]) # Mean time in microseconds
-                  cycles = int(x[5][:x[5].index(" ")]) # Cycles
-                  val = iterations/total_t # Number of iterations per second
+         if line.startswith("Ended"): # Finish
+            break
+         else:
+            alg = line[:line.index(" ")]
+            p = re.compile('\S+\s*\|')
+            for i in 0,1,2:
+               x=p.findall(fp.readline().rstrip())
+               tag = x[0][:x[0].index(" ")] # keygen, encaps, decaps
+               iterations = float(x[1][:x[1].index(" ")]) # Iterations
+               total_t = float(x[2][:x[2].index(" ")]) # Total time
+               mean_t = float(x[3][:x[3].index(" ")]) # Mean time in microseconds
+               cycles = int(x[5][:x[5].index(" ")]) # Cycles
+               val = iterations/total_t # Number of iterations per second
 
-                  data.append({"name": alg + " " + tag, "value": cycles, "unit": "cycles"})
+               data.append({"name": alg + " " + tag, "value": cycles, "unit": "cycles", "extra": config})
       else:
          print("Unknown state: %s" % (line))
 
