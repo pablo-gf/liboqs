@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745823594347,
+  "lastUpdate": 1745823658145,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "BIKE-L1": [
@@ -4540,6 +4540,45 @@ window.BENCHMARK_DATA = {
           {
             "name": "Kyber768 decaps",
             "value": 35635,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "committer": {
+            "email": "pablogf@uma.es",
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf"
+          },
+          "distinct": true,
+          "id": "5321715877d7831bcc7caea19f0180c0cf0180eb",
+          "message": "increased alert-threshold\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2025-04-28T08:46:11+02:00",
+          "tree_id": "340dc3a7856f2525d5d3e24246928886254026d2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/5321715877d7831bcc7caea19f0180c0cf0180eb"
+        },
+        "date": 1745823650717,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Kyber768 keygen",
+            "value": 39702,
+            "unit": "cycles"
+          },
+          {
+            "name": "Kyber768 encaps",
+            "value": 47555,
+            "unit": "cycles"
+          },
+          {
+            "name": "Kyber768 decaps",
+            "value": 35634,
             "unit": "cycles"
           }
         ]
