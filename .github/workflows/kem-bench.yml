@@ -51,7 +51,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     strategy:
-      matrix:
+      matrix: # List of available KEMs to perform the benchmarking on
         algorithm: [
           "BIKE-L1", "BIKE-L3", "BIKE-L5",
           "Classic-McEliece-348864", "Classic-McEliece-348864f",
