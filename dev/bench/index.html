@@ -172,6 +172,7 @@
           // Prepare data points for charts
           return Object.keys(data.entries).map(name => ({
             name,
+            extra: data.entries[name].extra || '',
             dataSet: collectBenchesPerTestCase(data.entries[name]),
           }));
         }
