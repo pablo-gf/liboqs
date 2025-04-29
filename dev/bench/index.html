@@ -247,13 +247,9 @@
         function renderAllChars(dataSets) {
 
           function renderGraph(parent, name, dataset) {
-            const graphContainer = document.createElement('div');
-            graphContainer.className = 'graph-container';
-            parent.appendChild(graphContainer);
-
             const canvas = document.createElement('canvas');
             canvas.className = 'benchmark-chart';
-            graphContainer.appendChild(canvas);
+            parent.appendChild(canvas);
 
             const color = toolColors[dataset.length > 0 ? dataset[0].tool : '_'];
             const data = {
@@ -327,15 +323,6 @@
               data,
               options,
             });
-
-            // Add build information below the graph
-            const lastExtra = dataset.length > 0 ? dataset[dataset.length - 1].extra : null;
-            if (lastExtra) {
-              const extraElem = document.createElement('h3');
-              extraElem.className = 'graph-extra';
-              extraElem.textContent = `Build Info: ${lastExtra}`;
-              graphContainer.appendChild(extraElem);
-            }
           }
 
           function renderBenchSet(name, extra, main) {
@@ -361,7 +348,7 @@
             graphsElem.className = 'benchmark-graphs';
             setElem.appendChild(graphsElem);
 
-            for (const [benchName, benches] of extra.entries()) {
+            for (const [benchName, benches] of benchSet.entries()) {
               renderGraph(graphsElem, benchName, benches);
             }
           }
