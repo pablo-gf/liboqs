@@ -90,7 +90,7 @@
         margin-right: auto;
       }
     </style>
-    <title>Benchmarks</title>
+    <title> liboqs Benchmarks</title>
   </head>
 
   <body>
@@ -307,10 +307,10 @@
                     }
                     return label;
                   },
-                  afterLabel: item => {
-                    const { extra } = dataset[item.index].bench;
-                    return extra ? '\n' + extra : '';
-                  }
+                  // afterLabel: item => {
+                  //   const { extra } = dataset[item.index].bench;
+                  //   return extra ? '\n' + extra : '';
+                  // }
                 }
               },
               onClick: (_mouseEvent, activeElems) => {
