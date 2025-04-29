@@ -334,11 +334,15 @@
             nameElem.textContent = name;
             setElem.appendChild(nameElem);
 
-            // Include build information details
-            if (extra) { // Ensure extra is defined
+            // Include build information details from the last commit
+            const lastExtra = Array.from(benchSet.values())
+              .flatMap(benches => benches.map(bench => bench.extra))
+              .pop(); // Get the last extra information
+
+            if (lastExtra) {
               const buildElem = document.createElement('h3');
               buildElem.className = 'benchmark-extra';
-              buildElem.textContent = extra;
+              buildElem.textContent = lastExtra;
               setElem.appendChild(buildElem);
             }
 
@@ -346,7 +350,7 @@
             graphsElem.className = 'benchmark-graphs';
             setElem.appendChild(graphsElem);
 
-            for (const [benchName, benches] of benchSet.entries()) { // Removed redefinition of extra
+            for (const [benchName, benches] of benchSet.entries()) {
               renderGraph(graphsElem, benchName, benches);
             }
           }
