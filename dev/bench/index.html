@@ -335,12 +335,14 @@
             nameElem.textContent = name;
             setElem.appendChild(nameElem);
 
-            // Extract and display the extra information from the benches array
-            const extraInfo = Array.from(extra.values()).flatMap(benches => benches.map(bench => bench.extra)).find(extra => extra);
+            // Extract and display the extra information from the last commit in the benches array
+            const extraInfo = Array.from(benchSet.values())
+              .flatMap(benches => benches.map(bench => bench.extra))
+              .pop(); // Get the last extra information
             if (extraInfo) {
               const buildElem = document.createElement('h3');
               buildElem.className = 'benchmark-extra';
-              buildElem.textContent = extraInfo;
+              buildElem.textContent = `Build Info: ${extraInfo}`;
               setElem.appendChild(buildElem);
             }
 
