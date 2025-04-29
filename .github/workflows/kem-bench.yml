@@ -80,7 +80,7 @@ jobs:
           "FrodoKEM-1344-AES", 
           "FrodoKEM-1344-SHAKE"
         ]
-      max-parallel: 1 
+      max-parallel: 1 # No parallel jobs to not compromise the pull-push operations of the benchmarking actions below
 
     steps:
       # Ensure the repository is checked out
