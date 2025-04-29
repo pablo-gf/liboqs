@@ -52,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        algorithm: [
+        algorithm: [ # List of available signatures to perform the benchmarking on
           "Dilithium2",
           "Dilithium3",
           "Dilithium5",
