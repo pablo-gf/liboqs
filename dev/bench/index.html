@@ -334,15 +334,15 @@
             nameElem.textContent = name;
             setElem.appendChild(nameElem);
 
-            // Extract and display the extra information from the last commit in the benches array
+            // Extract and display the extra information (build) from the last commit in the benches array
             const lastExtra = Array.from(benchSet.values())
               .flatMap(benches => benches.map(bench => bench.bench.extra))
               .pop(); // Get the last extra information
 
             if (lastExtra) {
-              const buildElem = document.createElement('h3');
+              const buildElem = document.createElement('h5');
               buildElem.className = 'benchmark-extra';
-              buildElem.textContent = `Build Info: ${lastExtra}`;
+              buildElem.textContent = 'Last commit build info: ${lastExtra}';
               setElem.appendChild(buildElem);
             }
 
