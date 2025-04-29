@@ -335,17 +335,19 @@
             setElem.appendChild(nameElem);
 
             // Include build information details
-            const buildElem = document.createElement('h3');
-            buildElem.className = 'benchmark-extra';
-            buildElem.textContent = extra;
-            setElem.appendChild(buildElem);
+            if (extra) { // Ensure extra is defined
+              const buildElem = document.createElement('h3');
+              buildElem.className = 'benchmark-extra';
+              buildElem.textContent = extra;
+              setElem.appendChild(buildElem);
+            }
 
             const graphsElem = document.createElement('div');
             graphsElem.className = 'benchmark-graphs';
             setElem.appendChild(graphsElem);
 
-            for (const [benchName, extra, benches] of benchSet.entries()) {
-              renderGraph(graphsElem,buildElem, benchName, benches)
+            for (const [benchName, benches] of benchSet.entries()) { // Removed redefinition of extra
+              renderGraph(graphsElem, benchName, benches);
             }
           }
 
