@@ -350,8 +350,8 @@
           }
 
           const main = document.getElementById('main');
-          for (const {name, dataSet} of dataSets) {
-            renderBenchSet(name, dataSet, main);
+          for (const {name, extra, dataSet} of dataSets) {
+            renderBenchSet(name, extra, dataSet, main);
           }
         }
 
