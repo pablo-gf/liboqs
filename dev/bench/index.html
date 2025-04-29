@@ -300,10 +300,10 @@
                     }
                     return label;
                   },
-                  // afterLabel: item => {
-                  //   const { extra } = dataset[item.index].bench;
-                  //   return extra ? '\n' + extra : '';
-                  // }
+                  afterLabel: item => {
+                    const { extra } = dataset[item.index].bench;
+                    return extra ? '\n' + extra : '';
+                  }
                 }
               },
               onClick: (_mouseEvent, activeElems) => {
