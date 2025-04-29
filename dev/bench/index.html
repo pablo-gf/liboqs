@@ -300,10 +300,10 @@
                     }
                     return label;
                   },
-                  afterLabel: item => {
-                    const { extra } = dataset[item.index].bench;
-                    return extra ? '\n' + extra : '';
-                  }
+                  // afterLabel: item => {
+                  //   const { extra } = dataset[item.index].bench;
+                  //   return extra ? '\n' + extra : '';
+                  // }
                 }
               },
               onClick: (_mouseEvent, activeElems) => {
@@ -333,6 +333,12 @@
             nameElem.className = 'benchmark-title';
             nameElem.textContent = name;
             setElem.appendChild(nameElem);
+
+            // Include build information details
+            const buildElem = document.createElement('h3');
+            buildElem.className = 'benchmark-extra';
+            buildElem.textContent = extra;
+            setElem.appendChild(buildElem);
 
             const graphsElem = document.createElement('div');
             graphsElem.className = 'benchmark-graphs';
