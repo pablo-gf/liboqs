@@ -42,7 +42,7 @@ with open(fn) as fp:
          elif line.startswith("Started at"):
             fp.readline()
          elif ":" in line:
-            config = config + line[:line.index(":")] + ": " + line[line.index(":")+1:].lstrip() + " | "
+            config = config + line[:line.index(":")] + ": " + line[line.index(":")+1:].lstrip() + " | " # Retrieve build configuration
             
       elif state==State.parsing:
          if line.startswith("Ended"): # Finish
