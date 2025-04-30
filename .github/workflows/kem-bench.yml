@@ -107,7 +107,7 @@ jobs:
           ./speed_kem "${{matrix.algorithm}}" > ${{matrix.algorithm}}_output.txt
           python3 parse_liboqs_speed.py ${{matrix.algorithm}}_output.txt --algorithm ${{matrix.algorithm}}
 
-      # Push to GitHub pages
+      # Push to GitHub pages using continuous-benchmark
       - name: Store benchmark result
         uses: benchmark-action/github-action-benchmark@d48d326b4ca9ba73ca0cd0d59f108f9e02a381c7
         with:
