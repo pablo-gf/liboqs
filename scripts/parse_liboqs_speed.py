@@ -50,7 +50,7 @@ with open(fn) as fp:
          else:
             alg = line[:line.index(" ")]
             p = re.compile('\S+\s*\|')
-            for i in 0,1,2:
+            for i in 0,1,2: # Iterate through the different operations under each algorithm
                x=p.findall(fp.readline().rstrip())
                tag = x[0][:x[0].index(" ")] # keygen, encaps, decaps
                iterations = float(x[1][:x[1].index(" ")]) # Iterations
