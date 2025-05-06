@@ -111,8 +111,6 @@
         <strong class="header-label">Filter:</strong>
         <select id="filter-select">
           <option value="all">All</option>
-          <option value="kem">KEMs</option>
-          <option value="signature">Signatures</option>
         </select>
       </div>
       <br>
@@ -191,7 +189,8 @@
           }));
         }
 
-        function filterData(dataSets, filter) {
+        function populateFilterOptions() {
+          const filterSelect = document.getElementById('filter-select');
           const kems = [
             "BIKE-L1", "BIKE-L3", "BIKE-L5",
             "Classic-McEliece-348864", "Classic-McEliece-348864f",
@@ -229,18 +228,35 @@
             "OV-Is-pkc-skc", "OV-Ip-pkc-skc", "OV-III-pkc-skc", "OV-V-pkc-skc"
           ];
 
+          // Add KEMs to the filter
+          const kemGroup = document.createElement('optgroup');
+          kemGroup.label = "KEMs";
+          kems.forEach(kem => {
+            const option = document.createElement('option');
+            option.value = kem;
+            option.textContent = kem;
+            kemGroup.appendChild(option);
+          });
+          filterSelect.appendChild(kemGroup);
+
+          // Add Signatures to the filter
+          const signatureGroup = document.createElement('optgroup');
+          signatureGroup.label = "Signatures";
+          signatures.forEach(signature => {
+            const option = document.createElement('option');
+            option.value = signature;
+            option.textContent = signature;
+            signatureGroup.appendChild(option);
+          });
+          filterSelect.appendChild(signatureGroup);
+        }
+
+        function filterData(dataSets, filter) {
           if (filter === 'all') {
             return dataSets;
           }
 
-          return dataSets.filter(({ name }) => {
-            if (filter === 'kem') {
-              return kems.includes(name);
-            } else if (filter === 'signature') {
-              return signatures.includes(name);
-            }
-            return false;
-          });
+          return dataSets.filter(({ name }) => name === filter);
         }
 
         function attachFilterListener(dataSets) {
@@ -385,6 +401,7 @@
         }
 
         const dataSets = init(); // Initialize data
+        populateFilterOptions(); // Populate filter dropdown
         attachFilterListener(dataSets); // Attach filter logic
         renderAllChars(dataSets); // Start rendering
       })();
