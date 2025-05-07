@@ -92,6 +92,14 @@ upstreams:
     git_commit: 1c3ca6f4f7286c0bde98d7d6f222cf63b9d52bff
     sig_scheme_path: '.'
     sig_meta_path: 'liboqs/META/{pretty_name_full}_META.yml'
+  - 
+    name: sdith
+    git_url: https://github.com/sdith/sdith/tree/main # Change this to the sdith-liboqs repo once it is posted on sdith's profile
+    git_branch: main
+    git_commit: 
+    sig_scheme_path: 
+    sig_meta_path: 
+
 kems:
   -
     name: classic_mceliece
@@ -594,3 +602,13 @@ sigs:
         pqclean_scheme: SNOVA_29_6_5
         pretty_name_full: SNOVA_29_6_5
         signed_msg_order: sig_then_msg
+      -
+        name: sdith
+        default_implementation: ref
+        upstream_location: 
+        schemes:
+          -
+            scheme: 
+            pqclean_scheme: 
+            pretty_name_full: 
+            signed_msg_order: 
