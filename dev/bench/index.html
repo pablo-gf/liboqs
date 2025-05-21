@@ -100,6 +100,10 @@
         <div class="header-label">This page contains continuous benchmarking information about the available KEM and signature algorithms within liboqs.<br> The benchmarking tests show the mean CPU cycles performed by the operation in 3 seconds of execution.<br> The portrayed data was gathered using the speed_kem and speed_sig tests.</div><br> 
       </div>
       <div class="header-item">
+        <strong class="header-label">Latest commit build information:</strong>
+        <span id="build-info"></span>
+      </div>
+      <div class="header-item">
         <strong class="header-label">Last Update:</strong>
         <span id="last-update"></span>
       </div>
@@ -172,6 +176,16 @@
           const repoLink = document.getElementById('repository-link');
           repoLink.href = data.repoUrl;
           repoLink.textContent = data.repoUrl;
+          // Find the latest 'extra' info from all entries and show it in the header entry
+          let lastExtra = null;
+          for (const entryList of Object.values(data.entries)) {
+            for (const entry of entryList) {
+              for (const bench of entry.benches) {
+                if (bench.extra) lastExtra = bench.extra;
+              }
+            }
+          }
+          document.getElementById('build-info').textContent = lastExtra || '';
 
           // Render footer
           document.getElementById('dl-button').onclick = () => {
@@ -365,25 +379,7 @@
             nameElem.textContent = name;
             setElem.appendChild(nameElem);
 
-            // Extract and display the extra information (build) from the last commit in the benches array
-            const lastExtra = Array.from(benchSet.values())
-              .flatMap(benches => benches.map(bench => bench.bench.extra))
-              .pop(); // Get the last extra information
 
-            if (lastExtra) {
-              const detailsElem = document.createElement('details');
-              detailsElem.className = 'benchmark-extra';
-
-              const summaryElem = document.createElement('summary');
-              summaryElem.textContent = 'Latest commit build information';
-              detailsElem.appendChild(summaryElem);
-
-              const infoElem = document.createElement('p');
-              infoElem.textContent = lastExtra;
-              detailsElem.appendChild(infoElem);
-
-              setElem.appendChild(detailsElem);
-            }
 
             const graphsElem = document.createElement('div');
             graphsElem.className = 'benchmark-graphs';
