@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1757675977708,
+  "lastUpdate": 1757676005847,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "BIKE-L1": [
@@ -53774,6 +53774,48 @@ window.BENCHMARK_DATA = {
             "value": 39240,
             "unit": "cycles",
             "extra": "Target platform: x86_64-Linux-6.11.0-1015-azure | Compiler: gcc (13.3.0) | Compile options: [-Wa,--noexecstack;-O3;-fomit-frame-pointer;-fdata-sections;-ffunction-sections;-Wl,--gc-sections;-Wbad-function-cast] | OQS version: 0.13.1-dev (major: 0, minor: 13, patch: 1, pre-release: -dev) | Git commit: 8d9cfd7f33080b2463e145218ec0db47048a2d81 | OpenSSL enabled: Yes (OpenSSL 3.0.13 30 Jan 2024) | AES: NI | SHA-2: OpenSSL | SHA-3: C | OQS build flags: OQS_DIST_BUILD OQS_LIBJADE_BUILD OQS_OPT_TARGET=generic CMAKE_BUILD_TYPE=Release | CPU exts active: ADX AES AVX AVX2 BMI1 BMI2 PCLMULQDQ POPCNT SSE SSE2 SSE3 | "
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "135095368+saitomst@users.noreply.github.com",
+            "name": "Saito Masataka",
+            "username": "saitomst"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "59bf831b47fb43124f816d594ec801f729b08053",
+          "message": "Add NTRU back (#2176)\n\nThis commit includes following changes:\n* Revert \"Removed NTRU. (#1335)\"\n* Replace the uses of malloc with OQS_MEM_malloc\n* Add a derandomized keypair function\n* Add \"all\" entries of NTRU algorithms to the KATs file\n* Fix reflecting the removal of NTRU from PQClean\n* Update NTRU documents with the latest manners\n* Change the CODEOWNERS of NTRU KEM\n\nSigned-off-by: Saito Masataka <saitomst@intellilink.co.jp>",
+          "timestamp": "2025-09-09T17:10:28-04:00",
+          "tree_id": "033c51a5a024d6ddb1df95caaa2457b64c183ec2",
+          "url": "https://github.com/pablo-gf/liboqs/commit/59bf831b47fb43124f816d594ec801f729b08053"
+        },
+        "date": 1757676004209,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "OV-Is keypair",
+            "value": 2533755,
+            "unit": "cycles",
+            "extra": "Target platform: x86_64-Linux-6.11.0-1018-azure | Compiler: gcc (13.3.0) | Compile options: [-Wa,--noexecstack;-O3;-fomit-frame-pointer;-fdata-sections;-ffunction-sections;-Wl,--gc-sections;-Wbad-function-cast] | OQS version: 0.14.1-dev (major: 0, minor: 14, patch: 1, pre-release: -dev) | Git commit: 59bf831b47fb43124f816d594ec801f729b08053 | OpenSSL enabled: Yes (OpenSSL 3.0.13 30 Jan 2024) | AES: NI | SHA-2: OpenSSL | SHA-3: AVX2 | OQS build flags: OQS_DIST_BUILD OQS_LIBJADE_BUILD OQS_OPT_TARGET=generic CMAKE_BUILD_TYPE=Release | CPU exts active: ADX AES AVX AVX2 BMI1 BMI2 PCLMULQDQ POPCNT SSE SSE2 SSE3 | "
+          },
+          {
+            "name": "OV-Is sign",
+            "value": 63061,
+            "unit": "cycles",
+            "extra": "Target platform: x86_64-Linux-6.11.0-1018-azure | Compiler: gcc (13.3.0) | Compile options: [-Wa,--noexecstack;-O3;-fomit-frame-pointer;-fdata-sections;-ffunction-sections;-Wl,--gc-sections;-Wbad-function-cast] | OQS version: 0.14.1-dev (major: 0, minor: 14, patch: 1, pre-release: -dev) | Git commit: 59bf831b47fb43124f816d594ec801f729b08053 | OpenSSL enabled: Yes (OpenSSL 3.0.13 30 Jan 2024) | AES: NI | SHA-2: OpenSSL | SHA-3: AVX2 | OQS build flags: OQS_DIST_BUILD OQS_LIBJADE_BUILD OQS_OPT_TARGET=generic CMAKE_BUILD_TYPE=Release | CPU exts active: ADX AES AVX AVX2 BMI1 BMI2 PCLMULQDQ POPCNT SSE SSE2 SSE3 | "
+          },
+          {
+            "name": "OV-Is verify",
+            "value": 39214,
+            "unit": "cycles",
+            "extra": "Target platform: x86_64-Linux-6.11.0-1018-azure | Compiler: gcc (13.3.0) | Compile options: [-Wa,--noexecstack;-O3;-fomit-frame-pointer;-fdata-sections;-ffunction-sections;-Wl,--gc-sections;-Wbad-function-cast] | OQS version: 0.14.1-dev (major: 0, minor: 14, patch: 1, pre-release: -dev) | Git commit: 59bf831b47fb43124f816d594ec801f729b08053 | OpenSSL enabled: Yes (OpenSSL 3.0.13 30 Jan 2024) | AES: NI | SHA-2: OpenSSL | SHA-3: AVX2 | OQS build flags: OQS_DIST_BUILD OQS_LIBJADE_BUILD OQS_OPT_TARGET=generic CMAKE_BUILD_TYPE=Release | CPU exts active: ADX AES AVX AVX2 BMI1 BMI2 PCLMULQDQ POPCNT SSE SSE2 SSE3 | "
           }
         ]
       }
