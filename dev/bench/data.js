@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1761445771886,
+  "lastUpdate": 1761445778291,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "BIKE-L1": [
@@ -42540,6 +42540,46 @@ window.BENCHMARK_DATA = {
             "value": 49882,
             "unit": "cycles",
             "extra": "Target platform: x86_64-Linux-6.14.0-1012-azure | Compiler: gcc (13.3.0) | Compile options: [-Wa,--noexecstack;-O3;-fomit-frame-pointer;-fdata-sections;-ffunction-sections;-Wl,--gc-sections;-Wbad-function-cast] | OQS version: 0.14.1-dev (major: 0, minor: 14, patch: 1, pre-release: -dev) | Git commit: 9a61d90c68de022372bae3a9d4fcc1629fa59f24 | OpenSSL enabled: Yes (OpenSSL 3.0.13 30 Jan 2024) | AES: NI | SHA-2: OpenSSL | SHA-3: AVX2 | OQS build flags: OQS_DIST_BUILD OQS_LIBJADE_BUILD OQS_OPT_TARGET=generic CMAKE_BUILD_TYPE=Release | CPU exts active: ADX AES AVX AVX2 BMI1 BMI2 PCLMULQDQ POPCNT SSE SSE2 SSE3 | "
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "lir2002",
+            "username": "lir2002",
+            "email": "lir2002@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "9a61d90c68de022372bae3a9d4fcc1629fa59f24",
+          "message": "Fix incorrect Actual signature length (0) in sig fullcycle speed test (#2293)\n\nSigned-off-by: Ethan Li <lir2002@gmail.com>",
+          "timestamp": "2025-10-03T15:05:39Z",
+          "url": "https://github.com/pablo-gf/liboqs/commit/9a61d90c68de022372bae3a9d4fcc1629fa59f24"
+        },
+        "date": 1761445776277,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "MAYO-2 keypair",
+            "value": 96017,
+            "unit": "cycles",
+            "extra": "Target platform: x86_64-Linux-6.11.0-1018-azure | Compiler: gcc (13.3.0) | Compile options: [-Wa,--noexecstack;-O3;-fomit-frame-pointer;-fdata-sections;-ffunction-sections;-Wl,--gc-sections;-Wbad-function-cast] | OQS version: 0.14.1-dev (major: 0, minor: 14, patch: 1, pre-release: -dev) | Git commit: 9a61d90c68de022372bae3a9d4fcc1629fa59f24 | OpenSSL enabled: Yes (OpenSSL 3.0.13 30 Jan 2024) | AES: NI | SHA-2: OpenSSL | SHA-3: AVX512VL | OQS build flags: OQS_DIST_BUILD OQS_LIBJADE_BUILD OQS_OPT_TARGET=generic CMAKE_BUILD_TYPE=Release | CPU exts active: ADX AES AVX AVX2 AVX512 BMI1 BMI2 PCLMULQDQ VPCLMULQDQ POPCNT SSE SSE2 SSE3 | "
+          },
+          {
+            "name": "MAYO-2 sign",
+            "value": 271783,
+            "unit": "cycles",
+            "extra": "Target platform: x86_64-Linux-6.11.0-1018-azure | Compiler: gcc (13.3.0) | Compile options: [-Wa,--noexecstack;-O3;-fomit-frame-pointer;-fdata-sections;-ffunction-sections;-Wl,--gc-sections;-Wbad-function-cast] | OQS version: 0.14.1-dev (major: 0, minor: 14, patch: 1, pre-release: -dev) | Git commit: 9a61d90c68de022372bae3a9d4fcc1629fa59f24 | OpenSSL enabled: Yes (OpenSSL 3.0.13 30 Jan 2024) | AES: NI | SHA-2: OpenSSL | SHA-3: AVX512VL | OQS build flags: OQS_DIST_BUILD OQS_LIBJADE_BUILD OQS_OPT_TARGET=generic CMAKE_BUILD_TYPE=Release | CPU exts active: ADX AES AVX AVX2 AVX512 BMI1 BMI2 PCLMULQDQ VPCLMULQDQ POPCNT SSE SSE2 SSE3 | "
+          },
+          {
+            "name": "MAYO-2 verify",
+            "value": 51539,
+            "unit": "cycles",
+            "extra": "Target platform: x86_64-Linux-6.11.0-1018-azure | Compiler: gcc (13.3.0) | Compile options: [-Wa,--noexecstack;-O3;-fomit-frame-pointer;-fdata-sections;-ffunction-sections;-Wl,--gc-sections;-Wbad-function-cast] | OQS version: 0.14.1-dev (major: 0, minor: 14, patch: 1, pre-release: -dev) | Git commit: 9a61d90c68de022372bae3a9d4fcc1629fa59f24 | OpenSSL enabled: Yes (OpenSSL 3.0.13 30 Jan 2024) | AES: NI | SHA-2: OpenSSL | SHA-3: AVX512VL | OQS build flags: OQS_DIST_BUILD OQS_LIBJADE_BUILD OQS_OPT_TARGET=generic CMAKE_BUILD_TYPE=Release | CPU exts active: ADX AES AVX AVX2 AVX512 BMI1 BMI2 PCLMULQDQ VPCLMULQDQ POPCNT SSE SSE2 SSE3 | "
           }
         ]
       }
