@@ -1,0 +1,114 @@
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:gf16m_det
+   fun:be_invertible_by_add_aS
+   fun:gen_A_B_Q_P
+   fun:_snova_24_5_4_shake_ssk_opt_generate_keys_core
+   fun:_snova_24_5_4_shake_ssk_opt_generate_keys_ssk
+   fun:_snova_24_5_4_shake_ssk_opt_keypair
+   fun:OQS_SIG_keypair
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:be_invertible_by_add_aS
+   fun:gen_A_B_Q_P
+   fun:_snova_24_5_4_shake_ssk_opt_generate_keys_core
+   fun:_snova_24_5_4_shake_ssk_opt_generate_keys_ssk
+   fun:_snova_24_5_4_shake_ssk_opt_keypair
+   fun:OQS_SIG_keypair
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:gf16m_scale
+   fun:gen_a_FqS
+   fun:gen_A_B_Q_P
+   fun:_snova_24_5_4_shake_ssk_opt_generate_keys_core
+   fun:_snova_24_5_4_shake_ssk_opt_generate_keys_ssk
+   fun:_snova_24_5_4_shake_ssk_opt_keypair
+   fun:OQS_SIG_keypair
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:gf16m_add
+   fun:gen_a_FqS
+   fun:gen_A_B_Q_P
+   fun:_snova_24_5_4_shake_ssk_opt_generate_keys_core
+   fun:_snova_24_5_4_shake_ssk_opt_generate_keys_ssk
+   fun:_snova_24_5_4_shake_ssk_opt_keypair
+   fun:OQS_SIG_keypair
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:gen_a_FqS
+   fun:gen_A_B_Q_P
+   fun:_snova_24_5_4_shake_ssk_opt_generate_keys_core
+   fun:_snova_24_5_4_shake_ssk_opt_generate_keys_ssk
+   fun:_snova_24_5_4_shake_ssk_opt_keypair
+   fun:OQS_SIG_keypair
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:gf16m_det
+   fun:be_invertible_by_add_aS
+   fun:gen_A_B_Q_P
+   fun:_snova_24_5_4_shake_ssk_opt_sign_expand_ssk
+   fun:_snova_24_5_4_shake_ssk_opt_sign_digest_ssk
+   fun:_snova_24_5_4_shake_ssk_opt_sign
+   fun:OQS_SIG_sign
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:be_invertible_by_add_aS
+   fun:gen_A_B_Q_P
+   fun:_snova_24_5_4_shake_ssk_opt_sign_expand_ssk
+   fun:_snova_24_5_4_shake_ssk_opt_sign_digest_ssk
+   fun:_snova_24_5_4_shake_ssk_opt_sign
+   fun:OQS_SIG_sign
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_snova_24_5_4_shake_ssk_opt_sign_digest_core_opt
+   fun:_snova_24_5_4_shake_ssk_opt_sign_digest_ssk
+   fun:_snova_24_5_4_shake_ssk_opt_sign
+   fun:OQS_SIG_sign
+   fun:sig_test_correctness
+   fun:main
+}
+
+

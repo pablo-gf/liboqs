@@ -1,0 +1,23 @@
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:EF.isra.0
+   fun:pqmayo_MAYO_2_avx2_sample_solution
+   fun:pqmayo_MAYO_2_avx2_mayo_sign_signature
+   fun:OQS_SIG_sign
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:pqmayo_MAYO_2_avx2_sample_solution
+   fun:pqmayo_MAYO_2_avx2_mayo_sign_signature
+   fun:OQS_SIG_sign
+   fun:sig_test_correctness
+   fun:main
+}
+
+

@@ -1,0 +1,92 @@
+========================================
+Testing SIGs
+Compiled with: -fsanitize=memory -fsanitize-recover=all -O0 -g
+Compiler version: Ubuntu clang version 20.1.8 (++20250804090239+87f0227cb601-1~exp1~20250804210352.139)
+Architecture: x86_64
+========================================
+
+Testing SIG: ML-DSA-44 ... FAIL (MemSan warnings)
+  → Found 7 MemSan warnings
+Testing SIG: ML-DSA-65 ... FAIL (MemSan warnings)
+  → Found 7 MemSan warnings
+Testing SIG: ML-DSA-87 ... FAIL (MemSan warnings)
+  → Found 7 MemSan warnings
+Testing SIG: Falcon-512 ... FAIL (MemSan warnings)
+  → Found 6 MemSan warnings
+Testing SIG: Falcon-1024 ... FAIL (MemSan warnings)
+  → Found 6 MemSan warnings
+Testing SIG: Falcon-padded-512 ... FAIL (MemSan warnings)
+  → Found 6 MemSan warnings
+Testing SIG: Falcon-padded-1024 ... FAIL (MemSan warnings)
+  → Found 6 MemSan warnings
+Skipping SIG: SPHINCS+-SHA2-128f-simple
+Skipping SIG: SPHINCS+-SHA2-128s-simple
+Skipping SIG: SPHINCS+-SHA2-192f-simple
+Skipping SIG: SPHINCS+-SHA2-192s-simple
+Skipping SIG: SPHINCS+-SHA2-256f-simple
+Skipping SIG: SPHINCS+-SHA2-256s-simple
+Skipping SIG: SPHINCS+-SHAKE-128f-simple
+Skipping SIG: SPHINCS+-SHAKE-128s-simple
+Skipping SIG: SPHINCS+-SHAKE-192f-simple
+Skipping SIG: SPHINCS+-SHAKE-192s-simple
+Skipping SIG: SPHINCS+-SHAKE-256f-simple
+Skipping SIG: SPHINCS+-SHAKE-256s-simple
+Testing SIG: MAYO-1 ... FAIL (MemSan warnings)
+  → Found 26 MemSan warnings
+Testing SIG: MAYO-2 ... FAIL (MemSan warnings)
+  → Found 27 MemSan warnings
+Testing SIG: MAYO-3 ... FAIL (MemSan warnings)
+  → Found 27 MemSan warnings
+Testing SIG: MAYO-5 ... FAIL (MemSan warnings)
+  → Found 26 MemSan warnings
+Testing SIG: cross-rsdp-128-balanced ... FAIL (MemSan warnings)
+  → Found 11 MemSan warnings
+Testing SIG: cross-rsdp-128-fast ... FAIL (MemSan warnings)
+  → Found 10 MemSan warnings
+Testing SIG: cross-rsdp-128-small ... FAIL (MemSan warnings)
+  → Found 11 MemSan warnings
+Testing SIG: cross-rsdp-192-balanced ... FAIL (MemSan warnings)
+  → Found 11 MemSan warnings
+Testing SIG: cross-rsdp-192-fast ... FAIL (MemSan warnings)
+  → Found 11 MemSan warnings
+Testing SIG: cross-rsdp-192-small ... FAIL (MemSan warnings)
+  → Found 11 MemSan warnings
+Testing SIG: cross-rsdp-256-balanced ... FAIL (MemSan warnings)
+  → Found 11 MemSan warnings
+Testing SIG: cross-rsdp-256-fast ... FAIL (MemSan warnings)
+  → Found 10 MemSan warnings
+Testing SIG: cross-rsdp-256-small ... FAIL (MemSan warnings)
+  → Found 11 MemSan warnings
+Testing SIG: cross-rsdpg-128-balanced ... FAIL (MemSan warnings)
+  → Found 18 MemSan warnings
+Testing SIG: cross-rsdpg-128-fast ... FAIL (MemSan warnings)
+  → Found 18 MemSan warnings
+Testing SIG: cross-rsdpg-128-small ... FAIL (MemSan warnings)
+  → Found 18 MemSan warnings
+Testing SIG: cross-rsdpg-192-balanced ... FAIL (MemSan warnings)
+  → Found 18 MemSan warnings
+Testing SIG: cross-rsdpg-192-fast ... FAIL (MemSan warnings)
+  → Found 17 MemSan warnings
+Testing SIG: cross-rsdpg-192-small ... FAIL (MemSan warnings)
+  → Found 18 MemSan warnings
+Testing SIG: cross-rsdpg-256-balanced ... FAIL (MemSan warnings)
+  → Found 18 MemSan warnings
+Testing SIG: cross-rsdpg-256-fast ... FAIL (MemSan warnings)
+  → Found 17 MemSan warnings
+Testing SIG: cross-rsdpg-256-small ... FAIL (MemSan warnings)
+  → Found 18 MemSan warnings
+Testing SIG: OV-Is ... FAIL (MemSan warnings)
+  → Found 15 MemSan warnings
+Testing SIG: OV-Ip ... FAIL (MemSan warnings)
+  → Found 28 MemSan warnings
+Testing SIG: OV-III ... FAIL (MemSan warnings)
+  → Found 24 MemSan warnings
+Testing SIG: OV-V ... FAIL (MemSan warnings)
+  → Found 23 MemSan warnings
+Testing SIG: OV-Is-pkc ... FAIL (MemSan warnings)
+  → Found 15 MemSan warnings
+Testing SIG: OV-Ip-pkc ... FAIL (MemSan warnings)
+  → Found 28 MemSan warnings
+Testing SIG: OV-III-pkc ... FAIL (MemSan warnings)
+  → Found 24 MemSan warnings
+Testing SIG: OV-V-pkc ... 

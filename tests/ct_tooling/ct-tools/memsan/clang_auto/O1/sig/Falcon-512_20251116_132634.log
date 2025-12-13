@@ -1,0 +1,16 @@
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/sig/falcon/pqclean_falcon-512_avx2/keygen.c:4066:17 in poly_small_mkgauss
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/sig/falcon/pqclean_falcon-512_avx2/keygen.c:4153:29 in PQCLEAN_FALCON512_AVX2_keygen
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/sig/falcon/pqclean_falcon-512_avx2/keygen.c:4154:36 in PQCLEAN_FALCON512_AVX2_keygen
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/sig/falcon/pqclean_falcon-512_avx2/keygen.c:4201:13 in PQCLEAN_FALCON512_AVX2_keygen
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/sig/falcon/pqclean_falcon-512_avx2/vrfy.c:696:26 in PQCLEAN_FALCON512_AVX2_compute_public
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/sig/falcon/pqclean_falcon-512_avx2/vrfy.c:693:13 in PQCLEAN_FALCON512_AVX2_compute_public
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/sig/falcon/pqclean_falcon-512_avx2/codec.c:222:25 in PQCLEAN_FALCON512_AVX2_trim_i8_encode
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/sig/falcon/pqclean_falcon-512_avx2/vrfy.c:729:27 in PQCLEAN_FALCON512_AVX2_complete_private
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/sig/falcon/pqclean_falcon-512_avx2/vrfy.c:726:13 in PQCLEAN_FALCON512_AVX2_complete_private
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/sig/falcon/pqclean_falcon-512_avx2/sign.c:1083:5 in PQCLEAN_FALCON512_AVX2_gaussian0_sampler
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/sig/falcon/pqclean_falcon-512_avx2/sign.c:1140:5 in BerExp
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/sig/falcon/pqclean_falcon-512_avx2/inner.h in PQCLEAN_FALCON512_AVX2_sampler
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/sig/falcon/pqclean_falcon-512_avx2/sign.c:1234:1 in PQCLEAN_FALCON512_AVX2_sampler
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/sig/falcon/pqclean_falcon-512_avx2/sign.c:939:9 in do_sign_dyn
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/sig/falcon/pqclean_falcon-512_avx2/common.c:301:5 in PQCLEAN_FALCON512_AVX2_is_short_half
+SUMMARY: MemorySanitizer: use-of-uninitialized-value (/home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/build_O1/tests/test_sig+0x73ab9) (BuildId: dcbb01b8936932dc5c5a73f412a73ba53060c58a) in memcmp

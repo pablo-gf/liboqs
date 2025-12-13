@@ -1,0 +1,94 @@
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:gf16m_det
+   fun:be_invertible_by_add_aS
+   fun:gen_A_B_Q_P
+   fun:_snova_24_5_4_aes_esk_avx2_generate_keys_core
+   fun:_snova_24_5_4_aes_esk_avx2_generate_keys_esk
+   fun:_snova_24_5_4_aes_esk_avx2_keypair
+   fun:OQS_SIG_keypair
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:gf16m_scale
+   fun:gen_a_FqS
+   fun:gen_A_B_Q_P
+   fun:_snova_24_5_4_aes_esk_avx2_generate_keys_core
+   fun:_snova_24_5_4_aes_esk_avx2_generate_keys_esk
+   fun:_snova_24_5_4_aes_esk_avx2_keypair
+   fun:OQS_SIG_keypair
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:gen_a_FqS
+   fun:gen_A_B_Q_P
+   fun:_snova_24_5_4_aes_esk_avx2_generate_keys_core
+   fun:_snova_24_5_4_aes_esk_avx2_generate_keys_esk
+   fun:_snova_24_5_4_aes_esk_avx2_keypair
+   fun:OQS_SIG_keypair
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_snova_24_5_4_aes_esk_avx2_calc_LR_J_vtl
+   fun:_snova_24_5_4_aes_esk_avx2_sign_digest_core_gnl_vtl
+   fun:_snova_24_5_4_aes_esk_avx2_sign_digest_esk
+   fun:_snova_24_5_4_aes_esk_avx2_sign
+   fun:OQS_SIG_sign
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_mm256_shuffle_epi8
+   fun:_snova_24_5_4_aes_esk_avx2_sign_digest_core_gnl_vtl
+   fun:_snova_24_5_4_aes_esk_avx2_sign_digest_esk
+   fun:_snova_24_5_4_aes_esk_avx2_sign
+   fun:OQS_SIG_sign
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:_snova_24_5_4_aes_esk_avx2_sign_digest_core_gnl_vtl
+   fun:_snova_24_5_4_aes_esk_avx2_sign_digest_esk
+   fun:_snova_24_5_4_aes_esk_avx2_sign
+   fun:OQS_SIG_sign
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:_snova_24_5_4_aes_esk_avx2_sign_digest_core_gnl_vtl
+   fun:_snova_24_5_4_aes_esk_avx2_sign_digest_esk
+   fun:_snova_24_5_4_aes_esk_avx2_sign
+   fun:OQS_SIG_sign
+   fun:sig_test_correctness
+   fun:main
+}
+
+

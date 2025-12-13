@@ -1,0 +1,91 @@
+diff --git a/memcheck/mc_errors.c b/memcheck/mc_errors.c
+index a708b3f85..0e7eaab8f 100644
+--- a/memcheck/mc_errors.c
++++ b/memcheck/mc_errors.c
+@@ -94,11 +94,14 @@ struct _MC_Error {
+       // Use of an undefined value:
+       // - as a pointer in a load or store
+       // - as a jump target
++      // - (VARLAT mode) as an operand in a variable-latency instruction
+       struct {
+          SizeT szB;   // size of value in bytes
+          // Origin info
+          UInt        otag;      // origin tag
+          ExeContext* origin_ec; // filled in later
++         // VARLAT mode
++         Bool        isLatency; // if issue is variable-latency instruction
+       } Value;
+ 
+       // Use of an undefined value in a conditional branch or move.
+@@ -489,8 +492,13 @@ void MC_(pp_Error) ( const Error* err )
+          MC_(any_value_errors) = True;
+          if (xml) {
+             emit( "  <kind>UninitValue</kind>\n" );
+-            emit( "  <what>Use of uninitialised value of size %lu</what>\n",
+-                  extra->Err.Value.szB );
++            if (extra->Err.Value.isLatency)
++               emit( "  <what>Variable-latency instruction operand"
++                     " of size %lu is secret/uninitialised</what>\n",
++                     extra->Err.Value.szB );
++            else
++               emit( "  <what>Use of uninitialised value of size %lu</what>\n",
++                     extra->Err.Value.szB );
+             VG_(pp_ExeContext)( VG_(get_error_where)(err) );
+             if (extra->Err.Value.origin_ec)
+                mc_pp_origin( extra->Err.Value.origin_ec,
+@@ -498,8 +506,13 @@ void MC_(pp_Error) ( const Error* err )
+          } else {
+             /* Could also show extra->Err.Cond.otag if debugging origin
+                tracking */
+-            emit( "Use of uninitialised value of size %lu\n",
+-                  extra->Err.Value.szB );
++            if (extra->Err.Value.isLatency)
++               emit( "Variable-latency instruction operand"
++                     " of size %lu is secret/uninitialised\n",
++                     extra->Err.Value.szB );
++            else
++               emit( "Use of uninitialised value of size %lu\n",
++                     extra->Err.Value.szB );
+             VG_(pp_ExeContext)( VG_(get_error_where)(err) );
+             if (extra->Err.Value.origin_ec)
+                mc_pp_origin( extra->Err.Value.origin_ec,
+@@ -926,6 +939,20 @@ void MC_(record_value_error) ( ThreadId tid, Int szB, UInt otag )
+    extra.Err.Value.szB       = szB;
+    extra.Err.Value.otag      = otag;
+    extra.Err.Value.origin_ec = NULL;  /* Filled in later */
++   extra.Err.Value.isLatency = False;
++   VG_(maybe_record_error)( tid, Err_Value, /*addr*/0, /*s*/NULL, &extra );
++}
++
++void MC_(record_varlat_value_error) ( ThreadId tid, Int szB, UInt otag )
++{
++   MC_Error extra;
++   tl_assert( MC_(clo_mc_level) >= 2 );
++   if (otag > 0)
++      tl_assert( MC_(clo_mc_level) == 3 );
++   extra.Err.Value.szB       = szB;
++   extra.Err.Value.otag      = otag;
++   extra.Err.Value.origin_ec = NULL;  /* Filled in later */
++   extra.Err.Value.isLatency = True;
+    VG_(maybe_record_error)( tid, Err_Value, /*addr*/0, /*s*/NULL, &extra );
+ }
+ 
+@@ -1886,6 +1913,18 @@ SizeT MC_(get_extra_suppression_info) ( const Error* err,
+       return VG_(snprintf) (buf, nBuf, "%s(%s)",
+                             extra->Err.FishyValue.function_name,
+                             extra->Err.FishyValue.argument_name);
++
++   } else if (Err_Value == ekind) {
++      /* For variable-latency (VARLAT) errors, add an extra line
++         in the generated suppression template so users can see
++         that this undefined-value is a variable-latency operand. */
++      MC_Error* extra = VG_(get_error_extra)(err);
++      if (extra && extra->Err.Value.isLatency) {
++         return VG_(snprintf) (buf, nBuf, "variable-latency: yes");
++      } else {
++         buf[0] = '\0';
++         return 0;
++      }
+    } else {
+       buf[0] = '\0';
+       return 0;

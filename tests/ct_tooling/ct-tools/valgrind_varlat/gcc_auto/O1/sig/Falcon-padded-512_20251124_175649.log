@@ -1,0 +1,25 @@
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:poly_small_mkgauss
+   fun:PQCLEAN_FALCONPADDED512_AVX2_keygen
+   fun:PQCLEAN_FALCONPADDED512_AVX2_crypto_sign_keypair
+   fun:OQS_SIG_falcon_padded_512_keypair
+   fun:OQS_SIG_keypair
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:PQCLEAN_FALCONPADDED512_AVX2_keygen
+   fun:PQCLEAN_FALCONPADDED512_AVX2_crypto_sign_keypair
+   fun:OQS_SIG_falcon_padded_512_keypair
+   fun:OQS_SIG_keypair
+   fun:sig_test_correctness
+   fun:main
+}
+
+

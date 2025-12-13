@@ -1,0 +1,15 @@
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:38:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:39:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:40:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:41:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:42:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:43:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:44:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:45:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:46:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:47:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/sig/uov/pqov_ov_Is_avx2/blas_avx2.h:280:9 in _gf16v_generate_multabs_avx2
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/sig/uov/pqov_ov_Is_avx2/blas_matrix_avx2.c:143:24 in gf16mat_blockmat_madd_avx2
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/sig/uov/pqov_ov_Is_avx2/blas_avx2.h:127:28 in linearmap_8x8_accu_ymm
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/sig/uov/pqov_ov_Is_avx2/blas_comm.h:21:5 in gf16v_get_ele
+SUMMARY: MemorySanitizer: use-of-uninitialized-value (/home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/build_O0/tests/test_sig+0x73a99) (BuildId: 7bdb61fdb0900945e0259112df292a18ad23f9d0) in memcmp

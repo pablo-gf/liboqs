@@ -1,0 +1,62 @@
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:PQCLEAN_MCELIECE8192128F_CLEAN_genpoly_gen
+   fun:PQCLEAN_MCELIECE8192128F_CLEAN_crypto_kem_keypair
+   fun:OQS_KEM_classic_mceliece_8192128f_keypair
+   fun:OQS_KEM_keypair
+   fun:kem_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:PQCLEAN_MCELIECE8192128F_CLEAN_pk_gen
+   fun:PQCLEAN_MCELIECE8192128F_CLEAN_crypto_kem_keypair
+   fun:OQS_KEM_classic_mceliece_8192128f_keypair
+   fun:OQS_KEM_keypair
+   fun:kem_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:PQCLEAN_MCELIECE8192128F_CLEAN_pk_gen
+   fun:PQCLEAN_MCELIECE8192128F_CLEAN_crypto_kem_keypair
+   fun:OQS_KEM_classic_mceliece_8192128f_keypair
+   fun:OQS_KEM_keypair
+   fun:kem_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:PQCLEAN_MCELIECE8192128F_CLEAN_pk_gen
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+}
+
+

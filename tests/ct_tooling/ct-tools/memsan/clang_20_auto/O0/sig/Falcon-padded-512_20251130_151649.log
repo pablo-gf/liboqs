@@ -1,0 +1,6 @@
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/sig/falcon/pqclean_falcon-padded-512_avx2/keygen.c:2205:5 in get_rng_u64
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/sig/falcon/pqclean_falcon-padded-512_avx2/sign.c:836:17 in do_sign_dyn
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/sig/falcon/pqclean_falcon-padded-512_avx2/inner.h:513:5 in prng_get_u64
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/sig/falcon/pqclean_falcon-padded-512_avx2/inner.h:534:5 in prng_get_u8
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/sig/falcon/pqclean_falcon-padded-512_avx2/sign.c:939:9 in do_sign_dyn
+SUMMARY: MemorySanitizer: use-of-uninitialized-value (/home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/build_O0/tests/test_sig+0x76350) (BuildId: 73176cfae22e9f2c22c589ab6642664a2c04aed4) in memcmp

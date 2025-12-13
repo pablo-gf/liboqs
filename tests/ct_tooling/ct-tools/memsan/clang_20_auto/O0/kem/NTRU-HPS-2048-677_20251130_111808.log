@@ -1,0 +1,2 @@
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/kem/ntru/pqclean_ntruhps2048677_avx2/poly_s3_inv.c:248:5 in vec256_bit0mask
+SUMMARY: MemorySanitizer: use-of-uninitialized-value (/home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/build_O0/tests/test_kem+0x76370) (BuildId: c081f53585b57d061de5a960ec51517affa0d885) in memcmp

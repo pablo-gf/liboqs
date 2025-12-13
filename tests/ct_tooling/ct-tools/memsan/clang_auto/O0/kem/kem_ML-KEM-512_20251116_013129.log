@@ -1,0 +1,9 @@
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/common/sha3/xkcp_low/KeccakP-1600times4/avx2/KeccakP-1600-times4-SIMD256.c:94:2 in load64
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/kem/ml_kem/mlkem-native_ml-kem-512_x86_64/mlkem/src/verify.h:366:32 in mlk_ct_memcmp
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/kem/ml_kem/mlkem-native_ml-kem-512_x86_64/mlkem/src/verify.h:366:11 in mlk_ct_memcmp
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/kem/ml_kem/mlkem-native_ml-kem-512_x86_64/mlkem/src/verify.h:366:3 in mlk_ct_memcmp
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/kem/ml_kem/mlkem-native_ml-kem-512_x86_64/mlkem/src/sampling.c:262:3 in mlk_load32_littleendian
+SUMMARY: MemorySanitizer: use-of-uninitialized-value (/home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/build_O0/tests/test_kem+0x73ab9) (BuildId: 95e5c65533313e2505afde1f97375fd55c6ad28c) in memcmp
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/kem/ml_kem/mlkem-native_ml-kem-512_x86_64/mlkem/src/compress.c:537:20 in PQCP_MLKEM_NATIVE_MLKEM512_X86_64_poly_tomsg
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/kem/ml_kem/mlkem-native_ml-kem-512_x86_64/mlkem/src/verify.h:402:12 in mlk_ct_cmov_zero
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/kem/ml_kem/mlkem-native_ml-kem-512_x86_64/mlkem/src/compress.c:510:30 in PQCP_MLKEM_NATIVE_MLKEM512_X86_64_poly_frommsg

@@ -1,0 +1,12 @@
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:38:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:39:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:40:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:41:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:42:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:43:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:44:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:45:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:46:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:47:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/sig/mayo/pqmayo_mayo-2_avx2/arithmetic.c:80:9 in pqmayo_MAYO_2_avx2_sample_solution
+SUMMARY: MemorySanitizer: use-of-uninitialized-value (/home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/build_O1/tests/test_sig+0x73ab9) (BuildId: dcbb01b8936932dc5c5a73f412a73ba53060c58a) in memcmp

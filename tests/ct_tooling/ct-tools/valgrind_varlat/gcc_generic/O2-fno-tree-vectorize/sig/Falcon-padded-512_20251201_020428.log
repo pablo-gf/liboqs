@@ -1,0 +1,244 @@
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:poly_small_mkgauss
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_keygen
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_crypto_sign_keypair
+   fun:OQS_SIG_keypair
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_keygen
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_crypto_sign_keypair
+   fun:OQS_SIG_keypair
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_compute_public
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_keygen
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_crypto_sign_keypair
+   fun:OQS_SIG_keypair
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:solve_NTRU_deepest
+   fun:solve_NTRU
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_keygen
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_crypto_sign_keypair
+   fun:OQS_SIG_keypair
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:solve_NTRU_intermediate
+   fun:solve_NTRU
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_keygen
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_crypto_sign_keypair
+   fun:OQS_SIG_keypair
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:solve_NTRU
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_keygen
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_crypto_sign_keypair
+   fun:OQS_SIG_keypair
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:solve_NTRU_binary_depth1
+   fun:solve_NTRU
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_keygen
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_crypto_sign_keypair
+   fun:OQS_SIG_keypair
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:poly_big_to_small
+   fun:solve_NTRU
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_keygen
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_crypto_sign_keypair
+   fun:OQS_SIG_keypair
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_trim_i8_encode
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_crypto_sign_keypair
+   fun:OQS_SIG_keypair
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_modq_encode
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_crypto_sign_keypair
+   fun:OQS_SIG_keypair
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_trim_i8_decode
+   fun:do_sign.constprop.0
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_crypto_sign_signature
+   fun:OQS_SIG_sign
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_complete_private
+   fun:do_sign.constprop.0
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_crypto_sign_signature
+   fun:OQS_SIG_sign
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:fpr_floor
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_sampler
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:do_sign_dyn
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_sign_dyn
+   fun:do_sign.constprop.0
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_crypto_sign_signature
+   fun:OQS_SIG_sign
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:BerExp
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_sampler
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:do_sign_dyn
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_sign_dyn
+   fun:do_sign.constprop.0
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_crypto_sign_signature
+   fun:OQS_SIG_sign
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_sampler
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:ffSampling_fft_dyntree.constprop.0
+   fun:do_sign_dyn
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_sign_dyn
+   fun:do_sign.constprop.0
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_crypto_sign_signature
+   fun:OQS_SIG_sign
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:do_sign_dyn
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_sign_dyn
+   fun:do_sign.constprop.0
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_crypto_sign_signature
+   fun:OQS_SIG_sign
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_comp_encode
+   fun:do_sign.constprop.0
+   fun:PQCLEAN_FALCONPADDED512_CLEAN_crypto_sign_signature
+   fun:OQS_SIG_sign
+   fun:sig_test_correctness
+   fun:main
+}
+
+

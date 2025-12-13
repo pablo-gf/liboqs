@@ -1,0 +1,3 @@
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/common/sha3/xkcp_low/KeccakP-1600times4/avx2/KeccakP-1600-times4-SIMD256.c:94:2 in load64
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/kem/kyber/pqcrystals-kyber_kyber512_avx2/poly.c:359:13 in pqcrystals_kyber512_avx2_poly_tomsg
+SUMMARY: MemorySanitizer: use-of-uninitialized-value (/home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/build_O0/tests/test_kem+0x73ab9) (BuildId: 95e5c65533313e2505afde1f97375fd55c6ad28c) in memcmp

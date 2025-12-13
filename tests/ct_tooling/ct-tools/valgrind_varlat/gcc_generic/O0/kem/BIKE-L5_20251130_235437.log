@@ -1,0 +1,45 @@
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:OQS_KEM_bike_l5_secure_set_bits_port
+   fun:OQS_KEM_bike_l5_generate_sparse_rep_for_sk
+   fun:OQS_KEM_bike_l5_generate_secret_key
+   fun:OQS_KEM_bike_l5_keypair
+   fun:OQS_KEM_keypair
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:OQS_KEM_bike_l5_secure_set_bits_port
+   fun:OQS_KEM_bike_l5_generate_error_vector
+   fun:OQS_KEM_bike_l5_function_h
+   fun:OQS_KEM_bike_l5_encaps
+   fun:OQS_KEM_encaps
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:OQS_KEM_bike_l5_secure_set_bits_port
+   fun:OQS_KEM_bike_l5_generate_error_vector
+   fun:OQS_KEM_bike_l5_function_h
+   fun:OQS_KEM_bike_l5_decaps
+   fun:OQS_KEM_decaps
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+

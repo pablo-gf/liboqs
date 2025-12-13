@@ -1,0 +1,5 @@
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/sig/snova/snova_SNOVA_60_10_4_avx2/snova_kernel.h:136:17 in gen_a_FqS_ct
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/sig/snova/snova_SNOVA_60_10_4_avx2/snova_kernel.h:137:56 in gen_a_FqS_ct
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/sig/snova/snova_SNOVA_60_10_4_avx2/snova_plasma_vec_gnl_sign.h:297:15 in _snova_60_10_4_aes_ssk_avx2_sign_digest_core_gnl_vtl
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/sig/snova/snova_SNOVA_60_10_4_avx2/snova_plasma_vec_gnl_sign.h:310:12 in _snova_60_10_4_aes_ssk_avx2_sign_digest_core_gnl_vtl
+SUMMARY: MemorySanitizer: use-of-uninitialized-value (/home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/build_O3/tests/test_sig+0x73ab9) (BuildId: a9f330dc409494df5b7bf50df8f5580538ed22de) in memcmp

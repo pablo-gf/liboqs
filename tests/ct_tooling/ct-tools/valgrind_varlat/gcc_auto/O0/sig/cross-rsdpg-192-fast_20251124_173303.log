@@ -1,0 +1,150 @@
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:csprng_fz_mat
+   fun:expand_pk
+   fun:PQCLEAN_CROSSRSDPG192FAST_AVX2_CROSS_keygen
+   fun:PQCLEAN_CROSSRSDPG192FAST_AVX2_crypto_sign_keypair
+   fun:OQS_SIG_cross_rsdpg_192_fast_keypair
+   fun:OQS_SIG_keypair
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:csprng_fp_mat
+   fun:expand_pk
+   fun:PQCLEAN_CROSSRSDPG192FAST_AVX2_CROSS_keygen
+   fun:PQCLEAN_CROSSRSDPG192FAST_AVX2_crypto_sign_keypair
+   fun:OQS_SIG_cross_rsdpg_192_fast_keypair
+   fun:OQS_SIG_keypair
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:csprng_fz_inf_w
+   fun:PQCLEAN_CROSSRSDPG192FAST_AVX2_CROSS_keygen
+   fun:PQCLEAN_CROSSRSDPG192FAST_AVX2_crypto_sign_keypair
+   fun:OQS_SIG_cross_rsdpg_192_fast_keypair
+   fun:OQS_SIG_keypair
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:csprng_fz_mat
+   fun:expand_pk
+   fun:expand_sk
+   fun:PQCLEAN_CROSSRSDPG192FAST_AVX2_CROSS_sign
+   fun:PQCLEAN_CROSSRSDPG192FAST_AVX2_crypto_sign_signature
+   fun:OQS_SIG_cross_rsdpg_192_fast_sign
+   fun:OQS_SIG_sign
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:csprng_fp_mat
+   fun:expand_pk
+   fun:expand_sk
+   fun:PQCLEAN_CROSSRSDPG192FAST_AVX2_CROSS_sign
+   fun:PQCLEAN_CROSSRSDPG192FAST_AVX2_crypto_sign_signature
+   fun:OQS_SIG_cross_rsdpg_192_fast_sign
+   fun:OQS_SIG_sign
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:csprng_fz_inf_w
+   fun:expand_sk
+   fun:PQCLEAN_CROSSRSDPG192FAST_AVX2_CROSS_sign
+   fun:PQCLEAN_CROSSRSDPG192FAST_AVX2_crypto_sign_signature
+   fun:OQS_SIG_cross_rsdpg_192_fast_sign
+   fun:OQS_SIG_sign
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:csprng_fz_inf_w
+   fun:PQCLEAN_CROSSRSDPG192FAST_AVX2_CROSS_sign
+   fun:PQCLEAN_CROSSRSDPG192FAST_AVX2_crypto_sign_signature
+   fun:OQS_SIG_cross_rsdpg_192_fast_sign
+   fun:OQS_SIG_sign
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:csprng_fp_vec
+   fun:PQCLEAN_CROSSRSDPG192FAST_AVX2_CROSS_sign
+   fun:PQCLEAN_CROSSRSDPG192FAST_AVX2_crypto_sign_signature
+   fun:OQS_SIG_cross_rsdpg_192_fast_sign
+   fun:OQS_SIG_sign
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:csprng_fp_vec_chall_1
+   fun:PQCLEAN_CROSSRSDPG192FAST_AVX2_CROSS_sign
+   fun:PQCLEAN_CROSSRSDPG192FAST_AVX2_crypto_sign_signature
+   fun:OQS_SIG_cross_rsdpg_192_fast_sign
+   fun:OQS_SIG_sign
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:PQCLEAN_CROSSRSDPG192FAST_AVX2_expand_digest_to_fixed_weight
+   fun:PQCLEAN_CROSSRSDPG192FAST_AVX2_CROSS_sign
+   fun:PQCLEAN_CROSSRSDPG192FAST_AVX2_crypto_sign_signature
+   fun:OQS_SIG_cross_rsdpg_192_fast_sign
+   fun:OQS_SIG_sign
+   fun:sig_test_correctness
+   fun:main
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:PQCLEAN_CROSSRSDPG192FAST_AVX2_expand_digest_to_fixed_weight
+   fun:PQCLEAN_CROSSRSDPG192FAST_AVX2_CROSS_sign
+   fun:PQCLEAN_CROSSRSDPG192FAST_AVX2_crypto_sign_signature
+   fun:OQS_SIG_cross_rsdpg_192_fast_sign
+   fun:OQS_SIG_sign
+   fun:sig_test_correctness
+   fun:main
+}
+
+
