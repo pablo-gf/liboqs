@@ -1,9 +1,5 @@
 #!/bin/bash
-# Run kyberslash constant-time tests on liboqs and captures all raw kyberslash output to log files
-# Currently disregarding all SPHINCS, ML-DSA tests due to the execessive length of time they require to execute.
-# Because of how many warnings are output, It is not feasible to store all the warnings in terms of memory and runtime:
-#       - Since the suppression block (the data inside the curly braces {...}) contains the overall information of the issue, each will be logged into the log file for the sake of simplicity.
-#       - These unique blocks will be the ones counted as warnings, since the same warning may be output several times throughout the execution.
+
 set -e
 
 BUILD_DIR="${1:?Error: Build directory argument is required.}"
@@ -20,7 +16,7 @@ fi
 
 SCRIPT_DIR="$(cd \"$(dirname \"${BASH_SOURCE[0]}\")\" && pwd)"
 LIBOQS_DIR="$(realpath \"$SCRIPT_DIR/../../../../../../liboqs\")"
-LOG_DIR="${SCRIPT_DIR}/${COMP_V}_${LIBOQS_BUILD}"
+LOG_DIR="${SCRIPT_DIR}/logs/${COMP_V}_${LIBOQS_BUILD}"
 
 # Ensure base log directory exists
 mkdir -p "$LOG_DIR"
@@ -76,7 +72,7 @@ echo ""
 COMPILATION_FLAGS=$(grep "CMAKE_C_FLAGS:" "$BUILD_DIR/CMakeCache.txt" | cut -d'=' -f2-)
 
 VALGRIND_OPTS=(
-    "$HOME/valgrind-kyberslash-2/bin/valgrind" # Point to the KyberSlash Valgrind
+    "valgrind_varlat"
     --tool=memcheck
     --gen-suppressions=all
     --error-exitcode=123

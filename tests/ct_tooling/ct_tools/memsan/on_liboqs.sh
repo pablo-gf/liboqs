@@ -1,9 +1,6 @@
 #!/bin/bash
-# Execute MemorySanitizer constant-time tests on liboqs and captures all raw MemSan output to log files per algorithm
-# Currently disregarding all SPHINCS, ML-DSA tests due to the execessive length of time they require to execute. ML-DSA and UOV will only be tested for one single variant for the same reason.
-# Because of how many warnings are output, It is not feasible to store all the warnings in terms of memory and runtime:
-#       - Since the SUMMARY line contains the overall information of the issue with the file and line, that is the data that will be logged into the log file for the sake of simplicity.
-#       - These unique summary lines will be the ones counted as warnings, since the same warning may be output several times throughout the execution.
+
+set -e
 
 BUILD_DIR="${1:?Error: Build directory argument is required.}"
 TEST_TYPE="${2:?Error: Test type argument is required (kem|sig).}"
@@ -19,7 +16,7 @@ fi
 
 SCRIPT_DIR="$(cd \"$(dirname \"${BASH_SOURCE[0]}\")\" && pwd)"
 LIBOQS_DIR="$(realpath \"$SCRIPT_DIR/../../../../../../liboqs\")"
-LOG_DIR="${SCRIPT_DIR}/${COMP_V}_${LIBOQS_BUILD}"
+LOG_DIR="${SCRIPT_DIR}/logs/${COMP_V}_${LIBOQS_BUILD}"
 
 # Ensure base log directory exists
 mkdir -p "$LOG_DIR"

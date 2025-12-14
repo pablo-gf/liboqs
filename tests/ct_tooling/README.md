@@ -1,29 +1,30 @@
 # liboqs Constant-Time Tooling
 
-Automated testing infrastructure for detecting constant-time violations in [liboqs](https://github.com/open-quantum-safe/liboqs) cryptographic implementations using multiple analysis tools across different compiler optimization levels.
+Automated testing framework for detecting constant-time warnings in [liboqs](https://github.com/open-quantum-safe/liboqs) cryptographic implementations using analysis tools across different compiler optimization levels, compiler versions, and liboqs builds.
 
 ## Repository Structure
 
 ```
-liboqs-ct-tooling/
-├── ct-tools/
-│   ├── kyberslash/
-│   │   └── liboqs-ci-repl/
-│   │       ├── liboqs/           # local working copy (not tracked)
-│   │       ├── kyberslash_on_liboqs.sh
-│   │       └── kyberslash_compiler_opts.sh
-│   ├── memsan/
-│   │   └── liboqs-ci-repl/
-│   │       ├── liboqs/           # local working copy (not tracked)
-│   │       ├── memsan_on_liboqs.sh
-│   │       └── memsan_compiler_opts.sh
-│   ├── valgrind/
-│   │   └── liboqs-ci-repl/
-│   │       ├── liboqs/           # local working copy (not tracked)
-│   │       ├── valgrind_on_liboqs.sh
-│   │       └── valgrind_compiler_opts.sh
-├── log_comparison/     # comparisons between tool outputs (in_both.txt, only_in_*.txt)
-├── results/            # aggregated result CSVs per tool/experiment
+ct_tools/
+├── memsan/
+│   ├── opt_flags.sh          # Script for building liboqs with different testing modes
+│   ├── on_liboqs.sh          # Script for running MemSan tests
+│   ├── logs/                 # Directory containing all logs for MemSan tests
+│   ├── README.md             # Documentation for MemSan testing
+│   ├── CMakeLists.txt        # MemSan-specific CMakeLists
+│   ├── test_kem.c            # MemSan-specific kem test
+│   ├── test_sig.c            # MemSan-specific sig test
+│   └── rng_poison_memsan.c   # RNG poisoning for MemSan
+
+├── valgrind_varlat/
+│   ├── opt_flags.sh          # Script for building liboqs with different testing modes
+│   ├── on_liboqs.sh          # Script for running MemSan tests
+│   ├── logs/                 # Directory containing all logs for valgrind_varlat tests
+│   ├── README.md             # Documentation for Valgrind testing
+│   ├── valgrind-try-patch-20250805.txt       # Valgrind patch file
+│   ├── valgrind-varlat-patch-20250805.txt    # Valgrind variable-latency patch
+│   └──valgrind-varlat-sup-block.txt         # Valgrind suppression block
+├── results/            # Aggregated results (CSVs and figures) per experiment
 ├── scripts/            # helper scripts (analyze_results.py, compare_logs.py)
 ├── README.md
 ```
@@ -40,8 +41,7 @@ liboqs-ct-tooling/
 ### 2. MemorySanitizer (`memsan/`)
 - **Purpose**: LLVM-based memory error detection
 - **Key Scripts**:
-  - `memsan_on_liboqs.sh <build_dir> <kem|sig>` - Run tests on a single build
-  - `memsan_compiler_opts.sh` - Test across all optimization levels
+  - `opt_flags.sh` - Builds liboqs with MemSan and runs tests
 - **Output**: Unique `SUMMARY: MemorySanitizer:` lines
 
 ### 3. KyberSlash (`kyberslash/`)
