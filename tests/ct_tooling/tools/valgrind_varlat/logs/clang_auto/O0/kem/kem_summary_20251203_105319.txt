@@ -1,0 +1,63 @@
+========================================
+Testing KEMs
+Compiled with: -O0
+Executed with: /home/nics-lab/valgrind-kyberslash-2/bin/valgrind --tool=memcheck --gen-suppressions=all --error-exitcode=123 --max-stackframe=20480000 --num-callers=20 --variable-latency-errors=yes
+Compiler version: Ubuntu clang version 18.1.3 (1ubuntu1)
+Architecture: x86_64
+========================================
+
+Testing KEM: BIKE-L1 ... FAIL (Valgrind Kyberslash warnings)
+  → Found 5 Valgrind Kyberslash warnings
+Testing KEM: BIKE-L3 ... FAIL (Valgrind Kyberslash warnings)
+  → Found 5 Valgrind Kyberslash warnings
+Testing KEM: BIKE-L5 ... FAIL (Valgrind Kyberslash warnings)
+  → Found 5 Valgrind Kyberslash warnings
+Testing KEM: Classic-McEliece-348864 ... FAIL (Valgrind Kyberslash warnings)
+  → Found 6 Valgrind Kyberslash warnings
+Testing KEM: Classic-McEliece-348864f ... FAIL (Valgrind Kyberslash warnings)
+  → Found 7 Valgrind Kyberslash warnings
+Testing KEM: Classic-McEliece-460896 ... FAIL (Valgrind Kyberslash warnings)
+  → Found 5 Valgrind Kyberslash warnings
+Testing KEM: Classic-McEliece-460896f ... FAIL (Valgrind Kyberslash warnings)
+  → Found 6 Valgrind Kyberslash warnings
+Testing KEM: Classic-McEliece-6688128 ... FAIL (Valgrind Kyberslash warnings)
+  → Found 5 Valgrind Kyberslash warnings
+Testing KEM: Classic-McEliece-6688128f ... FAIL (Valgrind Kyberslash warnings)
+  → Found 6 Valgrind Kyberslash warnings
+Testing KEM: Classic-McEliece-6960119 ... FAIL (Valgrind Kyberslash warnings)
+  → Found 5 Valgrind Kyberslash warnings
+Testing KEM: Classic-McEliece-6960119f ... FAIL (Valgrind Kyberslash warnings)
+  → Found 6 Valgrind Kyberslash warnings
+Testing KEM: Classic-McEliece-8192128 ... FAIL (Valgrind Kyberslash warnings)
+  → Found 5 Valgrind Kyberslash warnings
+Testing KEM: Classic-McEliece-8192128f ... FAIL (Valgrind Kyberslash warnings)
+  → Found 6 Valgrind Kyberslash warnings
+Testing KEM: Kyber512 ... FAIL (Valgrind Kyberslash warnings)
+  → Found 6 Valgrind Kyberslash warnings
+Testing KEM: Kyber768 ... FAIL (Valgrind Kyberslash warnings)
+  → Found 4 Valgrind Kyberslash warnings
+Testing KEM: Kyber1024 ... FAIL (Valgrind Kyberslash warnings)
+  → Found 10 Valgrind Kyberslash warnings
+Testing KEM: ML-KEM-512 ... FAIL (Valgrind Kyberslash warnings)
+  → Found 8 Valgrind Kyberslash warnings
+Testing KEM: ML-KEM-768 ... FAIL (Valgrind Kyberslash warnings)
+  → Found 9 Valgrind Kyberslash warnings
+Testing KEM: ML-KEM-1024 ... FAIL (Valgrind Kyberslash warnings)
+  → Found 8 Valgrind Kyberslash warnings
+Testing KEM: NTRU-HPS-2048-509 ... PASS
+Testing KEM: NTRU-HPS-2048-677 ... PASS
+Testing KEM: NTRU-HPS-4096-821 ... PASS
+Testing KEM: NTRU-HPS-4096-1229 ... PASS
+Testing KEM: NTRU-HRSS-701 ... PASS
+Testing KEM: NTRU-HRSS-1373 ... PASS
+Testing KEM: sntrup761 ... FAIL (Valgrind Kyberslash warnings)
+  → Found 1 Valgrind Kyberslash warnings
+Testing KEM: FrodoKEM-640-AES ... PASS
+Testing KEM: FrodoKEM-640-SHAKE ... PASS
+Testing KEM: FrodoKEM-976-AES ... PASS
+Testing KEM: FrodoKEM-976-SHAKE ... PASS
+Testing KEM: FrodoKEM-1344-AES ... PASS
+Testing KEM: FrodoKEM-1344-SHAKE ... PASS
+
+KEM Results: 12 passed, 20 failed
+

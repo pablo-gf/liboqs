@@ -1,0 +1,266 @@
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_rej_uniform_avx2
+   fun:mlk_rej_uniform_native
+   fun:mlk_rej_uniform
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_poly_rej_uniform_x4
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_gen_matrix
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_indcpa_keypair_derand
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_keypair_derand
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_keypair
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_rej_uniform_avx2
+   fun:mlk_rej_uniform_native
+   fun:mlk_rej_uniform
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_poly_rej_uniform_x4
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_gen_matrix
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_indcpa_keypair_derand
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_keypair_derand
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_keypair
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:mlk_rej_uniform
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_poly_rej_uniform_x4
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_gen_matrix
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_indcpa_keypair_derand
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_keypair_derand
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_keypair
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_poly_rej_uniform_x4
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_gen_matrix
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_indcpa_keypair_derand
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_keypair_derand
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_keypair
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_rej_uniform_avx2
+   fun:mlk_rej_uniform_native
+   fun:mlk_rej_uniform
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_poly_rej_uniform
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_gen_matrix
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_indcpa_keypair_derand
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_keypair_derand
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_keypair
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_rej_uniform_avx2
+   fun:mlk_rej_uniform_native
+   fun:mlk_rej_uniform
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_poly_rej_uniform
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_gen_matrix
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_indcpa_keypair_derand
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_keypair_derand
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_keypair
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:mlk_rej_uniform
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_poly_rej_uniform
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_gen_matrix
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_indcpa_keypair_derand
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_keypair_derand
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_keypair
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_poly_rej_uniform
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_gen_matrix
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_indcpa_keypair_derand
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_keypair_derand
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_keypair
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_dec
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:mlk_rej_uniform
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_poly_rej_uniform_x4
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_gen_matrix
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_indcpa_enc
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_dec
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_poly_rej_uniform_x4
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_gen_matrix
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_indcpa_enc
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_dec
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_rej_uniform_avx2
+   fun:mlk_rej_uniform_native
+   fun:mlk_rej_uniform
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_poly_rej_uniform_x4
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_gen_matrix
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_indcpa_enc
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_dec
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:mlk_rej_uniform
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_poly_rej_uniform
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_gen_matrix
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_indcpa_enc
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_dec
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_poly_rej_uniform
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_gen_matrix
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_indcpa_enc
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_dec
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_dec
+   fun:mlkem_rej_testcase
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_rej_uniform_avx2
+   fun:mlk_rej_uniform_native
+   fun:mlk_rej_uniform
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_poly_rej_uniform
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_gen_matrix
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_indcpa_keypair_derand
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_keypair_derand
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_rej_uniform_avx2
+   fun:mlk_rej_uniform_native
+   fun:mlk_rej_uniform
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_poly_rej_uniform
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_gen_matrix
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_indcpa_keypair_derand
+   fun:PQCP_MLKEM_NATIVE_MLKEM768_X86_64_keypair_derand
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+

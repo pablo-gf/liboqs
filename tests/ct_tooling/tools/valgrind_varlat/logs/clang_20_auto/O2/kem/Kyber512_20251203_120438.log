@@ -1,0 +1,82 @@
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:pqcrystals_kyber512_avx2_rej_uniform_avx
+   fun:pqcrystals_kyber512_avx2_gen_matrix
+   fun:pqcrystals_kyber512_avx2_indcpa_keypair
+   fun:pqcrystals_kyber512_avx2_keypair
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:pqcrystals_kyber512_avx2_rej_uniform_avx
+   fun:pqcrystals_kyber512_avx2_gen_matrix
+   fun:pqcrystals_kyber512_avx2_indcpa_keypair
+   fun:pqcrystals_kyber512_avx2_keypair
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:pqcrystals_kyber512_avx2_gen_matrix
+   fun:pqcrystals_kyber512_avx2_indcpa_keypair
+   fun:pqcrystals_kyber512_avx2_keypair
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value8
+   fun:pqcrystals_kyber512_avx2_rej_uniform_avx
+   fun:pqcrystals_kyber512_avx2_gen_matrix
+   fun:pqcrystals_kyber512_avx2_indcpa_enc
+   fun:pqcrystals_kyber512_avx2_dec
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:pqcrystals_kyber512_avx2_rej_uniform_avx
+   fun:pqcrystals_kyber512_avx2_gen_matrix
+   fun:pqcrystals_kyber512_avx2_indcpa_enc
+   fun:pqcrystals_kyber512_avx2_dec
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:pqcrystals_kyber512_avx2_gen_matrix
+   fun:pqcrystals_kyber512_avx2_indcpa_enc
+   fun:pqcrystals_kyber512_avx2_dec
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+

@@ -1,0 +1,23 @@
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:PQCLEAN_SNTRUP761_CLEAN_crypto_kem_keypair
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:PQCLEAN_SNTRUP761_CLEAN_crypto_core_wforcesntrup761
+   fun:PQCLEAN_SNTRUP761_CLEAN_crypto_kem_dec
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
+

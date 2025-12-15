@@ -7,8 +7,8 @@ Automated testing framework for detecting constant-time warnings in [liboqs](htt
 ```
 ct_tools/
 ├── memsan/
-│   ├── opt_flags.sh          # Script for building liboqs with different testing modes
-│   ├── on_liboqs.sh          # Script for running MemSan tests
+│   ├── build.sh              # Script for building liboqs with different testing modes
+│   ├── test.sh               # Script for running MemSan tests
 │   ├── logs/                 # Directory containing all logs for MemSan tests
 │   ├── README.md             # Documentation for MemSan testing
 │   ├── CMakeLists.txt        # MemSan-specific CMakeLists
@@ -17,13 +17,13 @@ ct_tools/
 │   └── rng_poison_memsan.c   # RNG poisoning for MemSan
 
 ├── valgrind_varlat/
-│   ├── opt_flags.sh          # Script for building liboqs with different testing modes
-│   ├── on_liboqs.sh          # Script for running MemSan tests
-│   ├── logs/                 # Directory containing all logs for valgrind_varlat tests
+│   ├── build.sh              # Script for building liboqs with different testing modes
+│   ├── test.sh               # Script for running MemSan tests
+│   ├── logs/                 # Directory containing all logs for ValgrindVarlat tests
 │   ├── README.md             # Documentation for Valgrind testing
 │   ├── valgrind-try-patch-20250805.txt       # Valgrind patch file
 │   ├── valgrind-varlat-patch-20250805.txt    # Valgrind variable-latency patch
-│   └──valgrind-varlat-sup-block.txt         # Valgrind suppression block
+│   └── valgrind-varlat-sup-block.txt         # Valgrind suppression block
 ├── results/            # Aggregated results (CSVs and figures) per experiment
 ├── scripts/            # helper scripts (analyze_results.py, compare_logs.py)
 ├── README.md
@@ -31,72 +31,117 @@ ct_tools/
 
 ## Tools
 
-### 1. Valgrind (`valgrind/`)
-- **Purpose**: Detect uninitialized memory reads (constant-time violations)
+### 1. ValgrindVarlat (`valgrind_varlat/`)
+- **Purpose**: Uninitialized memory error detection using patched Valgrind, which includes variable-latency errors
 - **Key Scripts**:
-  - `valgrind_on_liboqs.sh <build_dir> <kem|sig>` - Run tests on a single build
-  - `valgrind_compiler_opts.sh` - Test across all optimization levels
-- **Output**: Unique suppression blocks (deduplicated via SHA-256 hashing)
+  - `build.sh` - Build liboqs across compiler versions, liboqs builds, and optimization levels
+  - `test.sh <build_dir> <kem|sig>` - Run tests on a single build
+- **Output**: Unique suppression blocks for variable-latency errors (deduplicated via SHA-256 hashing)
 
-### 2. MemorySanitizer (`memsan/`)
+### 2. MemSan (`memsan/`)
 - **Purpose**: LLVM-based memory error detection
 - **Key Scripts**:
-  - `opt_flags.sh` - Builds liboqs with MemSan and runs tests
+  - `build.sh` - Build liboqs across compiler versions, liboqs builds, and optimization levels
+  - `test.sh <build_dir> <kem|sig>` - Run tests on a single build
 - **Output**: Unique `SUMMARY: MemorySanitizer:` lines
 
-### 3. KyberSlash (`kyberslash/`)
-- **Purpose**: Variable-latency error detection using patched Valgrind
-- **Key Scripts**:
-  - `kyberslash_on_liboqs.sh <build_dir> <kem|sig>` - Run tests on a single build
-  - `kyberslash_compiler_opts.sh` - Test across all optimization levels
-- **Output**: Unique suppression blocks for variable-latency errors (deduplicated via SHA-256 hashing)
+### Configuration
+For ValgrindVarlat configuration, see: [ValgrindVarlat's README](liboqs/tests/ct_tooling/tools/valgrind_varlat/README.md)
+For MemSan configuration, see: [MemSan's README](liboqs/tests/ct_tooling/tools/memsan/README.md)
 
 ## Workflow
 
 ### Running Tests
 
-Each tool follows the same pattern:
+Each tool follows the same testing workflow, which is implemented through two shell scripts:
 
-1. **Single optimization level**:
-   ```bash
-   cd <tool>/liboqs-ci-repl
-   ./<tool>_on_liboqs.sh /path/to/build_O0 kem
-   ./<tool>_on_liboqs.sh /path/to/build_O0 sig
-   ```
+1. **Building liboqs**
+First, the `build.sh` script builds liboqs with the different variants that we are interested into, generating a build folder for each possible combination:
 
-2. **All optimization levels** (`O0`, `O1`, `O2`, `O3`, `Os`, `Ofast`, `O2-fno-tree-vectorize`, `O3-fno-tree-vectorize`):
-   ```bash
-   cd <tool>/liboqs-ci-repl
-   ./<tool>_compiler_opts.sh
-   ```
+- Compiler versions: gcc, gcc-14, clang, and clang-20
+- liboqs build: auto (with optimizations), and generic
+- Optimization flags: -O0, -O1, -O2, -O3, -Os, -Ofast, -O2 -fno-tree-vectorize, and -O3 -fno-tree-vectorize
+
+Note that ValgrindVarlat tests can be compiled using both gcc and clang, while MemSan is only native to the clang compiler. This leaves the following possible configurations for each of the optimization flags:
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="4">ValgrindVarlat</th>
+      <th colspan="2">MemSan</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>gcc</th>
+      <th>gcc-14</th>
+      <th>clang</th>
+      <th>clang-20</th>
+      <th>clang</th>
+      <th>clang-20</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>generic</td>
+      <td>All opt flags</td>
+      <td>All opt flags</td>
+      <td>All opt flags</td>
+      <td>All opt flags</td>
+      <td>All opt flags</td>
+      <td>All opt flags</td>
+    </tr>
+    <tr>
+      <td>auto</td>
+      <td>All opt flags</td>
+      <td>All opt flags</td>
+      <td>All opt flags</td>
+      <td>All opt flags</td>
+      <td>All opt flags</td>
+      <td>All opt flags</td>
+    </tr>
+  </tbody>
+</table>
+
+Once the script builds each configuration into a build folder, it calls the test execution script (`test.sh`) on the build folder generated.
+
+2. **Test execution**
+Then, the `test.sh` script is tasked with executing the tool's test on selected liboqs algorithms. It retrieves the OQS enabled algorithms using the helpers module, and starts the constant time testing on each one of the variants that are returned. Each tool has a different process through which it parses the tool's output to keep unique instances of the warnings, which are further detailed in their respective README files: [ValgrindVarlat's README](liboqs/tests/ct_tooling/tools/valgrind_varlat/README.md) and [MemSan's README](liboqs/tests/ct_tooling/tools/memsan/README.md).
 
 ### Output Structure
+The workflow organizes test outputs into log files that capture unique warnings for each algorithm. These logs are categorized into concrete subdirectories based on the compiler and build configuration (`gcc_14_auto`, `clang_generic`, ...), which then contain further subdivisions by optimization levels (`O0`, `O1`, ...) and algorithm types (`kem` or `sig`). The structure is as follows:
 
 ```
-<tool>/liboqs-ci-repl/<tool>_logs/
-├── O0/
-│   ├── kem/
-│   │   ├── kem_summary_<timestamp>.txt  # Pass/fail summary
-│   │   ├── <algorithm>_<timestamp>.log  # Unique warnings
-│   └── sig/
-│       └── ...
-├── O1/
-└── ...
+liboqs-ct-tooling/ct-tools/<tool>/logs/
+├── clang_generic/
+│   ├── O0/
+│   │   ├── kem/
+│   │   │   ├── kem_summary_<timestamp>.txt  # Pass/fail summary
+│   │   │   ├── <algorithm>_<timestamp>.log  # Unique warnings
+│   │   └── sig/
+│   │       └── ...
+│   ├── O1/
+│   └── ...
+├── <compiler>_<build_config>/
+│   ├── O0/
+│   └── ...
 ```
 
 ### Analyzing Results
 
+Use `scripts/analyze_results.py` to parse the warnings data from the log files and generate graphs describing the results.
+
 ```bash
 python3 analyze_results.py \
-    --tool <valgrind|memsan|kyberslash> \
-    --input <tool>/liboqs-ci-repl/<tool>_logs \
+    --tool <ValgrindVarlat|MemSan> \
+    --input liboqs/tests/ct_testing/ct_tools/<tool>/logs \
     --output results_<tool>
 ```
 
 **Generates**:
 - `KEM_warnings_per_opt_level.csv` - Warning counts per algorithm per optimization
 - `SIG_warnings_per_opt_level.csv` - Same for signature schemes
-- `*.png` - Visualization graphs
+- `*.png` - 4 visualization graphs regarding the total and average number of warnigns per KEM and signature
 
 ### Comparing logs between tools
 
@@ -116,44 +161,3 @@ If `--out-dir` is specified the script writes three files into that directory:
 - `in_both.txt` — blocks present in both files
 
 Each output file contains one canonical block per unique warning and is useful for manual inspection or downstream aggregation.
-
-## Key Features
-
-### Deduplication
-- **Valgrind/KyberSlash**: SHA-256 hashing of suppression blocks `{...}`
-- **MemSan**: Exact string matching of `SUMMARY:` lines
-
-### Algorithm Filtering
-- **Skipped**: `SPHINCS*`, `SLH_DSA*` for signature tests (too slow/noisy)
-- **Automatic discovery**: Uses liboqs `helpers.py` to enumerate enabled algorithms
-
-### Warning Cap
-- Maximum 100,000 unique warnings per algorithm to prevent resource exhaustion
-
-## Configuration
-
-### Compiler Flags
-Each `<tool>_compiler_opts.sh` configures:
-- **Valgrind/KyberSlash**: GCC with `-fno-tree-vectorize` variants
-- **MemSan**: Clang with `-fsanitize=memory -fsanitize-recover=all`
-
-## Dependencies
-
-- **Valgrind**: Standard memcheck tool
-- **KyberSlash**: Patched Valgrind from `~/valgrind-kyberslash/bin/valgrind`
-- **MemSan**: Clang compiler with sanitizer support
-- **Python**: `matplotlib`, `numpy` for result analysis
-
-## Example
-
-```bash
-# Build and test with Valgrind across all optimizations
-cd valgrind/liboqs-ci-repl
-./valgrind_compiler_opts.sh
-
-# Analyze results
-python3 ../../analyze_results.py -t valgrind -i valgrind_logs -o ../../results_valgrind
-
-# View summary
-cat ../../results_valgrind/KEM_warnings_per_opt_level.csv
-```
