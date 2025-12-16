@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 #include <sanitizer/msan_interface.h>
 #include <stdint.h>
 #include <stddef.h>

@@ -1,4 +1,4 @@
-# MEMSAN
+# MemSan
 
 This directory contains the files required to execute MemSan's tooling for liboqs constant-time testing.
 

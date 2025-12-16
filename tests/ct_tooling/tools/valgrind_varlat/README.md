@@ -1,4 +1,4 @@
-# VALGRINDVARLAT
+# ValgrindVarlat
 
 This directory contains the necessary files to execute Valgrind's memcheck tool on liboqs with [Bernstein's Kyberslash patches](https://kyberslash.cr.yp.to/papers.html) (valgrind-try-patch-20250805.txt and valgrind-varlat-patch-20250805.txt) and another patch including variable latency warnings in the suppression block (valgrind_varlat_sup_block.txt).
 

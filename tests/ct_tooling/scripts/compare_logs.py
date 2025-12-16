@@ -1,4 +1,7 @@
+# SPDX-License-Identifier: MIT
+
 #!/usr/bin/env python3
+
 """
 Compare { ... } blocks between two log files.
 
