@@ -1,4 +1,7 @@
+# SPDX-License-Identifier: MIT
+
 #!/usr/bin/env python3
+
 """
 Analyze constant-time results across different optimization levels.
 Parses summary files to compare warning counts for KEMs and SIGs.
