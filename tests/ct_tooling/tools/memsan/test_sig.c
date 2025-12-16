@@ -114,24 +114,24 @@ static OQS_STATUS sig_test_correctness(const char *method_name, bool bitflips_al
 		goto err;
 	}
 
-/*  Commenting so that MemSan constant-time testing does not run on signature verification
+	/*  Commenting so that MemSan constant-time testing does not run on signature verification
 
-	OQS_TEST_CT_DECLASSIFY(public_key, sig->length_public_key);
-	OQS_TEST_CT_DECLASSIFY(signature, signature_len);
-	rc = OQS_SIG_verify(sig, message, message_len, signature, signature_len, public_key);
-	OQS_TEST_CT_DECLASSIFY(&rc, sizeof rc);
-	if (rc != OQS_SUCCESS) {
-		fprintf(stderr, "ERROR: OQS_SIG_verify failed\n");
-		goto err;
-	} 
-			
-	if (extended_tests) {
-		rc = test_sig_bitflip(sig, message, message_len, signature, signature_len, public_key, bitflips_all, bitflips, false, NULL, 0);
-		OQS_TEST_CT_DECLASSIFY(&rc, sizeof rc);
-		if (rc != OQS_SUCCESS) {
-			goto err;
-		}
-	} */
+	    OQS_TEST_CT_DECLASSIFY(public_key, sig->length_public_key);
+	    OQS_TEST_CT_DECLASSIFY(signature, signature_len);
+	    rc = OQS_SIG_verify(sig, message, message_len, signature, signature_len, public_key);
+	    OQS_TEST_CT_DECLASSIFY(&rc, sizeof rc);
+	    if (rc != OQS_SUCCESS) {
+	        fprintf(stderr, "ERROR: OQS_SIG_verify failed\n");
+	        goto err;
+	    }
+
+	    if (extended_tests) {
+	        rc = test_sig_bitflip(sig, message, message_len, signature, signature_len, public_key, bitflips_all, bitflips, false, NULL, 0);
+	        OQS_TEST_CT_DECLASSIFY(&rc, sizeof rc);
+	        if (rc != OQS_SUCCESS) {
+	            goto err;
+	        }
+	    } */
 
 	/* testing signing with context, if supported */
 	OQS_randombytes(ctx, 257);
@@ -157,16 +157,16 @@ static OQS_STATUS sig_test_correctness(const char *method_name, bool bitflips_al
 				rc = OQS_SIG_verify_with_ctx_str(sig, message, message_len, signature, signature_len, ctx, i, public_key);
 				OQS_TEST_CT_DECLASSIFY(&rc, sizeof rc);
 				if (rc != OQS_SUCCESS) {
-					fprintf(stderr, "ERROR: OQS_SIG_verify_with_ctx_str failed\n");
-					goto err;
-				} 
+				    fprintf(stderr, "ERROR: OQS_SIG_verify_with_ctx_str failed\n");
+				    goto err;
+				}
 
 				if (extended_tests) {
-					rc = test_sig_bitflip(sig, message, message_len, signature, signature_len, public_key, bitflips_all, bitflips, true, ctx, i);
-					OQS_TEST_CT_DECLASSIFY(&rc, sizeof rc);
-					if (rc != OQS_SUCCESS) {
-						goto err;
-					}
+				    rc = test_sig_bitflip(sig, message, message_len, signature, signature_len, public_key, bitflips_all, bitflips, true, ctx, i);
+				    OQS_TEST_CT_DECLASSIFY(&rc, sizeof rc);
+				    if (rc != OQS_SUCCESS) {
+				        goto err;
+				    }
 				} */
 			}
 		}
@@ -202,14 +202,14 @@ static OQS_STATUS sig_test_correctness(const char *method_name, bool bitflips_al
 		rc = OQS_SIG_verify_with_ctx_str(sig, message, message_len, signature, signature_len, NULL, 0, public_key);
 		OQS_TEST_CT_DECLASSIFY(&rc, sizeof rc);
 		if (rc != OQS_SUCCESS) {
-			fprintf(stderr, "ERROR: OQS_SIG_verify_with_ctx_str failed\n");
-			goto err;
+		    fprintf(stderr, "ERROR: OQS_SIG_verify_with_ctx_str failed\n");
+		    goto err;
 		}
 
 		rc = test_sig_bitflip(sig, message, message_len, signature, signature_len, public_key, bitflips_all, bitflips, true, NULL, 0);
 		OQS_TEST_CT_DECLASSIFY(&rc, sizeof rc);
 		if (rc != OQS_SUCCESS) {
-			goto err;
+		    goto err;
 		} */
 	}
 
