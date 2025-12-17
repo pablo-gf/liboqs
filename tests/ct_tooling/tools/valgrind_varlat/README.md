@@ -50,8 +50,40 @@ echo "export PATH=\"$INSTALL_DIR/bin:\$PATH\"" >> ~/.bashrc
 source ~/.bashrc
 ```
 
+To check whether the installation was successful, you can use the varlat tests provided in the Kyberslash patch. Compile valgrind/memcheck/tests/varlat.c  with `gcc -o varlat varlat.c` and execute `valgrind_varlat --tool=memcheck --variable-latency-errors=yes --gen-suppressions=all ./varlat`. If the output ressembles something like the following output, valgrind_varlat was installed successfully:
+
+```
+==5335== Memcheck, a memory error detector
+==5335== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
+==5335== Using Valgrind-3.26.0.GIT and LibVEX; rerun with -h for copyright info
+==5335== Command: ./varlat
+==5335== 
+==5335== Variable-latency instruction operand of size 4 is secret/uninitialised
+==5335==    at 0x4001176: storage_init (in /home/.../valgrind_varlat/memcheck/tests/varlat)
+==5335==    by 0x40011BB: main (in /home/.../valgrind_varlat/memcheck/tests/varlat)
+==5335== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Value4
+   variable-latency: yes
+   fun:storage_init
+   fun:main
+}
+==5335== 
+==5335== HEAP SUMMARY:
+==5335==     in use at exit: 0 bytes in 0 blocks
+==5335==   total heap usage: 1 allocs, 1 frees, 1 bytes allocated
+==5335== 
+==5335== All heap blocks were freed -- no leaks are possible
+==5335== 
+==5335== Use --track-origins=yes to see where uninitialised values come from
+==5335== For lists of detected and suppressed errors, rerun with: -s
+==5335== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+
+```
+
 ## Algorithm Testing
-Because of how many warnings are output, it is not feasible to store all the warnings in terms of memory and runtime. Therefore, the `on_liboqs.sh` script handles ValgrindVarlat's output as follows:
+Because of how many warnings are output, it is not feasible to store all the warnings in terms of memory and runtime. Therefore, the `test.sh` script handles ValgrindVarlat's output as follows:
 - Since the suppression block (the data inside the curly braces {...}) contains the overall information of the issue, each unique block will be logged into the log file for the sake of simplicity.
 - These unique blocks will be the ones counted as warnings, since the same warning may be output several times throughout the execution.
 
