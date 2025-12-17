@@ -1,76 +1,144 @@
-diff --git a/memcheck/mc_errors.c b/memcheck/mc_errors.c
-index a708b3f85..0e7eaab8f 100644
---- a/memcheck/mc_errors.c
-+++ b/memcheck/mc_errors.c
-@@ -94,11 +94,14 @@ struct _MC_Error {
-       // Use of an undefined value:
-       // - as a pointer in a load or store
-       // - as a jump target
-+      // - (VARLAT mode) as an operand in a variable-latency instruction
-       struct {
-          SizeT szB;   // size of value in bytes
-          // Origin info
-          UInt        otag;      // origin tag
-          ExeContext* origin_ec; // filled in later
-+         // VARLAT mode
-+         Bool        isLatency; // if issue is variable-latency instruction
-       } Value;
+--- mc_errors_original.c	2025-12-17 10:05:01.981788116 +0100
++++ mc_errors.c	2025-11-24 16:55:17.110731752 +0100
+@@ -13,7 +13,7 @@
  
-       // Use of an undefined value in a conditional branch or move.
-@@ -489,8 +492,13 @@ void MC_(pp_Error) ( const Error* err )
-          MC_(any_value_errors) = True;
-          if (xml) {
-             emit( "  <kind>UninitValue</kind>\n" );
--            emit( "  <what>Use of uninitialised value of size %lu</what>\n",
--                  extra->Err.Value.szB );
-+            if (extra->Err.Value.isLatency)
-+               emit( "  <what>Variable-latency instruction operand"
-+                     " of size %lu is secret/uninitialised</what>\n",
-+                     extra->Err.Value.szB );
-+            else
-+               emit( "  <what>Use of uninitialised value of size %lu</what>\n",
-+                     extra->Err.Value.szB );
-             VG_(pp_ExeContext)( VG_(get_error_where)(err) );
-             if (extra->Err.Value.origin_ec)
-                mc_pp_origin( extra->Err.Value.origin_ec,
-@@ -498,8 +506,13 @@ void MC_(pp_Error) ( const Error* err )
-          } else {
-             /* Could also show extra->Err.Cond.otag if debugging origin
-                tracking */
--            emit( "Use of uninitialised value of size %lu\n",
--                  extra->Err.Value.szB );
-+            if (extra->Err.Value.isLatency)
-+               emit( "Variable-latency instruction operand"
-+                     " of size %lu is secret/uninitialised\n",
-+                     extra->Err.Value.szB );
-+            else
-+               emit( "Use of uninitialised value of size %lu\n",
-+                     extra->Err.Value.szB );
-             VG_(pp_ExeContext)( VG_(get_error_where)(err) );
-             if (extra->Err.Value.origin_ec)
-                mc_pp_origin( extra->Err.Value.origin_ec,
-@@ -926,6 +939,20 @@ void MC_(record_value_error) ( ThreadId tid, Int szB, UInt otag )
-    extra.Err.Value.szB       = szB;
-    extra.Err.Value.otag      = otag;
-    extra.Err.Value.origin_ec = NULL;  /* Filled in later */
-+   extra.Err.Value.isLatency = False;
-+   VG_(maybe_record_error)( tid, Err_Value, /*addr*/0, /*s*/NULL, &extra );
-+}
-+
-+void MC_(record_varlat_value_error) ( ThreadId tid, Int szB, UInt otag )
-+{
-+   MC_Error extra;
-+   tl_assert( MC_(clo_mc_level) >= 2 );
-+   if (otag > 0)
-+      tl_assert( MC_(clo_mc_level) == 3 );
-+   extra.Err.Value.szB       = szB;
-+   extra.Err.Value.otag      = otag;
-+   extra.Err.Value.origin_ec = NULL;  /* Filled in later */
-+   extra.Err.Value.isLatency = True;
-    VG_(maybe_record_error)( tid, Err_Value, /*addr*/0, /*s*/NULL, &extra );
+    This program is free software; you can redistribute it and/or
+    modify it under the terms of the GNU General Public License as
+-   published by the Free Software Foundation; either version 3 of the
++   published by the Free Software Foundation; either version 2 of the
+    License, or (at your option) any later version.
+ 
+    This program is distributed in the hope that it will be useful, but
+@@ -77,7 +77,7 @@
+       Err_FishyValue,
+       Err_ReallocSizeZero,
+       Err_BadAlign,
+-      Err_UnsafeZeroSize,
++      Err_BadSize,
+       Err_SizeMismatch,
+       Err_AlignMismatch,
+    }
+@@ -180,7 +180,9 @@
+ 
+       struct {
+          AddrInfo ai;
+-      } UnsafeZeroSize;
++         SizeT size;
++         const HChar *func;
++      } BadSize;
+ 
+       // Call to strcpy, memcpy, etc, with overlapping blocks.
+       struct {
+@@ -810,13 +812,15 @@
+          }
+          break;
+ 
+-   case Err_UnsafeZeroSize:
++   case Err_BadSize:
+       if (xml) {
+          emit( "  <kind>InvalidSize</kind>\n" );
+-         emit( "  <what>Unsafe allocation with size of zero is implementation-defined</what>\n");
++         emit( "  <what>%s invalid size value: %lu</what>\n",
++               extra->Err.BadSize.func, extra->Err.BadSize.size );
+          VG_(pp_ExeContext)( VG_(get_error_where)(err) );
+       } else {
+-         emit( "Unsafe allocation with size of zero is implementation-defined\n");
++         emit( "%s invalid size value: %lu\n",
++               extra->Err.BadSize.func, extra->Err.BadSize.size  );
+          VG_(pp_ExeContext)( VG_(get_error_where)(err) );
+       }
+       break;
+@@ -1051,10 +1055,13 @@
+    VG_(maybe_record_error)( tid, Err_BadAlign, /*addr*/0, /*s*/NULL, &extra );
  }
  
-@@ -1886,6 +1913,18 @@ SizeT MC_(get_extra_suppression_info) ( const Error* err,
+-void MC_(record_unsafe_zero_size) ( ThreadId tid )
++void MC_(record_bad_size) ( ThreadId tid, SizeT size, const HChar *function )
+ {
++   MC_Error extra;
+    tl_assert(VG_INVALID_THREADID != tid);
+-   VG_(maybe_record_error)( tid, Err_UnsafeZeroSize, /*addr*/0, /*s*/NULL, /*extra*/NULL );
++   extra.Err.BadSize.size= size;
++   extra.Err.BadSize.func = function;
++   VG_(maybe_record_error)( tid, Err_BadSize, /*addr*/0, /*s*/NULL, &extra );
+ }
+ 
+ void MC_(record_illegal_mempool_error) ( ThreadId tid, Addr a ) 
+@@ -1242,7 +1249,6 @@
+       case Err_Overlap:
+       case Err_Cond:
+       case Err_ReallocSizeZero:
+-      case Err_UnsafeZeroSize:
+          return True;
+ 
+       case Err_FishyValue:
+@@ -1274,6 +1280,11 @@
+                   extra2->Err.BadAlign.dealloc_align;
+          }
+ 
++      case Err_BadSize:
++         // sized delete mismatch
++         return extra1->Err.BadSize.size ==
++               extra2->Err.BadSize.size;
++
+       case Err_SizeMismatch:
+          return extra1->Err.SizeMismatch.size ==
+                extra2->Err.SizeMismatch.size;
+@@ -1434,7 +1445,7 @@
+    // we make it consistent with the others.
+    case Err_Leak:
+    case Err_BadAlign:
+-   case Err_UnsafeZeroSize:
++   case Err_BadSize:
+    case Err_SizeMismatch:
+    case Err_AlignMismatch:
+       return sizeof(MC_Error);
+@@ -1594,10 +1605,10 @@
+       MempoolSupp,          // Memory pool suppression.
+       FishyValueSupp,       // Fishy value suppression.
+       ReallocSizeZeroSupp,  // realloc size 0 suppression
+-      BadAlignSupp,         // Alignment not 2
+-      UnsafeZeroSizeSupp,   // aligned alloc with size 0
+-      SizeMismatch,         // Sized deallocation did not match allocation size
+-      AlignMismatch,        // Aligned deallocation did not match aligned allocation
++      BadAlignSupp,     // Alignment not 2
++      BadSizeSupp,     // aligned alloc with size 0
++      SizeMismatch,  // Sized deallocation did not match allocation size
++      AlignMismatch, // Aligned deallocation did not match aligned allocation
+    } 
+    MC_SuppKind;
+ 
+@@ -1630,8 +1641,7 @@
+    else if (VG_STREQ(name, "FishyValue")) skind = FishyValueSupp;
+    else if (VG_STREQ(name, "ReallocZero")) skind = ReallocSizeZeroSupp;
+    else if (VG_STREQ(name, "BadAlign")) skind = BadAlignSupp;
+-   else if (VG_STREQ(name, "BadSize") || // old name for error before it got downgraded
+-            VG_STREQ(name, "UnsafeZeroSize")) skind = UnsafeZeroSizeSupp;
++   else if (VG_STREQ(name, "BadSize")) skind = BadSizeSupp;
+    else if (VG_STREQ(name, "SizeMismatch")) skind = SizeMismatch;
+    else if (VG_STREQ(name, "AlignMismatch")) skind = AlignMismatch;
+    else 
+@@ -1817,8 +1827,8 @@
+       case BadAlignSupp:
+          return (ekind == Err_BadAlign);
+ 
+-      case UnsafeZeroSizeSupp:
+-         return (ekind == Err_UnsafeZeroSize);
++      case BadSizeSupp:
++         return (ekind == Err_BadSize);
+ 
+       case SizeMismatch:
+          return (ekind == Err_SizeMismatch);
+@@ -1852,7 +1862,7 @@
+    case Err_FishyValue:      return "FishyValue";
+    case Err_ReallocSizeZero: return "ReallocZero";
+    case Err_BadAlign:        return "BadAlign";
+-   case Err_UnsafeZeroSize:  return "UnsafeZeroSize";
++   case Err_BadSize:         return "BadSize";
+    case Err_SizeMismatch:    return "SizeMismatch";
+    case Err_AlignMismatch:   return "AlignMismatch";
+    case Err_Addr: {
+@@ -1903,6 +1913,18 @@
        return VG_(snprintf) (buf, nBuf, "%s(%s)",
                              extra->Err.FishyValue.function_name,
                              extra->Err.FishyValue.argument_name);
