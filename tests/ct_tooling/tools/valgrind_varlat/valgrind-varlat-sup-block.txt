@@ -1,6 +1,6 @@
-diff --git a/mc_errors_original.c b/mc_errors.c
+diff --git a/mc_errors.c b/mc_errors.c
 index 8d163cd90..0e7eaab8f 100644
---- a/mc_errors_original.c
+--- a/mc_errors.c
 +++ b/mc_errors.c
 @@ -1913,6 +1913,18 @@ SizeT MC_(get_extra_suppression_info) ( const Error* err,
        return VG_(snprintf) (buf, nBuf, "%s(%s)",
