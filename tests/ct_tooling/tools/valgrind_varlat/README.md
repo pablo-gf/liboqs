@@ -5,31 +5,32 @@ This directory contains the necessary files to execute Valgrind's memcheck tool 
 ## ValgrindVarlat Install Requirements
 In order to successfully execute ValgrindVarlat's test using the tooling developed in this subrepository follow the next steps:
 
-- Install valgrind using the official git repository.
+- Install valgrind using the official git repository. Go to [Bernstein's suggested](https://sourceforge.net/p/valgrind/mailman/message/59216875/) [commit](https://sourceware.org/git/?p=valgrind.git;a=commit;h=112f1080b7c21e37dfce0a2e589d0dc7aa115afa) to cleanly apply Kyberslash patches to Valgrind without encountering dependency issues: 112f1080b7c21e37dfce0a2e589d0dc7aa115afa.
 
 ```
 VALGRIND_REPO="https://sourceware.org/git/valgrind.git"
-TRY_PATCH="valgrind-try-patch-20250805.txt"
-VARLAT_PATCH="valgrind-varlat-patch-20250805.txt"
-SUP_BLOCK_PATCH="valgrind-varlat-sup-block.txt"
+TRY_PATCH=<your-path-to-valgrind-try-patch-20250805.txt>
+VARLAT_PATCH=<your-path-to-valgrind-varlat-patch-20250805.txt>
+SUP_BLOCK_PATCH=<your-path-to-valgrind-varlat-sup-block.txt">
 INSTALL_DIR="$HOME/valgrind_varlat"
 
 # Clone the Valgrind repository
 git clone "$VALGRIND_REPO" valgrind_varlat
+git checkout 112f1080b7c21e37dfce0a2e589d0dc7aa115afa
 cd valgrind_varlat
 ```
 
 - Apply Bernstein's patches.
 
 ```
-git apply --check "../valgrind-try-patch-20250805.txt"
-git apply --check "../valgrind-varlat-patch-20250805.txt"
+git apply $TRY_PATCH
+git apply $VARLAT_PATCH
 ```
 
 - Apply the suppression block patch.
 
 ```
-git apply --check "../valgrind-varlat-sup-block.txt"
+git apply $SUP_BLOCK_PATCH
 ```
 
 - Include the resultant version of valgrind into PATH under .
@@ -39,10 +40,10 @@ git apply --check "../valgrind-varlat-sup-block.txt"
 ./autogen.sh
 ./configure --prefix="$INSTALL_DIR"
 make -j$(nproc)
-make install
+sudo make install
 
 # Rename the executable
-mv "$INSTALL_DIR/bin/valgrind" "$INSTALL_DIR/bin valgrind_varlat"
+sudo mv "$INSTALL_DIR/bin/valgrind" "$INSTALL_DIR/bin/valgrind_varlat"
 
 # Add valgrind_varlat to PATH
 echo "export PATH=\"$INSTALL_DIR/bin:\$PATH\"" >> ~/.bashrc
