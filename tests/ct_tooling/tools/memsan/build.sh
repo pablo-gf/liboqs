@@ -7,10 +7,10 @@ SCRIPT_DIR="$(cd \"$(dirname \"${BASH_SOURCE[0]}\")\" && pwd)"
 LIBOQS_DIR="$(realpath \"$SCRIPT_DIR/../../../../../../liboqs\")"
 
 # Iterate through the default and latest compiler versions
-for compiler_version in clang clang-20
+for compiler_version in clang clang-20; do
 
     # Iterate through both liboqs builds: generic vs. optimized
-    for libqos_build in generic auto
+    for libqos_build in generic auto; do
 
         # Iterate through the different optimization flags
         for opt_flag in  -O0 -O1 -O2 -O3 -Os -Ofast "-O2 -fno-vectorize" "-O3 -fno-vectorize"; do
