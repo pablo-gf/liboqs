@@ -27,7 +27,7 @@ for compiler_version in clang clang-20; do
         # Iterate through the different optimization flags
         for opt_flag in  -O0 -O1 -O2 -O3 -Os -Ofast "-O2 -fno-vectorize" "-O3 -fno-vectorize"; do
             
-            BUILD_NAME=$(echo "memsan_$opt_flag"_"$compiler_version"_"$liboqs_build" | sed 's/^-//' | sed 's/ -/-/g' | sed 's/-O/-O_/g')
+            BUILD_NAME=$(echo "memsan${opt_flag//-/_}"_"$compiler_version"_"$liboqs_build" | sed 's/ -/-/g')
             BUILD_DIR="$LIBOQS_DIR/build_$BUILD_NAME"
 
             # Create backup files of the original tests files
