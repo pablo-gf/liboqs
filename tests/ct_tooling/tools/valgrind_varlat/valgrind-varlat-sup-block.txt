@@ -1,4 +1,4 @@
-diff --git a/mc_errors.c b/mc_errors.c
+diff --git a/memcheck/mc_errors.c b/memcheck/mc_errors.c
 index 8d163cd90..0e7eaab8f 100644
 --- a/mc_errors.c
 +++ b/mc_errors.c
