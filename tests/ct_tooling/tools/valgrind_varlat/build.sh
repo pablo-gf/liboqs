@@ -3,7 +3,8 @@
 
 set -e
 
-LIBOQS_DIR="/home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/kyberslash/liboqs-ci-repl/liboqs"
+SCRIPT_DIR="$(cd \"$(dirname \"${BASH_SOURCE[0]}\")\" && pwd)"
+LIBOQS_DIR="$(realpath \"$SCRIPT_DIR/../../../../../../liboqs\")"
 
 # Iterate through the default and latest compiler versions
 for compiler_version in gcc gcc-14 clang clang-20; do
