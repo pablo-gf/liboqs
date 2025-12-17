@@ -17,3 +17,8 @@ Because of how many warnings are output, it is not feasible to store all the war
 - These unique summary lines will be the ones counted as warnings, since the same warning may be output several times throughout the execution.
 
 The testing framework currently disregarding all SPHINCS, ML-DSA tests due to the execessive length of time they require to execute. ML-DSA and UOV are only currently tested for one single variant for the same reason.
+
+## Dependencies
+Remember to install the required dependencies before testing:
+
+`sudo apt install -y clang clang-tools`

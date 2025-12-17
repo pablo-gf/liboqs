@@ -79,7 +79,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows" AND BUILD_SHARED_LIBS)
     endif()
 endif()
 
-add_executable(test_kem test_kem.c test_helpers.c ../../rng_poison_memsan.c)
+add_executable(test_kem test_kem.c test_helpers.c rng_poison_memsan.c)
 target_link_libraries(test_kem PRIVATE ${TEST_DEPS})
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows" AND BUILD_SHARED_LIBS)
@@ -152,7 +152,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows" AND BUILD_SHARED_LIBS)
     endif()
 endif()
 
-add_executable(test_sig test_sig.c test_helpers.c ../../rng_poison_memsan.c)
+add_executable(test_sig test_sig.c test_helpers.c rng_poison_memsan.c)
 target_link_libraries(test_sig PRIVATE ${TEST_DEPS})
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows" AND BUILD_SHARED_LIBS)
     # workaround for Windows .dll

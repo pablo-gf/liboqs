@@ -3,8 +3,8 @@
 
 set -e
 
-SCRIPT_DIR="$(cd \"$(dirname \"${BASH_SOURCE[0]}\")\" && pwd)"
-LIBOQS_DIR="$(realpath \"$SCRIPT_DIR/../../../../../../liboqs\")"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+LIBOQS_DIR="$(realpath "$SCRIPT_DIR/../../../..")"
 
 # Iterate through the default and latest compiler versions
 for compiler_version in gcc gcc-14 clang clang-20; do
@@ -18,14 +18,14 @@ for compiler_version in gcc gcc-14 clang clang-20; do
             BUILD_NAME=$(echo "$opt_flag"_"$compiler_version"_"$liboqs_build" | sed 's/^-//' | sed 's/ -/-/g')
             BUILD_DIR="$LIBOQS_DIR/build_$BUILD_NAME"
             
-            # Build liboqs with the current opt_flag
+            # Build liboqs with the current configuration
             mkdir -p "$BUILD_DIR"
             cd "$BUILD_DIR"
             cmake -S .. -G Ninja -DCMAKE_C_FLAGS="$opt_flag" -DCMAKE_C_COMPILER=$compiler_version -DCMAKE_BUILD_TYPE=Debug -DOQS_USE_OPENSSL=OFF -DOQS_DIST_BUILD=OFF -DOQS_OPT_TARGET=$liboqs_build -DOQS_ENABLE_TEST_CONSTANT_TIME=ON
             cmake --build . -j$(nproc)
 
-            # Execute on_liboqs.sh for both KEMs and SIGs
-            cd ../..
+            # Execute test.sh for both KEMs and SIGs
+            cd $SCRIPT_DIR
             ./test.sh "$BUILD_DIR" kem $compiler_version $liboqs_build
             ./test.sh "$BUILD_DIR" sig $compiler_version $liboqs_build
         done

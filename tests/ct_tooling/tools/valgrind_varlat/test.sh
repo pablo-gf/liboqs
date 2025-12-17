@@ -15,8 +15,8 @@ if [[ "$TEST_TYPE" != "kem" && "$TEST_TYPE" != "sig" ]]; then
     exit 1
 fi
 
-SCRIPT_DIR="$(cd \"$(dirname \"${BASH_SOURCE[0]}\")\" && pwd)"
-LIBOQS_DIR="$(realpath \"$SCRIPT_DIR/../../../../../../liboqs\")"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+LIBOQS_DIR="$(realpath "$SCRIPT_DIR/../../../..")"
 LOG_DIR="${SCRIPT_DIR}/logs/${COMP_V}_${LIBOQS_BUILD}"
 
 # Ensure base log directory exists

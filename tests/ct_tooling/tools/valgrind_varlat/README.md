@@ -83,8 +83,15 @@ To check whether the installation was successful, you can use the varlat tests p
 ```
 
 ## Algorithm Testing
+
 Because of how many warnings are output, it is not feasible to store all the warnings in terms of memory and runtime. Therefore, the `test.sh` script handles ValgrindVarlat's output as follows:
 - Since the suppression block (the data inside the curly braces {...}) contains the overall information of the issue, each unique block will be logged into the log file for the sake of simplicity.
 - These unique blocks will be the ones counted as warnings, since the same warning may be output several times throughout the execution.
 
 The testing framework currently disregarding all SPHINCS, ML-DSA tests due to the execessive length of time they require to execute.
+
+## Dependencies
+Remember to install the prerequisites for building liboqs:
+
+`sudo apt install -y build-essential cmake ninja-build gcc g++ clang python3 python3-pip valgrind libssl-dev realpath python3 python3-pip`
+`pip3 install pytest`
