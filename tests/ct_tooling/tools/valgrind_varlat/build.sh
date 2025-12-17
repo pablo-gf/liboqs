@@ -15,7 +15,7 @@ for compiler_version in gcc gcc-14 clang clang-20; do
         # Iterate through the different optimization flags (gcc uses -fno-tree-vectorize instead of -fno-vectorize)
         for opt_flag in -O0 -O1 -O2 -O3 -Os -Ofast "-O2 -fno-tree-vectorize" "-O3 -fno-tree-vectorize"; do
             
-            BUILD_NAME=$(echo "valgrind_varlat_$opt_flag"_"$compiler_version"_"$liboqs_build" | sed 's/^-//' | sed 's/ -/-/g')
+            BUILD_NAME=$(echo "valgrind_varlat_$opt_flag"_"$compiler_version"_"$liboqs_build" | sed 's/^-//' | sed 's/ -/-/g' | sed 's/-O/-O_/g')
             BUILD_DIR="$LIBOQS_DIR/build_$BUILD_NAME"
             
             # Build liboqs with the current configuration

@@ -6,6 +6,18 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LIBOQS_DIR="$(realpath "$SCRIPT_DIR/../../../..")"
 
+# Define a cleanup function that will restore the original test files with the backups
+cleanup() {
+    echo "Restoring original test files..."
+    mv "$LIBOQS_DIR/tests/CMakeLists.txt.bak" "$LIBOQS_DIR/tests/CMakeLists.txt" 2>/dev/null || true
+    mv "$LIBOQS_DIR/tests/test_kem.c.bak" "$LIBOQS_DIR/tests/test_kem.c" 2>/dev/null || true
+    mv "$LIBOQS_DIR/tests/test_sig.c.bak" "$LIBOQS_DIR/tests/test_sig.c" 2>/dev/null || true
+    rm "$LIBOQS_DIR/tests/rng_poison_memsan.c" 2>/dev/null || true
+}
+
+# Set the trap to call cleanup on EXIT or INT (Ctrl+C)
+trap cleanup EXIT INT
+
 # Iterate through the default and latest compiler versions
 for compiler_version in clang clang-20; do
 
@@ -15,7 +27,7 @@ for compiler_version in clang clang-20; do
         # Iterate through the different optimization flags
         for opt_flag in  -O0 -O1 -O2 -O3 -Os -Ofast "-O2 -fno-vectorize" "-O3 -fno-vectorize"; do
             
-            BUILD_NAME=$(echo "memsan_$opt_flag"_"$compiler_version"_"$liboqs_build" | sed 's/^-//' | sed 's/ -/-/g')
+            BUILD_NAME=$(echo "memsan_$opt_flag"_"$compiler_version"_"$liboqs_build" | sed 's/^-//' | sed 's/ -/-/g' | sed 's/-O/-O_/g')
             BUILD_DIR="$LIBOQS_DIR/build_$BUILD_NAME"
 
             # Create backup files of the original tests files
