@@ -127,6 +127,9 @@ liboqs-ct-tooling/ct-tools/<tool>/logs/
 │   └── ...
 ```
 
+### Simultaneous testing
+Since MemSan requires to replace several files within liboqs/tests, it is not recommended to run both tests at the same time. This would cause Valgrind_Varlat tests to fail because of using MemSan-oriented files.
+
 ### Analyzing Results
 
 Use `scripts/analyze_results.py` to parse the warnings data from the log files and generate graphs describing the results.
