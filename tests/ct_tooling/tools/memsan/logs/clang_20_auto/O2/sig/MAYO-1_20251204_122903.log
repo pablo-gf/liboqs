@@ -1,0 +1,12 @@
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:38:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:39:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:40:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:41:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:42:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:43:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:44:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:45:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:46:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:47:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/sig/mayo/pqmayo_mayo-1_avx2/arithmetic.c:80:19 in pqmayo_MAYO_1_avx2_sample_solution
+SUMMARY: MemorySanitizer: use-of-uninitialized-value (/home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/build_O2/tests/test_sig+0x763c0) (BuildId: 66b32ce831e88a9cd974f425e890b6265f192ec7) in memcmp

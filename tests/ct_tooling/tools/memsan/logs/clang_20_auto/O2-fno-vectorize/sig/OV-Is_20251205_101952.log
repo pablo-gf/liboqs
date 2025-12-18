@@ -1,0 +1,11 @@
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:38:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:39:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:40:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:41:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:42:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:43:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:44:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:45:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:46:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/common/aes/aes128_ni.c:47:2 in aes128ni_setkey_encrypt
+SUMMARY: MemorySanitizer: use-of-uninitialized-value (/home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/build_O2-fno-vectorize/tests/test_sig+0x763c0) (BuildId: 31d7e5f5da0060253ad780a6ceae63faf2ae538e) in memcmp

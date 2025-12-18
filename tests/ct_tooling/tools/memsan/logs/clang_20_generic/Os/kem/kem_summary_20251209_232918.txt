@@ -1,0 +1,74 @@
+========================================
+Testing KEMs
+Compiled with: -fsanitize=memory -fsanitize-recover=all -Os -g
+Compiler version: Ubuntu clang version 20.1.8 (++20250804090239+87f0227cb601-1~exp1~20250804210352.139)
+Architecture: x86_64
+========================================
+
+Testing KEM: BIKE-L1 ... FAIL (MemSan warnings)
+  → Found 4 MemSan warnings
+Testing KEM: BIKE-L3 ... FAIL (MemSan warnings)
+  → Found 4 MemSan warnings
+Testing KEM: BIKE-L5 ... FAIL (MemSan warnings)
+  → Found 4 MemSan warnings
+Testing KEM: Classic-McEliece-348864 ... FAIL (MemSan warnings)
+  → Found 6 MemSan warnings
+Testing KEM: Classic-McEliece-348864f ... FAIL (MemSan warnings)
+  → Found 6 MemSan warnings
+Testing KEM: Classic-McEliece-460896 ... FAIL (MemSan warnings)
+  → Found 5 MemSan warnings
+Testing KEM: Classic-McEliece-460896f ... FAIL (MemSan warnings)
+  → Found 5 MemSan warnings
+Testing KEM: Classic-McEliece-6688128 ... FAIL (MemSan warnings)
+  → Found 5 MemSan warnings
+Testing KEM: Classic-McEliece-6688128f ... FAIL (MemSan warnings)
+  → Found 5 MemSan warnings
+Testing KEM: Classic-McEliece-6960119 ... FAIL (MemSan warnings)
+  → Found 4 MemSan warnings
+Testing KEM: Classic-McEliece-6960119f ... FAIL (MemSan warnings)
+  → Found 4 MemSan warnings
+Testing KEM: Classic-McEliece-8192128 ... FAIL (MemSan warnings)
+  → Found 5 MemSan warnings
+Testing KEM: Classic-McEliece-8192128f ... FAIL (MemSan warnings)
+  → Found 5 MemSan warnings
+Testing KEM: Kyber512 ... FAIL (MemSan warnings)
+  → Found 3 MemSan warnings
+Testing KEM: Kyber768 ... FAIL (MemSan warnings)
+  → Found 3 MemSan warnings
+Testing KEM: Kyber1024 ... FAIL (MemSan warnings)
+  → Found 3 MemSan warnings
+Testing KEM: ML-KEM-512 ... FAIL (MemSan warnings)
+  → Found 8 MemSan warnings
+Testing KEM: ML-KEM-768 ... FAIL (MemSan warnings)
+  → Found 8 MemSan warnings
+Testing KEM: ML-KEM-1024 ... FAIL (MemSan warnings)
+  → Found 8 MemSan warnings
+Testing KEM: NTRU-HPS-2048-509 ... FAIL (MemSan warnings)
+  → Found 2 MemSan warnings
+Testing KEM: NTRU-HPS-2048-677 ... FAIL (MemSan warnings)
+  → Found 2 MemSan warnings
+Testing KEM: NTRU-HPS-4096-821 ... FAIL (MemSan warnings)
+  → Found 2 MemSan warnings
+Testing KEM: NTRU-HPS-4096-1229 ... FAIL (MemSan warnings)
+  → Found 2 MemSan warnings
+Testing KEM: NTRU-HRSS-701 ... FAIL (MemSan warnings)
+  → Found 2 MemSan warnings
+Testing KEM: NTRU-HRSS-1373 ... FAIL (MemSan warnings)
+  → Found 3 MemSan warnings
+Testing KEM: sntrup761 ... FAIL (MemSan warnings)
+  → Found 2 MemSan warnings
+Testing KEM: FrodoKEM-640-AES ... FAIL (MemSan warnings)
+  → Found 2 MemSan warnings
+Testing KEM: FrodoKEM-640-SHAKE ... FAIL (MemSan warnings)
+  → Found 2 MemSan warnings
+Testing KEM: FrodoKEM-976-AES ... FAIL (MemSan warnings)
+  → Found 2 MemSan warnings
+Testing KEM: FrodoKEM-976-SHAKE ... FAIL (MemSan warnings)
+  → Found 2 MemSan warnings
+Testing KEM: FrodoKEM-1344-AES ... FAIL (MemSan warnings)
+  → Found 2 MemSan warnings
+Testing KEM: FrodoKEM-1344-SHAKE ... FAIL (MemSan warnings)
+  → Found 2 MemSan warnings
+
+KEM Results: 0 passed, 32 failed
+

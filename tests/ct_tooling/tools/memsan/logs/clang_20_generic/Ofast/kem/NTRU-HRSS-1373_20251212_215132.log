@@ -1,0 +1,3 @@
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/kem/ntru/pqclean_ntruhrss1373_clean/owcpa.c:161:5 in PQCLEAN_NTRUHRSS1373_CLEAN_owcpa_dec
+SUMMARY: MemorySanitizer: use-of-uninitialized-value (/home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/build_Ofast_GL/tests/test_kem+0x76490) (BuildId: 550f489c64432aec11b2f5af6695a24107840659) in bcmp
+SUMMARY: MemorySanitizer: use-of-uninitialized-value (/home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/build_Ofast_GL/tests/test_kem+0x763b0) (BuildId: 550f489c64432aec11b2f5af6695a24107840659) in memcmp

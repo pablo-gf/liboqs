@@ -1,0 +1,2 @@
+SUMMARY: MemorySanitizer: use-of-uninitialized-value (/home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/build_O2-fno-vectorize/tests/test_kem+0x764c0) (BuildId: 5734d853a7956094fa36f7f29b3d85cf171e7b37) in bcmp
+SUMMARY: MemorySanitizer: use-of-uninitialized-value (/home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/build_O2-fno-vectorize/tests/test_kem+0x763e0) (BuildId: 5734d853a7956094fa36f7f29b3d85cf171e7b37) in memcmp

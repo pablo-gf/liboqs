@@ -1,0 +1,2 @@
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/kem/ntru/pqclean_ntruhps2048509_clean/poly_mod.c:21:24 in PQCLEAN_NTRUHPS2048509_CLEAN_poly_mod_3_Phi_n
+SUMMARY: MemorySanitizer: use-of-uninitialized-value (/home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/build_O0_GL/tests/test_kem+0x76370) (BuildId: 6806aea8aa41f677bc324052d97435b7cf5ff884) in memcmp
