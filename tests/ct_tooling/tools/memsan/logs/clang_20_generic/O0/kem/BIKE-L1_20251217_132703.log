@@ -1,5 +1,0 @@
-SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/kem/bike/additional_r4/gf2x_mul_base_portable.c:46:19 in OQS_KEM_bike_l1_gf2x_mul_base_port
-SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/kem/bike/additional_r4/gf2x_mul_base_portable.c:47:26 in OQS_KEM_bike_l1_gf2x_mul_base_port
-SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/kem/bike/additional_r4/gf2x_mul_base_portable.c:48:27 in OQS_KEM_bike_l1_gf2x_mul_base_port
-SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/kem/bike/additional_r4/gf2x_mul_base_portable.c:58:22 in OQS_KEM_bike_l1_gf2x_mul_base_port
-SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/kem/bike/additional_r4/gf2x_mul_base_portable.c:59:22 in OQS_KEM_bike_l1_gf2x_mul_base_port

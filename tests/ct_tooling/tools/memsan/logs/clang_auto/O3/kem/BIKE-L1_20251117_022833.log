@@ -1,3 +1,0 @@
-SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/kem/bike/additional_r4/utilities.c:23:3 in OQS_KEM_bike_l1_r_bits_vector_weight
-SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/src/kem/bike/additional_r4/utilities.h:122:3 in secure_l32_mask
-SUMMARY: MemorySanitizer: use-of-uninitialized-value (/home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/build_O3/tests/test_kem+0x73ad9) (BuildId: c93e9a408ff36b6d445aa5c995e108227d4e06c3) in memcmp

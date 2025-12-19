@@ -1,2 +1,0 @@
-SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/sig/mayo/pqmayo_mayo-3_opt/arithmetic.c:80:19 in pqmayo_MAYO_3_opt_sample_solution
-SUMMARY: MemorySanitizer: use-of-uninitialized-value (/home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/build_O3-fno-vectorize_GL/tests/test_sig+0x76370) (BuildId: d398e984b654ba3952aac25c922289d89e121101) in memcmp

@@ -1,2 +1,0 @@
-SUMMARY: MemorySanitizer: use-of-uninitialized-value (/home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/build_O2/tests/test_kem+0x73bb9) (BuildId: 149d73b2484dd5a6188098b229df28d41f430f64) in bcmp
-SUMMARY: MemorySanitizer: use-of-uninitialized-value (/home/pablogf/liboqs-ct-tooling/memsan/liboqs-ci-repl/liboqs/build_O2/tests/test_kem+0x73ad9) (BuildId: 149d73b2484dd5a6188098b229df28d41f430f64) in memcmp

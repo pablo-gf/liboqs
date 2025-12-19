@@ -24,13 +24,15 @@ import sys
 parser = argparse.ArgumentParser(description='Analyze constant-time test results')
 parser.add_argument('--tool', '-t', type=str,
                                help='Constant-time tool used for analysis')
+# Update the input directory structure to handle general folders
 parser.add_argument('--input', '-i', type=str,
-                    help='Input directory containing log files')
+                    help='General input directory containing build information')
 parser.add_argument('--output', '-o', type=str, default='.',
                     help='Output directory for analysis results')
 args = parser.parse_args()
 
 cwd = os.getcwd()
+# Update LOG_BASE_DIR to dynamically process all subdirectories
 LOG_BASE_DIR = os.path.abspath(os.path.join(cwd, args.input)) if args.input else cwd
 OUTPUT_DIR = os.path.abspath(os.path.join(cwd, args.output)) if args.output else cwd
 
@@ -77,48 +79,37 @@ def parse_summary_file(filepath):
     
     return results
 
+# Modify analyze_logs to dynamically process all builds and optimization levels
 def analyze_logs():
-    """Walk input log directories and aggregate warning counts.
+    """Walk input log directories and aggregate warning counts dynamically.
 
     Expected layout:
-        <LOG_BASE_DIR>/<OPT_LEVEL>/kem/kem_summary_*.txt
-        <LOG_BASE_DIR>/<OPT_LEVEL>/sig/sig_summary_*.txt
+        <LOG_BASE_DIR>/<BUILD_NAME>/<OPT_LEVEL>/kem/kem_summary_*.txt
+        <LOG_BASE_DIR>/<BUILD_NAME>/<OPT_LEVEL>/sig/sig_summary_*.txt
     """
 
-    kem_data = defaultdict(dict)  # {opt: {alg: warnings}}
-    sig_data = defaultdict(dict)
+    kem_data = defaultdict(lambda: defaultdict(dict))  # {build: {opt: {alg: warnings}}}
+    sig_data = defaultdict(lambda: defaultdict(dict))
 
     if not os.path.isdir(LOG_BASE_DIR):
-        return kem_data, sig_data
+        print(f"Error: Input directory '{LOG_BASE_DIR}' does not exist.", file=sys.stderr)
+        sys.exit(1)
 
-    for opt_dir in sorted(glob.glob(os.path.join(LOG_BASE_DIR, "*"))):
-        if not os.path.isdir(opt_dir):
-            continue
-        opt_level = os.path.basename(opt_dir)
+    for build_dir in sorted(glob.glob(os.path.join(LOG_BASE_DIR, '*'))):
+        build_name = os.path.basename(build_dir)
+        for opt_dir in sorted(glob.glob(os.path.join(build_dir, '*'))):
+            opt_level = os.path.basename(opt_dir)
+            for test_type in ['kem', 'sig']:
+                test_dir = os.path.join(opt_dir, test_type)
+                if not os.path.isdir(test_dir):
+                    continue
 
-        # Normalize optimization level names to shorter versions for better graph display
-        if opt_level in ['O2-fno-vectorize', 'O2-fno-tree-vectorize']:
-            opt_level = 'O2-novec'
-        elif opt_level in ['O3-fno-vectorize', 'O3-fno-tree-vectorize']:
-            opt_level = 'O3-novec'
-
-        # KEM summaries
-        kem_dir = os.path.join(opt_dir, "kem")
-        if os.path.isdir(kem_dir):
-            for summary_path in glob.glob(os.path.join(kem_dir, "kem_summary_*.txt")):
-                results = parse_summary_file(summary_path)
-                for alg, warnings in results.items():
-                    previous = kem_data[opt_level].get(alg, 0)
-                    kem_data[opt_level][alg] = max(previous, warnings)
-
-        # SIG summaries
-        sig_dir = os.path.join(opt_dir, "sig")
-        if os.path.isdir(sig_dir):
-            for summary_path in glob.glob(os.path.join(sig_dir, "sig_summary_*.txt")):
-                results = parse_summary_file(summary_path)
-                for alg, warnings in results.items():
-                    previous = sig_data[opt_level].get(alg, 0)
-                    sig_data[opt_level][alg] = max(previous, warnings)
+                for summary_file in glob.glob(os.path.join(test_dir, f'{test_type}_summary_*.txt')):
+                    results = parse_summary_file(summary_file)
+                    if test_type == 'kem':
+                        kem_data[build_name][opt_level].update(results)
+                    else:
+                        sig_data[build_name][opt_level].update(results)
 
     return kem_data, sig_data
 
@@ -203,17 +194,14 @@ def heatmap_warnings_per_alg_and_opt_level(data, opt_levels, alg_type, tool, out
         for j in range(len(opt_levels)):
             ax.text(j, i, int(matrix[i, j]), ha='center', va='center', color='black', fontsize=8)
 
-    ax.set_title(f'{tool} {alg_type.upper()} Warnings per Algorithm by Optimization Level',
+    ax.set_title(f'{tool.upper()} {alg_type.upper()} Warnings per Algorithm by Optimization Level',
                  fontsize=14, fontweight='bold', pad=20)
     ax.set_xlabel('Optimization Level', fontsize=12)
     ax.set_ylabel(f'{alg_type.upper()} Algorithms', fontsize=12)
     plt.tight_layout()
 
-    if (alg_type.upper() == 'KEM'):
-        graph_path = os.path.join(OUTPUT_DIR, "KEM_total_warnings_per_alg_by_opt_level.png")
-    else:
-        graph_path = os.path.join(OUTPUT_DIR, "SIG_total_warnings_per_alg_by_opt_level.png")
-
+    # Update graph paths to use the specific build_output_dir
+    graph_path = os.path.join(output_dir, f"{alg_type.upper()}_total_warnings_per_alg_by_opt_level.png")
     plt.savefig(graph_path, dpi=300, bbox_inches='tight')
     plt.close()
 
@@ -231,13 +219,13 @@ def bar_chart_total_warnings_per_opt_level(kem_data, sig_data, opt_levels, tool,
     ax.bar(x + width/2, sig_totals, width, label='SIG', color='#f16913')
     ax.set_xlabel('Optimization Level', fontsize=12)
     ax.set_ylabel('Total Warnings', fontsize=12)
-    ax.set_title(f'{args.tool.upper()} Total Warnings by Optimization Level', fontsize=14, fontweight='bold', pad=20)
+    ax.set_title(f'{tool.upper()} Total Warnings by Optimization Level', fontsize=14, fontweight='bold', pad=20)
     ax.set_xticks(x)
     ax.set_xticklabels(opt_levels, rotation=45, ha='right')
     ax.legend()
     ax.grid(axis='y', alpha=0.3)
     plt.tight_layout()
-    outpath = os.path.join(OUTPUT_DIR, f'{args.tool}_total_warnings_kem_vs_sig.png')
+    outpath = os.path.join(output_dir, f'{tool}_total_warnings_kem_vs_sig.png')
     plt.savefig(outpath, dpi=300, bbox_inches='tight')
     plt.close()
 
@@ -252,55 +240,34 @@ def line_chart_avg_warnings_per_opt_level(kem_data, sig_data, opt_levels, tool, 
     ax.plot(opt_levels, sig_avgs, marker='o', label='SIG', color='#f16913')
     ax.set_xlabel('Optimization Level',fontsize=12)
     ax.set_ylabel('Average Warnings', fontsize=12)
-    ax.set_title(f'{args.tool.upper()} Average Warnings per Optimization Level', fontsize=14, fontweight='bold', pad=20)
+    ax.set_title(f'{tool.upper()} Average Warnings per Optimization Level', fontsize=14, fontweight='bold', pad=20)
     ax.legend()
     ax.grid(True, alpha=0.3)
     plt.tight_layout()
-    outpath = os.path.join(OUTPUT_DIR, f'{args.tool}_avg_warnings_kem_vs_sig.png')
+    outpath = os.path.join(output_dir, f'{tool}_avg_warnings_kem_vs_sig.png')
     plt.savefig(outpath, dpi=300, bbox_inches='tight')
     plt.close()
 
+# Update generate_reports to handle the new data structure
 def generate_reports(kem_data, sig_data):
-    """ Use previous functions to generate all graphs for KEMs and SIGs"""
+    """Generate CSV files and visualizations for all builds."""
+    for build_name in kem_data.keys():
+        build_output_dir = os.path.join(OUTPUT_DIR, build_name)
+        os.makedirs(build_output_dir, exist_ok=True)
 
-    # KEMs and SIGs were compiled with the same opt levels during experimentation. KEMs is chosen here for the sake of simplicity
-    opt_levels = sort_optimization_levels(kem_data.keys())
+        opt_levels = sort_optimization_levels(kem_data[build_name].keys())
 
-    print("Generating CSV reports...")
+        generate_csv_file(kem_data[build_name], 'KEM', opt_levels, build_output_dir)
+        generate_csv_file(sig_data[build_name], 'SIG', opt_levels, build_output_dir)
 
-    # Genrating KEM CSV file
-    generate_csv_file(kem_data, 'KEM', opt_levels, OUTPUT_DIR)
+        heatmap_warnings_per_alg_and_opt_level(kem_data[build_name], opt_levels, 'KEM', args.tool, build_output_dir)
+        heatmap_warnings_per_alg_and_opt_level(sig_data[build_name], opt_levels, 'SIG', args.tool, build_output_dir)
 
-    # Generating SIG CSV file
-    generate_csv_file(sig_data, 'SIG', opt_levels, OUTPUT_DIR)
-
-    print("\nGenerating graphs...")
-
-    # Bar chart: Total warnings per optimziation level
-    bar_chart_total_warnings_per_opt_level(kem_data, sig_data, opt_levels, args.tool.upper(), OUTPUT_DIR)
-
-    # Line chart: Average warnings per optimization level
-    line_chart_avg_warnings_per_opt_level(kem_data, sig_data, opt_levels, args.tool.upper(), OUTPUT_DIR)
-
-    # Heatmap: Total errors in each algorithm as optimization level changes from less to moer aggressive
-    heatmap_warnings_per_alg_and_opt_level(kem_data, opt_levels, 'KEM', args.tool.upper(), OUTPUT_DIR)
-    heatmap_warnings_per_alg_and_opt_level(sig_data, opt_levels, 'SIG', args.tool.upper(), OUTPUT_DIR)
-
-    print("\nReport ready!")
+        bar_chart_total_warnings_per_opt_level(kem_data[build_name], sig_data[build_name], opt_levels, args.tool, build_output_dir)
+        line_chart_avg_warnings_per_opt_level(kem_data[build_name], sig_data[build_name], opt_levels, args.tool, build_output_dir)
 
 def main():
-    
     kem_data, sig_data = analyze_logs()
-    
-    if not kem_data and not sig_data:
-        print("No data found.")
-        return
-    
-    print(f"Found data for {len(kem_data)} optimization levels")
-    print()
-
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
-    
     generate_reports(kem_data, sig_data)
 
 if __name__ == "__main__":

@@ -1,3 +1,0 @@
-SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/kem/kyber/pqcrystals-kyber_kyber768_ref/verify.c:24:3 in pqcrystals_kyber768_ref_verify
-SUMMARY: MemorySanitizer: use-of-uninitialized-value (/home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/build_Os_GD/tests/test_kem+0x73bb9) (BuildId: 06c4dd79969994d3ffe4ca6df9cbad294c2c7f8f) in bcmp
-SUMMARY: MemorySanitizer: use-of-uninitialized-value (/home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/build_Os_GD/tests/test_kem+0x73ad9) (BuildId: 06c4dd79969994d3ffe4ca6df9cbad294c2c7f8f) in memcmp

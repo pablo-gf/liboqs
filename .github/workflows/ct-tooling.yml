@@ -1,0 +1,80 @@
+name: constant-time-tooling
+
+permissions:
+    contents: read
+
+on:
+  workflow_dispatch:
+
+jobs:
+    valgrind-varlat:
+        runs-on: ubuntu-latest
+        container:
+            image: openquantumsafe/ci-ubuntu-latest:latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
+
+            - name: Install valgrind_varlat
+              run: |
+                cd $GITHUB_WORKSPACE
+                git clone https://sourceware.org/git/valgrind.git valgrind_varlat_src
+                cd valgrind_varlat_src
+                git checkout 112f1080b7c21e37dfce0a2e589d0dc7aa115afa
+                git apply $GITHUB_WORKSPACE/liboqs/tests/ct_tooling/tools/valgrind_varlat/valgrind-try-patch-20250805.txt
+                git apply $GITHUB_WORKSPACE/liboqs/tests/ct_tooling/tools/valgrind_varlat/valgrind-varlat-patch-20250805.txt
+                git apply $GITHUB_WORKSPACE/liboqs/tests/ct_tooling/tools/valgrind_varlat/valgrind-varlat-sup-block.txt
+                ./autogen.sh
+                ./configure --prefix=$GITHUB_WORKSPACE/valgrind_varlat
+                make -j$(nproc)
+                make install
+                mv "$GITHUB_WORKSPACE/bin/valgrind" "$GITHUB_WORKSPACE/bin/valgrind_varlat"
+                echo "export PATH=\"$GITHUB_WORKSPACE/valgrind_varlat/bin:\$PATH\"" >> $GITHUB_ENV
+
+
+            - name: Run valgrind_varlat tests
+              run: |
+                cd $GITHUB_WORKSPACE/liboqs/tests/ct_tooling/tools/valgrind_varlat
+                chmod +x build.sh test.sh
+                ./build.sh
+    
+    memsan:
+        runs-on: ubuntu-latest
+        container:
+            image: openquantumsafe/ci-ubuntu-latest:latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
+
+            - name: Run memsan tests
+              run: |
+                cd $GITHUB_WORKSPACE/liboqs/tests/ct_tooling/tools/memsan
+                chmod +x build.sh test.sh
+                ./build.sh
+    
+    upload-results:
+        runs-on: ubuntu-latest
+        needs:
+            - valgrind-varlat
+            - memsan
+        steps:
+            - name: Upload logs
+              uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
+              with: 
+                name: logs
+                path: |
+                    $GITHUB_WORKSPACE/liboqs/tests/ct_tooling/tools/memsan/logs/**
+                    $GITHUB_WORKSPACE/liboqs/tests/ct_tooling/tools/valgrind_varlat/logs/**
+
+            - name: Generate visualizations and CSVs
+              run: |
+                cd $GITHUB_WORKSPACE/liboqs/tests/ct_tooling/scripts
+                python3 ./analyze_results.py -t memsan -i $GITHUB_WORKSPACE/liboqs/tests/ct_tooling/tools/memsan/logs -o $GITHUB_WORKSPACE/liboqs/tests/ct_tooling/results/memsan
+                python3 ./analyze_results.py -t valgrind_varlat -i $GITHUB_WORKSPACE/liboqs/tests/ct_tooling/tools/valgrind_varlat/logs -o $GITHUB_WORKSPACE/liboqs/tests/ct_tooling/results/valgrind_varlat
+              
+            - name: Upload visualizations and CSVs  
+              uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
+              with:
+                name: visualizations and CSVs
+                path: |
+                    $GITHUB_WORKSPACE/liboqs/tests/ct_tooling/results

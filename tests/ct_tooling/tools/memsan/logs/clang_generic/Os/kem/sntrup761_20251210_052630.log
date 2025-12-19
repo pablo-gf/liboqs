@@ -1,2 +1,0 @@
-SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/src/common/sha2/sha2_c.c:25:2 in load_bigendian_64
-SUMMARY: MemorySanitizer: use-of-uninitialized-value (/home/nics-lab/Escritorio/liboqs-ct-tooling/ct-tools/memsan/liboqs-ci-repl/liboqs/build_Os_GD/tests/test_kem+0x73ad9) (BuildId: 06c4dd79969994d3ffe4ca6df9cbad294c2c7f8f) in memcmp
