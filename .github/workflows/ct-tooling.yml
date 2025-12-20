@@ -16,19 +16,28 @@ jobs:
 
             - name: Install valgrind_varlat
               run: |
-                cd ${{ github.workspace }}
+                set -eux
+
+                WORKSPACE="$GITHUB_WORKSPACE"
+                PARENT_DIR="$(dirname "$WORKSPACE")"
+                INSTALL_PREFIX="$PARENT_DIR/valgrind_varlat"
+
+                cd "$PARENT_DIR"
                 git clone https://sourceware.org/git/valgrind.git valgrind_varlat_src
+
                 cd valgrind_varlat_src
                 git checkout 112f1080b7c21e37dfce0a2e589d0dc7aa115afa
-                git apply ${{ github.workspace }}/liboqs/tests/ct_tooling/tools/valgrind_varlat/valgrind-try-patch-20250805.txt
-                git apply ${{ github.workspace }}/liboqs/tests/ct_tooling/tools/valgrind_varlat/valgrind-varlat-patch-20250805.txt
-                git apply ${{ github.workspace }}/liboqs/tests/ct_tooling/tools/valgrind_varlat/valgrind-varlat-sup-block.txt
+
+                git apply "$WORKSPACE/liboqs/tests/ct_tooling/tools/valgrind_varlat/valgrind-try-patch-20250805.txt"
+                git apply "$WORKSPACE/liboqs/tests/ct_tooling/tools/valgrind_varlat/valgrind-varlat-patch-20250805.txt"
+                git apply "$WORKSPACE/liboqs/tests/ct_tooling/tools/valgrind_varlat/valgrind-varlat-sup-block.txt"
+
                 ./autogen.sh
-                ./configure --prefix=${{ github.workspace }}/valgrind_varlat
-                make -j$(nproc)
+                ./configure --prefix="$INSTALL_PREFIX"
+                make -j"$(nproc)"
                 make install
-                mv "${{ github.workspace }}/bin/valgrind" "${{ github.workspace }}/bin/valgrind_varlat"
-                echo "export PATH=\"${{ github.workspace }}/valgrind_varlat/bin:\$PATH\"" >> $GITHUB_ENV
+
+                echo "$INSTALL_PREFIX/bin" >> "$GITHUB_PATH"
 
             - name: Run valgrind_varlat tests
               run: |
