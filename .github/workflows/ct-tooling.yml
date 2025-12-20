@@ -1,100 +1,104 @@
 name: constant-time-tooling
 
 permissions:
-    contents: read
+  contents: read
 
 on: [workflow_dispatch]
 
 jobs:
-    valgrind-varlat:
-        runs-on: ubuntu-latest
-        container:
-            image: openquantumsafe/ci-ubuntu-latest:latest
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
+  valgrind-varlat:
+    runs-on: ubuntu-latest
+    container:
+      image: openquantumsafe/ci-ubuntu-latest:latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
 
-            - name: Install valgrind_varlat
-              run: |
-                set -eux
+      - name: Install valgrind_varlat
+        run: |
+          set -eux
 
-                WORKSPACE="$GITHUB_WORKSPACE"
-                PARENT_DIR="$(dirname "$WORKSPACE")"
-                INSTALL_PREFIX="$PARENT_DIR/valgrind_varlat"
+          WORKSPACE="$GITHUB_WORKSPACE"
+          PARENT_DIR="$(dirname "$WORKSPACE")"
+          INSTALL_PREFIX="$PARENT_DIR/valgrind_varlat"
 
-                cd "$PARENT_DIR"
-                git clone https://sourceware.org/git/valgrind.git valgrind_varlat_src
+          cd "$PARENT_DIR"
+          git clone https://sourceware.org/git/valgrind.git valgrind_varlat_src
 
-                cd valgrind_varlat_src
-                git checkout 112f1080b7c21e37dfce0a2e589d0dc7aa115afa
+          cd valgrind_varlat_src
+          git checkout 112f1080b7c21e37dfce0a2e589d0dc7aa115afa
 
-                git apply "$WORKSPACE/liboqs/tests/ct_tooling/tools/valgrind_varlat/valgrind-try-patch-20250805.txt"
-                git apply "$WORKSPACE/liboqs/tests/ct_tooling/tools/valgrind_varlat/valgrind-varlat-patch-20250805.txt"
-                git apply "$WORKSPACE/liboqs/tests/ct_tooling/tools/valgrind_varlat/valgrind-varlat-sup-block.txt"
+          git apply "$WORKSPACE/tests/ct_tooling/tools/valgrind_varlat/valgrind-try-patch-20250805.txt"
+          git apply "$WORKSPACE/tests/ct_tooling/tools/valgrind_varlat/valgrind-varlat-patch-20250805.txt"
+          git apply "$WORKSPACE/tests/ct_tooling/tools/valgrind_varlat/valgrind-varlat-sup-block.txt"
 
-                ./autogen.sh
-                ./configure --prefix="$INSTALL_PREFIX"
-                make -j"$(nproc)"
-                make install
+          ./autogen.sh
+          ./configure --prefix="$INSTALL_PREFIX"
+          make -j"$(nproc)"
+          make install
 
-                echo "$INSTALL_PREFIX/bin" >> "$GITHUB_PATH"
+          echo "$INSTALL_PREFIX/bin" >> "$GITHUB_PATH"
 
-            - name: Run valgrind_varlat tests
-              run: |
-                cd ${{ github.workspace }}/liboqs/tests/ct_tooling/tools/valgrind_varlat
-                chmod +x build.sh test.sh
-                ./build.sh
+      - name: Run valgrind_varlat tests
+        run: |
+          cd "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat"
+          chmod +x build.sh test.sh
+          ./build.sh
 
-            - name: Upload valgrind_varlat logs
-              uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
-              with: 
-                name: valgrind_varlat logs
-                path: |
-                    ${{ github.workspace }}/liboqs/tests/ct_tooling/tools/valgrind_varlat/logs/**
+      - name: Upload valgrind_varlat logs
+        uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
+        with:
+          name: valgrind_varlat logs
+          path: |
+            $GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat/logs/**
 
-            - name: Generate visualizations and CSVs for valgrind_varlat
-              run: |
-                cd ${{ github.workspace }}/liboqs/tests/ct_tooling/scripts
-                python3 ./analyze_results.py -t valgrind_varlat -i ${{ github.workspace }}/liboqs/tests/ct_tooling/tools/valgrind_varlat/logs -o ${{ github.workspace }}/liboqs/tests/ct_tooling/results/valgrind_varlat
-              
-            - name: Upload visualizations and CSVs for valgrind_varlat
-              uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
-              with:
-                name: valgrind_varlat visualizations and CSVs
-                path: |
-                    ${{ github.workspace }}/liboqs/tests/ct_tooling/results/valgrind_varlat
+      - name: Generate visualizations and CSVs for valgrind_varlat
+        run: |
+          cd "$GITHUB_WORKSPACE/tests/ct_tooling/scripts"
+          python3 analyze_results.py \
+            -t valgrind_varlat \
+            -i "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat/logs" \
+            -o "$GITHUB_WORKSPACE/tests/ct_tooling/results/valgrind_varlat"
 
-            
-    
-    memsan:
-        runs-on: ubuntu-latest
-        container:
-            image: openquantumsafe/ci-ubuntu-latest:latest
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
+      - name: Upload visualizations and CSVs for valgrind_varlat
+        uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
+        with:
+          name: valgrind_varlat visualizations and CSVs
+          path: |
+            $GITHUB_WORKSPACE/tests/ct_tooling/results/valgrind_varlat
 
-            - name: Run memsan tests
-              run: |
-                cd ${{ github.workspace }}/liboqs/tests/ct_tooling/tools/memsan
-                chmod +x build.sh test.sh
-                ./build.sh
+  memsan:
+    runs-on: ubuntu-latest
+    container:
+      image: openquantumsafe/ci-ubuntu-latest:latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
 
-            - name: Upload memsan logs
-              uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
-              with: 
-                name: memsan logs
-                path: |
-                    ${{ github.workspace }}/liboqs/tests/ct_tooling/tools/memsan/logs/**
+      - name: Run memsan tests
+        run: |
+          cd "$GITHUB_WORKSPACE/tests/ct_tooling/tools/memsan"
+          chmod +x build.sh test.sh
+          ./build.sh
 
-            - name: Generate visualizations and CSVs for memsan
-              run: |
-                cd ${{ github.workspace }}/liboqs/tests/ct_tooling/scripts
-                python3 ./analyze_results.py -t memsan -i ${{ github.workspace }}/liboqs/tests/ct_tooling/tools/memsan/logs -o ${{ github.workspace }}/liboqs/tests/ct_tooling/results/memsan
-              
-            - name: Upload visualizations and CSVs for memsan
-              uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
-              with:
-                name: memsan visualizations and CSVs
-                path: |
-                    ${{ github.workspace }}/liboqs/tests/ct_tooling/results/memsan
+      - name: Upload memsan logs
+        uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
+        with:
+          name: memsan logs
+          path: |
+            $GITHUB_WORKSPACE/tests/ct_tooling/tools/memsan/logs/**
+
+      - name: Generate visualizations and CSVs for memsan
+        run: |
+          cd "$GITHUB_WORKSPACE/tests/ct_tooling/scripts"
+          python3 analyze_results.py \
+            -t memsan \
+            -i "$GITHUB_WORKSPACE/tests/ct_tooling/tools/memsan/logs" \
+            -o "$GITHUB_WORKSPACE/tests/ct_tooling/results/memsan"
+
+      - name: Upload visualizations and CSVs for memsan
+        uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
+        with:
+          name: memsan visualizations and CSVs
+          path: |
+            $GITHUB_WORKSPACE/tests/ct_tooling/results/memsan
