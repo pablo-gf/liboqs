@@ -56,8 +56,8 @@ cleanup() {
 # Set the trap to call cleanup on EXIT or INT (Ctrl+C)
 trap cleanup EXIT INT
 
-# Iterate through the default and latest compiler versions
-for compiler_version in clang clang-20; do
+# Iterate through the default and latest compiler versions (temporally removing and clang-20  for workflow debugging)
+for compiler_version in clang; do
     # Iterate through both liboqs builds: generic vs. optimized
     for liboqs_build in generic auto; do
         # Iterate through the different optimization flags and execute tests asynchronously

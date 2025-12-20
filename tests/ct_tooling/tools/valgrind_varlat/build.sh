@@ -26,8 +26,8 @@ build_and_test() {
     ./test.sh "$BUILD_DIR" sig $compiler_version $liboqs_build
 }
 
-# Iterate through the default and latest compiler versions
-for compiler_version in gcc gcc-14 clang clang-20; do
+# Iterate through the default and latest compiler versions (temporally removing gcc-14 and clang-20  for workflow debugging)
+for compiler_version in gcc  clang; do
     # Iterate through both liboqs builds: generic vs. optimized
     for liboqs_build in generic auto; do
         # Iterate through the different optimization flags (gcc uses -fno-tree-vectorize instead of -fno-vectorize) and execute tests asynchronously
