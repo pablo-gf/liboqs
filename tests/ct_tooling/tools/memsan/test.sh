@@ -23,7 +23,7 @@ LOG_DIR="${SCRIPT_DIR}/logs/${COMP_V}_${LIBOQS_BUILD}"
 mkdir -p "$LOG_DIR"
 
 # Extract optimization level from BUILD_DIR
-OPT_LEVEL=$(basename "$BUILD_DIR" | sed 's/build_//')
+OPT_LEVEL=$(basename "$BUILD_DIR" | sed -E 's/.*-O([0-9a-zA-Z]+)(.*)/\1\2/' | sed 's/_/-/g')
 
 CURRENT_RUN_DIR="$LOG_DIR/${OPT_LEVEL}"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
