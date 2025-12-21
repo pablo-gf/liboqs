@@ -1,4 +1,4 @@
-name: constant-time-tooling
+name: constant time tooling
 
 permissions:
   contents: read
@@ -54,6 +54,8 @@ jobs:
 
       - name: Generate visualizations and CSVs for valgrind_varlat
         run: |
+          python3 -m pip install --upgrade pip --break-system-packages
+          python3 -m pip install matplotlib --break-system-packages
           cd "$GITHUB_WORKSPACE/tests/ct_tooling/scripts"
           python3 analyze_results.py \
             -t valgrind_varlat \
@@ -90,6 +92,8 @@ jobs:
 
       - name: Generate visualizations and CSVs for memsan
         run: |
+          python3 -m pip install --upgrade pip --break-system-packages
+          python3 -m pip install matplotlib --break-system-packages
           cd "$GITHUB_WORKSPACE/tests/ct_tooling/scripts"
           python3 analyze_results.py \
             -t memsan \
