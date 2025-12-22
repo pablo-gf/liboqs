@@ -60,26 +60,16 @@ jobs:
         with:
           name: valgrind_varlat
           path: ./valgrind_varlat
+    
+      - name: Checkout code
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
 
-      - name: Debug artifact contents
-        run: |
-            echo "Current directory: $PWD"
-            ls -l "$GITHUB_WORKSPACE"
-
-      - name: Add valgrind_varlat to PATH
+      - name: Add valgrind_varlat to PATH and execute tests
         run: |
             chmod +x "$GITHUB_WORKSPACE/valgrind_varlat/bin/valgrind_varlat"
             echo "$GITHUB_WORKSPACE/valgrind_varlat/bin" >> "$GITHUB_PATH"
             export PATH="$GITHUB_WORKSPACE/valgrind_varlat/bin:$PATH"
             which valgrind_varlat
-
-      - name: Checkout code
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
-
-      - name: Run valgrind_varlat tests
-        run: |
-            chmod +x "$GITHUB_WORKSPACE/valgrind_varlat/bin/valgrind_varlat"
-            export PATH="$GITHUB_WORKSPACE/valgrind_varlat/bin:$PATH"
             cd "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat"
             chmod +x build.sh test.sh
             ./build.sh ${{ matrix.compiler }} ${{ matrix.liboqs_build }} ${{ matrix.opt_flag }}
