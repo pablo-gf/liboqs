@@ -54,15 +54,14 @@ jobs:
         liboqs_build: [generic, auto]
         opt_flag: [-O0, -O1, -O2, -O3, -Os, -Ofast, "-O2 -fno-tree-vectorize", "-O3 -fno-tree-vectorize"]
     steps:
+      - name: Checkout code
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
 
       - name: Download valgrind_varlat
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # pin@v4
         with:
           name: valgrind_varlat
           path: ./valgrind_varlat
-    
-      - name: Checkout code
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
 
       - name: Add valgrind_varlat to PATH and execute tests
         run: |
