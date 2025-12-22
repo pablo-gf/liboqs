@@ -6,7 +6,45 @@ permissions:
 on: [workflow_dispatch]
 
 jobs:
+
+  build-valgrind-varlat:
+    runs-on: ubuntu-latest
+    container:
+      image: openquantumsafe/ci-ubuntu-latest:latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
+
+      - name: Build valgrind_varlat
+        run: |
+          set -eux
+
+          INSTALL_PREFIX="$PWD/valgrind_varlat"
+
+          git clone --depth=1 https://sourceware.org/git/valgrind.git valgrind_varlat_src
+          cd valgrind_varlat_src
+          git checkout 112f1080b7c21e37dfce0a2e589d0dc7aa115afa
+
+          git apply "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat/valgrind-try-patch-20250805.txt"
+          git apply "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat/valgrind-varlat-patch-20250805.txt"
+          git apply "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat/valgrind-varlat-sup-block.txt"
+
+          ./autogen.sh
+          ./configure --prefix="$INSTALL_PREFIX"
+          make -j"$(nproc)"
+          make install
+
+          mv "$INSTALL_PREFIX/bin/valgrind" \
+             "$INSTALL_PREFIX/bin/valgrind_varlat"
+
+      - name: Upload valgrind_varlat
+        uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
+        with:
+          name: valgrind_varlat
+          path: valgrind_varlat
+
   valgrind-varlat:
+    needs: build-valgrind-varlat
     runs-on: ubuntu-latest
     container:
       image: openquantumsafe/ci-ubuntu-latest:latest
@@ -19,32 +57,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
 
-      - name: Install valgrind_varlat
+      - name: Download valgrind_varlat
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # pin@v4
+        with:
+          name: valgrind_varlat
+          path: valgrind_varlat
+
+      - name: Add valgrind_varlat to PATH
         run: |
-          set -eux
-
-          WORKSPACE="$GITHUB_WORKSPACE"
-          PARENT_DIR="$(dirname "$WORKSPACE")"
-          INSTALL_PREFIX="$PARENT_DIR/valgrind_varlat"
-
-          cd "$PARENT_DIR"
-          git clone https://sourceware.org/git/valgrind.git valgrind_varlat_src
-
-          cd valgrind_varlat_src
-          git checkout 112f1080b7c21e37dfce0a2e589d0dc7aa115afa
-
-          git apply "$WORKSPACE/tests/ct_tooling/tools/valgrind_varlat/valgrind-try-patch-20250805.txt"
-          git apply "$WORKSPACE/tests/ct_tooling/tools/valgrind_varlat/valgrind-varlat-patch-20250805.txt"
-          git apply "$WORKSPACE/tests/ct_tooling/tools/valgrind_varlat/valgrind-varlat-sup-block.txt"
-
-          ./autogen.sh
-          ./configure --prefix="$INSTALL_PREFIX"
-          make -j"$(nproc)"
-          make install
-
-          mv "$INSTALL_PREFIX/bin/valgrind" "$INSTALL_PREFIX/bin/valgrind_varlat"
-          echo "$INSTALL_PREFIX/bin" >> "$GITHUB_PATH"
-          ls -l /__w/liboqs/valgrind_varlat/bin
+          chmod +x valgrind_varlat/bin/valgrind_varlat
+          echo "$PWD/valgrind_varlat/bin" >> "$GITHUB_PATH"
           which valgrind_varlat
 
       - name: Run valgrind_varlat tests
