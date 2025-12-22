@@ -41,7 +41,7 @@ jobs:
         uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
         with:
           name: valgrind_varlat
-          path: valgrind_varlat/*
+          path: valgrind_varlat
 
   valgrind-varlat:
     needs: build-valgrind-varlat
@@ -55,16 +55,25 @@ jobs:
         opt_flag: [-O0, -O1, -O2, -O3, -Os, -Ofast, "-O2 -fno-tree-vectorize", "-O3 -fno-tree-vectorize"]
     steps:
 
+      - name: Debug artifact contents
+        run: |
+            echo "Current directory: $PWD"
+            ls -R "$PWD"
+
       - name: Download valgrind_varlat
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # pin@v4
         with:
           name: valgrind_varlat
           path: .
+      - name: Debug artifact contents
+        run: |
+            echo "Current directory: $PWD"
+            ls -R "$PWD"
 
       - name: Add valgrind_varlat to PATH
         run: |
             chmod +x "$GITHUB_WORKSPACE/valgrind_varlat/bin/valgrind_varlat"
-            echo "$GITHUB_WORKSPACE/valgrind_varlat/bin" >> "$GITHUB_PATH"
+            echo "$GITHUB_WORKSPACE/bin" >> "$GITHUB_PATH"
             which valgrind_varlat
 
       - name: Checkout code
