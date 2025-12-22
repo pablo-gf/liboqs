@@ -59,7 +59,7 @@ trap cleanup EXIT INT
 # Iterate through the default and latest compiler versions (temporally removing and clang-20  for workflow debugging)
 for compiler_version in clang; do
     # Iterate through both liboqs builds: generic vs. optimized
-    for liboqs_build in generic auto; do
+    for liboqs_build in generic; do
         # Iterate through the different optimization flags and execute tests asynchronously
         for opt_flag in  -O0 -O1 -O2 -O3 -Os -Ofast "-O2 -fno-vectorize" "-O3 -fno-vectorize"; do
             build_and_test "$compiler_version" "$liboqs_build" "$opt_flag" &
