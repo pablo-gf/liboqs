@@ -13,6 +13,7 @@ jobs:
     strategy:
       matrix:
         compiler: [gcc, clang]
+        liboqs_build: [generic, auto]
         opt_flag: [-O0, -O1, -O2, -O3, -Os, -Ofast, "-O2 -fno-tree-vectorize", "-O3 -fno-tree-vectorize"]
     steps:
       - name: Checkout code
@@ -41,6 +42,7 @@ jobs:
           make -j"$(nproc)"
           make install
 
+          mv "$INSTALL_PREFIX/bin/valgrind" "$INSTALL_PREFIX/bin/valgrind_varlat"
           echo "$INSTALL_PREFIX/bin" >> "$GITHUB_PATH"
           ls -l /__w/liboqs/valgrind_varlat/bin
           which valgrind_varlat
@@ -49,7 +51,7 @@ jobs:
         run: |
           cd "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat"
           chmod +x build.sh test.sh
-          ./build.sh ${{ matrix.compiler }} ${{ matrix.opt_flag }}
+          ./build.sh ${{ matrix.compiler }} ${{matrix.liboqs_build}} ${{ matrix.opt_flag }}
 
       - name: Upload valgrind_varlat logs
         uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
@@ -58,23 +60,23 @@ jobs:
           path: |
             $GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat/logs/**
 
-      - name: Generate visualizations and CSVs for valgrind_varlat
-        run: |
-          python3 -m ensurepip --upgrade
-          python3 -m pip install --upgrade --user pip
-          python3 -m pip install --user matplotlib
-          cd "$GITHUB_WORKSPACE/tests/ct_tooling/scripts"
-          python3 analyze_results.py \
-            -t valgrind_varlat \
-            -i "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat/logs" \
-            -o "$GITHUB_WORKSPACE/tests/ct_tooling/results/valgrind_varlat"
+    #   - name: Generate visualizations and CSVs for valgrind_varlat
+    #     run: |
+    #       python3 -m ensurepip --upgrade
+    #       python3 -m pip install --upgrade --user pip
+    #       python3 -m pip install --user matplotlib
+    #       cd "$GITHUB_WORKSPACE/tests/ct_tooling/scripts"
+    #       python3 analyze_results.py \
+    #         -t valgrind_varlat \
+    #         -i "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat/logs" \
+    #         -o "$GITHUB_WORKSPACE/tests/ct_tooling/results/valgrind_varlat"
 
-      - name: Upload visualizations and CSVs for valgrind_varlat
-        uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
-        with:
-          name: valgrind_varlat visualizations and CSVs
-          path: |
-            $GITHUB_WORKSPACE/tests/ct_tooling/results/valgrind_varlat
+    #   - name: Upload visualizations and CSVs for valgrind_varlat
+    #     uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
+    #     with:
+    #       name: valgrind_varlat visualizations and CSVs
+    #       path: |
+    #         $GITHUB_WORKSPACE/tests/ct_tooling/results/valgrind_varlat
 
   memsan:
     runs-on: ubuntu-latest
@@ -83,6 +85,7 @@ jobs:
     strategy:
       matrix:
         compiler: [clang]
+        liboqs_build: [generic, auto]
         opt_flag: [-O0, -O1, -O2, -O3, -Os, -Ofast, "-O2 -fno-vectorize", "-O3 -fno-vectorize"]
     steps:
       - name: Checkout code
@@ -92,7 +95,7 @@ jobs:
         run: |
           cd "$GITHUB_WORKSPACE/tests/ct_tooling/tools/memsan"
           chmod +x build.sh test.sh
-          ./build.sh ${{ matrix.compiler }} ${{ matrix.opt_flag }}
+          ./build.sh ${{ matrix.compiler }} ${{matrix.liboqs_build}} ${{ matrix.opt_flag }}
 
       - name: Upload memsan logs
         uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
@@ -101,20 +104,20 @@ jobs:
           path: |
             $GITHUB_WORKSPACE/tests/ct_tooling/tools/memsan/logs/**
 
-      - name: Generate visualizations and CSVs for memsan
-        run: |
-          python3 -m ensurepip --upgrade
-          python3 -m pip install --upgrade --user pip
-          python3 -m pip install --user matplotlib
-          cd "$GITHUB_WORKSPACE/tests/ct_tooling/scripts"
-          python3 analyze_results.py \
-            -t memsan \
-            -i "$GITHUB_WORKSPACE/tests/ct_tooling/tools/memsan/logs" \
-            -o "$GITHUB_WORKSPACE/tests/ct_tooling/results/memsan"
+    #   - name: Generate visualizations and CSVs for memsan
+    #     run: |
+    #       python3 -m ensurepip --upgrade
+    #       python3 -m pip install --upgrade --user pip
+    #       python3 -m pip install --user matplotlib
+    #       cd "$GITHUB_WORKSPACE/tests/ct_tooling/scripts"
+    #       python3 analyze_results.py \
+    #         -t memsan \
+    #         -i "$GITHUB_WORKSPACE/tests/ct_tooling/tools/memsan/logs" \
+    #         -o "$GITHUB_WORKSPACE/tests/ct_tooling/results/memsan"
 
-      - name: Upload visualizations and CSVs for memsan
-        uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
-        with:
-          name: memsan visualizations and CSVs
-          path: |
-            $GITHUB_WORKSPACE/tests/ct_tooling/results/memsan
+    #   - name: Upload visualizations and CSVs for memsan
+    #     uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
+    #     with:
+    #       name: memsan visualizations and CSVs
+    #       path: |
+    #         $GITHUB_WORKSPACE/tests/ct_tooling/results/memsan

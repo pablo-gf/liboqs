@@ -8,9 +8,10 @@ LIBOQS_DIR="$(realpath "$SCRIPT_DIR/../../../..")"
 
 build_and_test() {
     local compiler_version=$1
-    local opt_flag=$2
+    local liboqs_build:$2
+    local opt_flag=$3
 
-    BUILD_NAME=$(echo "memsan${opt_flag//-/_}"_"$compiler_version" | sed 's/ -/-/g')
+    BUILD_NAME=$(echo "valgrind_varlat${opt_flag//-/_}"_"$compiler_version"_"$liboqs_build" | sed 's/ -/-/g')
     BUILD_DIR="$LIBOQS_DIR/build_$BUILD_NAME"
 
     # Create backup files of the original tests files
@@ -27,7 +28,7 @@ build_and_test() {
     # Build liboqs with the current configuration
     mkdir -p "$BUILD_DIR"
     cd "$BUILD_DIR"
-    cmake -S .. -G Ninja -DBUILD_SHARED_LIBS=ON -DCMAKE_C_COMPILER=$compiler_version -DCMAKE_BUILD_TYPE=Debug -DOQS_USE_OPENSSL=OFF -DOQS_DIST_BUILD=OFF -DOQS_ENABLE_TEST_CONSTANT_TIME=ON -DCMAKE_C_FLAGS="-fsanitize=memory -fsanitize-recover=all $opt_flag -g" -DCMAKE_EXE_LINKER_FLAGS="-fsanitize=memory" -DCMAKE_SHARED_LINKER_FLAGS="-fsanitize=memory"
+    cmake -S .. -G Ninja -DBUILD_SHARED_LIBS=ON -DCMAKE_C_COMPILER=$compiler_version -DOQS_OPT_TARGET=$liboqs_build -DCMAKE_BUILD_TYPE=Debug -DOQS_USE_OPENSSL=OFF -DOQS_DIST_BUILD=OFF -DOQS_ENABLE_TEST_CONSTANT_TIME=ON -DCMAKE_C_FLAGS="-fsanitize=memory -fsanitize-recover=all $opt_flag -g" -DCMAKE_EXE_LINKER_FLAGS="-fsanitize=memory" -DCMAKE_SHARED_LINKER_FLAGS="-fsanitize=memory"
     cmake --build . -j$(nproc)
 
     # Restore the original test files with the backups
@@ -38,13 +39,14 @@ build_and_test() {
 
     # Execute test.sh for both KEMs and SIGs
     cd $SCRIPT_DIR
-    ./test.sh "$BUILD_DIR" kem $compiler_version
-    ./test.sh "$BUILD_DIR" sig $compiler_version
+    ./test.sh "$BUILD_DIR" kem $compiler_version $liboqs_build
+    ./test.sh "$BUILD_DIR" sig $compiler_version $liboqs_build
 }
 
 # Read inputs from arguments
 compiler_version=${1:?"Error: Compiler version argument is required."}
-opt_flag=${2:?"Error: Optimization flag argument is required."}
+liboqs_build=${2:?"Error: liboqs build is required."}
+opt_flag=${3:?"Error: Optimization flag argument is required."}
 
 # Define a cleanup function that will restore the original test files with the backups
 cleanup() {
@@ -59,4 +61,4 @@ cleanup() {
 trap cleanup EXIT INT
 
 # Run the build and test process
-build_and_test "$compiler_version" "$opt_flag"
+build_and_test "$compiler_version" "$liboqs_build" "$opt_flag"
