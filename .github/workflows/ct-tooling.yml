@@ -80,6 +80,10 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: openquantumsafe/ci-ubuntu-latest:latest
+    strategy:
+      matrix:
+        compiler: [gcc, clang]
+        opt_flag: [-O0, -O1, -O2, -O3, -Os, -Ofast, "-O2 -fno-vectorize", "-O3 -fno-vectorize"]
     steps:
       - name: Checkout code
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
@@ -88,7 +92,7 @@ jobs:
         run: |
           cd "$GITHUB_WORKSPACE/tests/ct_tooling/tools/memsan"
           chmod +x build.sh test.sh
-          ./build.sh
+          ./build.sh ${{ matrix.compiler }} ${{ matrix.opt_flag }}
 
       - name: Upload memsan logs
         uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
