@@ -42,11 +42,25 @@ export OQS_BUILD_DIR="$BUILD_DIR"
 
 # Get list of algorithms based on test type
 if [[ "$TEST_TYPE" == "kem" ]]; then
-    ALGORITHMS="BIKE-L1 Classic-McEliece-348864 FrodoKEM-640-AES Kyber512 ML-KEM-512 NTRU-HRSS-701 sntrup761"
+    ALGORITHMS=$(python3 -c "
+import sys
+sys.path.insert(0, 'tests')
+import helpers
+for kem in helpers.available_kems_by_name():
+    if helpers.is_kem_enabled_by_name(kem):
+        print(kem)
+")
     TEST_BINARY="test_kem"
     UPPER_TYPE="KEM"
 else
-    ALGORITHMS="Falcon-512 MAYO-1 ML-DSA-44 OV-Ip-pkc-skc SNOVA_24_5_4 cross-rsdp-128-balanced"
+    ALGORITHMS=$(python3 -c "
+import sys
+sys.path.insert(0, 'tests')
+import helpers
+for sig in helpers.available_sigs_by_name():
+    if helpers.is_sig_enabled_by_name(sig):
+        print(sig)
+")
     TEST_BINARY="test_sig"
     UPPER_TYPE="SIG"
 fi

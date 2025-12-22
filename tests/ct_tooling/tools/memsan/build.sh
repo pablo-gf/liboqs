@@ -7,12 +7,10 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LIBOQS_DIR="$(realpath "$SCRIPT_DIR/../../../..")"
 
 build_and_test() {
-
     local compiler_version=$1
-    local liboqs_build=$2
-    local opt_flag=$3
+    local opt_flag=$2
 
-    BUILD_NAME=$(echo "memsan${opt_flag//-/_}"_"$compiler_version"_"$liboqs_build" | sed 's/ -/-/g')
+    BUILD_NAME=$(echo "memsan${opt_flag//-/_}"_"$compiler_version" | sed 's/ -/-/g')
     BUILD_DIR="$LIBOQS_DIR/build_$BUILD_NAME"
 
     # Create backup files of the original tests files
@@ -29,7 +27,7 @@ build_and_test() {
     # Build liboqs with the current configuration
     mkdir -p "$BUILD_DIR"
     cd "$BUILD_DIR"
-    cmake -S .. -G Ninja -DBUILD_SHARED_LIBS=ON -DCMAKE_C_COMPILER=$compiler_version -DCMAKE_BUILD_TYPE=Debug -DOQS_USE_OPENSSL=OFF -DOQS_DIST_BUILD=OFF -DOQS_OPT_TARGET=$liboqs_build -DCMAKE_C_FLAGS="-fsanitize=memory -fsanitize-recover=all $opt_flag -g" -DCMAKE_EXE_LINKER_FLAGS="-fsanitize=memory" -DCMAKE_SHARED_LINKER_FLAGS="-fsanitize=memory"
+    cmake -S .. -G Ninja -DBUILD_SHARED_LIBS=ON -DCMAKE_C_COMPILER=$compiler_version -DCMAKE_BUILD_TYPE=Debug -DOQS_USE_OPENSSL=OFF -DOQS_DIST_BUILD=OFF -DOQS_ENABLE_TEST_CONSTANT_TIME=ON -DCMAKE_C_FLAGS="-fsanitize=memory -fsanitize-recover=all $opt_flag -g" -DCMAKE_EXE_LINKER_FLAGS="-fsanitize=memory" -DCMAKE_SHARED_LINKER_FLAGS="-fsanitize=memory"
     cmake --build . -j$(nproc)
 
     # Restore the original test files with the backups
@@ -40,9 +38,13 @@ build_and_test() {
 
     # Execute test.sh for both KEMs and SIGs
     cd $SCRIPT_DIR
-    ./test.sh "$BUILD_DIR" kem $compiler_version $liboqs_build
-    ./test.sh "$BUILD_DIR" sig $compiler_version $liboqs_build
+    ./test.sh "$BUILD_DIR" kem $compiler_version
+    ./test.sh "$BUILD_DIR" sig $compiler_version
 }
+
+# Read inputs from arguments
+compiler_version=${1:?"Error: Compiler version argument is required."}
+opt_flag=${2:?"Error: Optimization flag argument is required."}
 
 # Define a cleanup function that will restore the original test files with the backups
 cleanup() {
@@ -56,16 +58,5 @@ cleanup() {
 # Set the trap to call cleanup on EXIT or INT (Ctrl+C)
 trap cleanup EXIT INT
 
-# Iterate through the default and latest compiler versions (temporally removing and clang-20  for workflow debugging)
-for compiler_version in clang; do
-    # Iterate through both liboqs builds: generic vs. optimized
-    for liboqs_build in generic; do
-        # Iterate through the different optimization flags and execute tests asynchronously
-        for opt_flag in  -O0 -O1 -O2 -O3 -Os -Ofast "-O2 -fno-vectorize" "-O3 -fno-vectorize"; do
-            build_and_test "$compiler_version" "$liboqs_build" "$opt_flag" &
-        done
-    done
-done
-
-# Wait for all background jobs to complete
-wait
+# Run the build and test process
+build_and_test "$compiler_version" "$opt_flag"
