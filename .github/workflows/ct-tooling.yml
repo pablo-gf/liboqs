@@ -55,25 +55,21 @@ jobs:
         opt_flag: [-O0, -O1, -O2, -O3, -Os, -Ofast, "-O2 -fno-tree-vectorize", "-O3 -fno-tree-vectorize"]
     steps:
 
-      - name: Debug artifact contents
-        run: |
-            echo "Current directory: $PWD"
-            ls -R "$PWD"
-
       - name: Download valgrind_varlat
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # pin@v4
         with:
           name: valgrind_varlat
-          path: .
+          path: ./valgrind_varlat
+
       - name: Debug artifact contents
         run: |
             echo "Current directory: $PWD"
-            ls -R "$PWD"
+            ls -l "$GITHUB_WORKSPACE"
 
       - name: Add valgrind_varlat to PATH
         run: |
             chmod +x "$GITHUB_WORKSPACE/valgrind_varlat/bin/valgrind_varlat"
-            echo "$GITHUB_WORKSPACE/bin" >> "$GITHUB_PATH"
+            echo "$GITHUB_WORKSPACE/valgrind_varlat/bin" >> "$GITHUB_PATH"
             which valgrind_varlat
 
       - name: Checkout code
