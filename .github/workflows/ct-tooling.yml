@@ -42,6 +42,8 @@ jobs:
           make install
 
           echo "$INSTALL_PREFIX/bin" >> "$GITHUB_PATH"
+          ls -l /__w/liboqs/valgrind_varlat/bin
+          which valgrind_varlat
 
       - name: Run valgrind_varlat tests
         run: |
@@ -58,8 +60,9 @@ jobs:
 
       - name: Generate visualizations and CSVs for valgrind_varlat
         run: |
-          python3 -m pip install --upgrade pip --break-system-packages
-          python3 -m pip install matplotlib --break-system-packages
+          python3 -m ensurepip --upgrade
+          python3 -m pip install --upgrade --user pip
+          python3 -m pip install --user matplotlib
           cd "$GITHUB_WORKSPACE/tests/ct_tooling/scripts"
           python3 analyze_results.py \
             -t valgrind_varlat \
@@ -96,8 +99,9 @@ jobs:
 
       - name: Generate visualizations and CSVs for memsan
         run: |
-          python3 -m pip install --upgrade pip --break-system-packages
-          python3 -m pip install matplotlib --break-system-packages
+          python3 -m ensurepip --upgrade
+          python3 -m pip install --upgrade --user pip
+          python3 -m pip install --user matplotlib
           cd "$GITHUB_WORKSPACE/tests/ct_tooling/scripts"
           python3 analyze_results.py \
             -t memsan \
