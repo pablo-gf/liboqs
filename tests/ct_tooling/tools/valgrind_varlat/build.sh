@@ -8,7 +8,7 @@ LIBOQS_DIR="$(realpath "$SCRIPT_DIR/../../../..")"
 
 build_and_test() {
     local compiler_version=$1
-    local liboqs_build:$2
+    local liboqs_build=$2
     local opt_flag=$3
 
     BUILD_NAME=$(echo "valgrind_varlat${opt_flag//-/_}"_"$compiler_version"_"$liboqs_build" | sed 's/ -/-/g')
