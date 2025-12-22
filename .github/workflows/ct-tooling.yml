@@ -41,7 +41,7 @@ jobs:
         uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
         with:
           name: valgrind_varlat
-          path: valgrind_varlat
+          path: valgrind_varlat/*
 
   valgrind-varlat:
     needs: build-valgrind-varlat
