@@ -61,4 +61,4 @@ cleanup() {
 trap cleanup EXIT INT
 
 # Run the build and test process
-build_and_test "$compiler_version" "$liboqs_build" "$opt_flag" &
+build_and_test "$compiler_version" "$liboqs_build" "$opt_flag"

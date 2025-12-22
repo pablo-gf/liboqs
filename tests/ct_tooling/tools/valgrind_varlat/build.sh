@@ -32,4 +32,4 @@ liboqs_build=${2:?"Error: liboqs build is required."}
 opt_flag=${3:?"Error: Optimization flag argument is required."}
 
 # Run the build and test process
-build_and_test "$compiler_version" "$liboqs_build" "$opt_flag" &
+build_and_test "$compiler_version" "$liboqs_build" "$opt_flag"
