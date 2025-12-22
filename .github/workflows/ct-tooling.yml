@@ -70,6 +70,7 @@ jobs:
         run: |
             chmod +x "$GITHUB_WORKSPACE/valgrind_varlat/bin/valgrind_varlat"
             echo "$GITHUB_WORKSPACE/valgrind_varlat/bin" >> "$GITHUB_PATH"
+            export PATH="$GITHUB_WORKSPACE/valgrind_varlat/bin:$PATH"
             which valgrind_varlat
 
       - name: Checkout code
