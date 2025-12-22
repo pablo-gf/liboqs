@@ -65,9 +65,9 @@ jobs:
 
       - name: Add valgrind_varlat to PATH
         run: |
-          chmod +x valgrind_varlat/bin/valgrind_varlat
-          echo "$PWD/valgrind_varlat/bin" >> "$GITHUB_PATH"
-          which valgrind_varlat
+            chmod +x "$GITHUB_WORKSPACE/valgrind_varlat/bin/valgrind_varlat"
+            echo "$GITHUB_WORKSPACE/valgrind_varlat/bin" >> "$GITHUB_PATH"
+            which valgrind_varlat
 
       - name: Run valgrind_varlat tests
         run: |
