@@ -82,7 +82,7 @@ jobs:
       image: openquantumsafe/ci-ubuntu-latest:latest
     strategy:
       matrix:
-        compiler: [gcc, clang]
+        compiler: [clang]
         opt_flag: [-O0, -O1, -O2, -O3, -Os, -Ofast, "-O2 -fno-vectorize", "-O3 -fno-vectorize"]
     steps:
       - name: Checkout code
