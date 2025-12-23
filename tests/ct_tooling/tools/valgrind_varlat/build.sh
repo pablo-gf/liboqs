@@ -1,6 +1,9 @@
 #!/bin/bash
 # SPDX-License-Identifier: MIT
 
+echo "PATH in build.sh: $PATH"
+command -v valgrind_varlat || echo "valgrind_varlat NOT FOUND"
+
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

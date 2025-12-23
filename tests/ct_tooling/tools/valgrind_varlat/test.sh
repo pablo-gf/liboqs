@@ -118,6 +118,8 @@ for algo in $ALGORITHMS; do
     : > "$LOG_FILE"
     : > "$LOG_FILE.hashes"
     : > "$LOG_FILE.count"
+
+    set -x
     
     "${VALGRIND_OPTS[@]}" "$BUILD_DIR"/tests/$TEST_BINARY "$algo" 2>&1 | awk \
         -v log_file="$LOG_FILE" \
