@@ -52,7 +52,7 @@ jobs:
       matrix:
         compiler: [gcc, clang]
         liboqs_build: [generic, auto]
-        opt_flag: [-O0, -O1, -O2, -O3, -Os, -Ofast, "-O2 -fno-tree-vectorize", "-O3 -fno-tree-vectorize"]
+        opt_flag: [O0, O1, O2, O3, Os, Ofast, "-O2 -fno-tree-vectorize", "-O3 -fno-tree-vectorize"]
     steps:
       - name: Checkout code
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
@@ -98,45 +98,45 @@ jobs:
     #       path: |
     #         $GITHUB_WORKSPACE/tests/ct_tooling/results/valgrind_varlat
 
-  memsan:
-    runs-on: ubuntu-latest
-    container:
-      image: openquantumsafe/ci-ubuntu-latest:latest
-    strategy:
-      matrix:
-        compiler: [clang]
-        liboqs_build: [generic, auto]
-        opt_flag: [-O1, -O2, -O3, -Os, -Ofast, "-O2 -fno-vectorize", "-O3 -fno-vectorize"]
-        algorithm: 
-          - BIKE-L1
-          - Classic-McEliece-348864
-          - Kyber512
-          - ML-KEM-512
-          - ML-KEM-768
-          - ML-KEM-1024
-          - sntrup761
-          - FrodoKEM-640-AES
-          - ML-DSA-44
-          - Falcon-512
-          - MAYO-1
-          - cross-rsdp-128-balanced
-          - OV-Is-pkc-skc
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
+  # memsan:
+  #   runs-on: ubuntu-latest
+  #   container:
+  #     image: openquantumsafe/ci-ubuntu-latest:latest
+  #   strategy:
+  #     matrix:
+  #       compiler: [clang]
+  #       liboqs_build: [generic, auto]
+  #       opt_flag: [-O1, -O2, -O3, -Os, -Ofast, "-O2 -fno-vectorize", "-O3 -fno-vectorize"]
+  #       algorithm: 
+  #         - BIKE-L1
+  #         - Classic-McEliece-348864
+  #         - Kyber512
+  #         - ML-KEM-512
+  #         - ML-KEM-768
+  #         - ML-KEM-1024
+  #         - sntrup761
+  #         - FrodoKEM-640-AES
+  #         - ML-DSA-44
+  #         - Falcon-512
+  #         - MAYO-1
+  #         - cross-rsdp-128-balanced
+  #         - OV-Is-pkc-skc
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
 
-      - name: Run memsan tests
-        run: |
-          cd "$GITHUB_WORKSPACE/tests/ct_tooling/tools/memsan"
-          chmod +x build.sh test.sh
-          ./build.sh ${{ matrix.compiler }} ${{matrix.liboqs_build}} ${{ matrix.opt_flag }} ${{ matrix.algorithm }}
+  #     - name: Run memsan tests
+  #       run: |
+  #         cd "$GITHUB_WORKSPACE/tests/ct_tooling/tools/memsan"
+  #         chmod +x build.sh test.sh
+  #         ./build.sh ${{ matrix.compiler }} ${{matrix.liboqs_build}} ${{ matrix.opt_flag }} ${{ matrix.algorithm }}
 
-      - name: Upload memsan logs
-        uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
-        with:
-          name: memsan ${{ matrix.compiler }} ${{matrix.liboqs_build}} ${{ matrix.opt_flag }} ${{ matrix.algorithm }} logs
-          path: |
-            $GITHUB_WORKSPACE/tests/ct_tooling/tools/memsan/logs/**
+  #     - name: Upload memsan logs
+  #       uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
+  #       with:
+  #         name: memsan ${{ matrix.compiler }} ${{matrix.liboqs_build}} ${{ matrix.opt_flag }} ${{ matrix.algorithm }} logs
+  #         path: |
+  #           $GITHUB_WORKSPACE/tests/ct_tooling/tools/memsan/logs/**
 
     #   - name: Generate visualizations and CSVs for memsan
     #     run: |

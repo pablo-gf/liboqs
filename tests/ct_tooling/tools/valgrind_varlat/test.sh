@@ -119,8 +119,6 @@ for algo in $ALGORITHMS; do
     : > "$LOG_FILE.hashes"
     : > "$LOG_FILE.count"
 
-    set -x
-    
     "${VALGRIND_OPTS[@]}" "$BUILD_DIR"/tests/$TEST_BINARY "$algo" 2>&1 | awk \
         -v log_file="$LOG_FILE" \
         -v tmp_file="$LOG_FILE.tmp" \
@@ -197,6 +195,8 @@ for algo in $ALGORITHMS; do
         print unique_warnings_count > count_file; close(count_file);
     }
     '
+
+    echo "valgrind exit code: $?"
     
     # Capture the exit code of Valgrind (first element of PIPESTATUS)
     VALGRIND_EXIT_CODE=${PIPESTATUS[0]}

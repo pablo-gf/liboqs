@@ -32,7 +32,7 @@ ARCH="$(uname -m)"
 
 # Run tests
 echo "========================================" | tee "$OUTPUT_DIR/${ALGORITHM}_summary_${TIMESTAMP}.txt"
-echo "Testing ${UPPER_TYPE}s" | tee -a "$OUTPUT_DIR/${ALGORITHM}_summary_${TIMESTAMP}.txt"
+echo "Testing ${ALGORITHM}" | tee -a "$OUTPUT_DIR/${ALGORITHM}_summary_${TIMESTAMP}.txt"
 echo "Compiled with: $MEMSAN_OPTIONS" | tee -a "$OUTPUT_DIR/${ALGORITHM}_summary_${TIMESTAMP}.txt"
 echo "Compiler version: ${COMPILER_VERSION}" | tee -a "$OUTPUT_DIR/${ALGORITHM}_summary_${TIMESTAMP}.txt"
 echo "Architecture: ${ARCH}" | tee -a "$OUTPUT_DIR/${ALGORITHM}_summary_${TIMESTAMP}.txt"
@@ -44,7 +44,7 @@ MAX_WARNINGS=100000
 PASS_COUNT=0
 FAIL_COUNT=0
    
-echo -n "Testing $UPPER_TYPE: $ALGORITHM ... " | tee -a "$OUTPUT_DIR/${ALGORITHM}_summary_${TIMESTAMP}.txt"
+echo -n "Testing $ALGORITHM ... " | tee -a "$OUTPUT_DIR/${ALGORITHM}_summary_${TIMESTAMP}.txt"
 
 LOG_FILE="$OUTPUT_DIR/${ALGORITHM}_${TIMESTAMP}.log"
 touch "$LOG_FILE"
@@ -104,5 +104,5 @@ fi
 rm -f "$OUTPUT_DIR"/*.log.count
 
 echo "" | tee -a "$OUTPUT_DIR/${ALGORITHM}_summary_${TIMESTAMP}.txt"
-echo "$UPPER_TYPE Results: $PASS_COUNT passed, $FAIL_COUNT failed" | tee -a "$OUTPUT_DIR/${ALGORITHM}_summary_${TIMESTAMP}.txt"
+echo "Results: $PASS_COUNT passed, $FAIL_COUNT failed" | tee -a "$OUTPUT_DIR/${ALGORITHM}_summary_${TIMESTAMP}.txt"
 echo "" | tee -a "$OUTPUT_DIR/${ALGORITHM}_summary_${TIMESTAMP}.txt"
