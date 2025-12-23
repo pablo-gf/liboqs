@@ -202,8 +202,6 @@ for algo in $ALGORITHMS; do
     # Capture the exit code of Valgrind (first element of PIPESTATUS)
     VALGRIND_EXIT_CODE=${PIPESTATUS[0]}
     AWK_EXIT_CODE=${PIPESTATUS[1]}
-    echo "VALGRIND_EXIT_CODE=$VALGRIND_EXIT_CODE"
-    echo "AWK_EXIT_CODE=$AWK_EXIT_CODE"
     EXIT_CODE=$VALGRIND_EXIT_CODE
 
     ERROR_COUNT=$(cat "$LOG_FILE.count" 2>/dev/null)
