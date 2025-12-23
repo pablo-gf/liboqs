@@ -93,7 +93,7 @@ jobs:
         with:
           name: valgrind_varlat_${{ matrix.compiler }}_${{ matrix.liboqs_build }}_${{ matrix.opt_flag }}_logs
           path: |
-            $GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat/logs/**
+            tests/ct_tooling/tools/valgrind_varlat/logs/**
 
     #   - name: Generate visualizations and CSVs for valgrind_varlat
     #     run: |
