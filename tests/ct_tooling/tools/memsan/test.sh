@@ -35,6 +35,7 @@ if [[ "$ALGORITHM" == "BIKE-L1" || "$ALGORITHM" == "Classic-McEliece-348864" || 
     TEST_BINARY="test_kem"
 else
     TEST_BINARY="test_sig"
+fi
 
 # Run tests
 echo "========================================" | tee "$OUTPUT_DIR/${ALGORITHM}_summary_${TIMESTAMP}.txt"
