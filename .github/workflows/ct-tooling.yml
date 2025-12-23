@@ -76,7 +76,7 @@ jobs:
       - name: Upload valgrind_varlat logs
         uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
         with:
-          name: valgrind_varlat logs
+          name: valgrind_varlat_${{ matrix.compiler }}_${{ matrix.liboqs_build }}_${{ matrix.opt_flag }}_logs
           path: |
             tests/ct_tooling/tools/valgrind_varlat/logs/**
 
@@ -132,7 +132,7 @@ jobs:
   #     - name: Upload memsan logs
   #       uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
   #       with:
-  #         name: memsan ${{ matrix.compiler }} ${{matrix.liboqs_build}} ${{ matrix.opt_flag }} ${{ matrix.algorithm }} logs
+  #         name: memsan_${{ matrix.compiler }}_${{matrix.liboqs_build}}_${{ matrix.opt_flag }}_${{ matrix.algorithm }}_logs
   #         path: |
   #           tests/ct_tooling/tools/memsan/logs/**
 

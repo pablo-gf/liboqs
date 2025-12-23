@@ -3,6 +3,9 @@
 
 set -e
 
+echo "PATH in test.sh: $PATH"
+command -v valgrind_varlat || echo "valgrind_varlat NOT FOUND"
+
 BUILD_DIR="${1:?Error: Build directory argument is required.}"
 TEST_TYPE="${2:?Error: Test type argument is required (kem|sig).}"
 COMP_V="${3:?Error: Compiler version is required}"
@@ -118,12 +121,6 @@ for algo in $ALGORITHMS; do
     : > "$LOG_FILE"
     : > "$LOG_FILE.hashes"
     : > "$LOG_FILE.count"
-
-    # Make all test binaries executable
-    chmod -R u+x "$BUILD_DIR"/tests/
-
-    # Ensure build/test directories are writable
-    chmod -R u+rwX "$BUILD_DIR"/tests/
 
     "${VALGRIND_OPTS[@]}" "$BUILD_DIR"/tests/$TEST_BINARY "$algo" 2>&1 | awk \
         -v log_file="$LOG_FILE" \
