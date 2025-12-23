@@ -41,7 +41,6 @@ build_and_test() {
     # Execute test.sh for both KEMs and SIGs
     cd $SCRIPT_DIR
     ./test.sh "$BUILD_DIR" $compiler_version $liboqs_build $algorithm
-    ./test.sh "$BUILD_DIR" $compiler_version $liboqs_build $algorithm
 }
 
 # Read inputs from arguments
