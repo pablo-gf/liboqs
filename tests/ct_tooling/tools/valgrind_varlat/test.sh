@@ -119,114 +119,119 @@ for algo in $ALGORITHMS; do
     : > "$LOG_FILE.hashes"
     : > "$LOG_FILE.count"
 
-    "${VALGRIND_OPTS[@]}" "$BUILD_DIR"/tests/$TEST_BINARY "$algo" 2>&1 | awk \
-        -v log_file="$LOG_FILE" \
-        -v tmp_file="$LOG_FILE.tmp" \
-        -v hash_file="$LOG_FILE.hashes" \
-        -v count_file="$LOG_FILE.count" \
-        -v max_warnings="$MAX_WARNINGS" '
-    # Extract unique suppression blocks from Valgrind output
-    BEGIN {
-        unique_warnings_count = 0;
-        in_block = 0;         # Whether we are inside a { ... } block
-        block = "";           # Current block content (including braces)
-        suppress = 0;         # reached max_warnings
-
-        # Preload known hashes if present
-        while ((getline line < hash_file) > 0) {
-            gsub(/\r$/, "", line);  # Change Windows newlines \r\n to simple \n
-            if (length(line) > 0) {
-                seen[line] = 1;     # Variable storing the hashes of all the blocks already gathered
-            }
-        }
-        close(hash_file);
-    }
-
-    {
-        if (suppress) {
-            # Still parse block boundaries but do nothing else (prevents SIGPIPE errors)
-            if (in_block) {
-                if ($0 ~ /^\}$/) { in_block = 0 }
-            } else if ($0 ~ /^\{$/) {
-                in_block = 1
-            }
-            next
-        }
-
-        if (in_block) {
-            block = block $0 "\n";
-                
-            # When } is encountered, it is the end of block: compute hash via tmp file
-            if ($0 ~ /^\}$/) {
-                print block > tmp_file; close(tmp_file);   # Load the block into the tmp file
-                cmd = "sha256sum \"" tmp_file "\"";        # Build a system command (cmd) that computes the hash of the block
-                cmd | getline line; close(cmd);            # Execute it and read the full sha256sum output line
-                hash = line; sub(/ .*/, "", hash);        # Extract the first field (hash) before the first space
-
-                # If the hash is new, store it in seen[] and increase the count
-                if (!(hash in seen)) {
-                    print block >> log_file; close(log_file);
-                    print "" >> log_file;      # spacer line between blocks
-                    print hash >> hash_file; close(hash_file);
-                    seen[hash] = 1;
-                    unique_warnings_count++;
-
-                    # If the cap is reached, exit
-                    if (unique_warnings_count >= max_warnings) {
-                        suppress = 1;
-                    }
-                }
-
-                # Reset
-                in_block = 0;
-                block = "";
-            }
-            next
-        }
-
-        # When { is detected, start a new block
-        if ($0 ~ /^\{$/) {
-            in_block = 1;
-            block = $0 "\n";
-        }
-    }
-
-    END {
-        print unique_warnings_count > count_file; close(count_file);
-    }
-    '
-    
-    # Capture the exit code of Valgrind (first element of PIPESTATUS)
+    "${VALGRIND_OPTS[@]}" "$BUILD_DIR"/tests/$TEST_BINARY "$algo" 2>&1 | tee /dev/tty | awk '...'
     VALGRIND_EXIT_CODE=${PIPESTATUS[0]}
-    echo "VALGRIND_EXIT_CODE=$VALGRIND_EXIT_CODE"
     AWK_EXIT_CODE=${PIPESTATUS[1]}
-    echo "AWK_EXIT_CODE=$AWK_EXIT_CODE"
-    EXIT_CODE=$VALGRIND_EXIT_CODE
 
-    ERROR_COUNT=$(cat "$LOG_FILE.count" 2>/dev/null)
-    ERROR_COUNT=${ERROR_COUNT:-0}
 
-    if [ "$ERROR_COUNT" -eq "$MAX_WARNINGS" ]; then
-        echo "FAIL (Valgrind Kyberslash warnings)" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
-        echo "  → Found $ERROR_COUNT Valgrind Kyberslash warnings (warning cap reached — further warnings suppressed)" \
-            | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
-        ((++FAIL_COUNT))
+    # "${VALGRIND_OPTS[@]}" "$BUILD_DIR"/tests/$TEST_BINARY "$algo" 2>&1 | awk \
+    #     -v log_file="$LOG_FILE" \
+    #     -v tmp_file="$LOG_FILE.tmp" \
+    #     -v hash_file="$LOG_FILE.hashes" \
+    #     -v count_file="$LOG_FILE.count" \
+    #     -v max_warnings="$MAX_WARNINGS" '
+    # # Extract unique suppression blocks from Valgrind output
+    # BEGIN {
+    #     unique_warnings_count = 0;
+    #     in_block = 0;         # Whether we are inside a { ... } block
+    #     block = "";           # Current block content (including braces)
+    #     suppress = 0;         # reached max_warnings
 
-    elif [ "$ERROR_COUNT" -gt 0 ]; then
-        echo "FAIL (Valgrind Kyberslash warnings)" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
-        echo "  → Found $ERROR_COUNT Valgrind Kyberslash warnings" \
-            | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
-        ((++FAIL_COUNT))
+    #     # Preload known hashes if present
+    #     while ((getline line < hash_file) > 0) {
+    #         gsub(/\r$/, "", line);  # Change Windows newlines \r\n to simple \n
+    #         if (length(line) > 0) {
+    #             seen[line] = 1;     # Variable storing the hashes of all the blocks already gathered
+    #         }
+    #     }
+    #     close(hash_file);
+    # }
 
-    elif [ $EXIT_CODE -ne 0 ]; then
-        echo "FAIL (Exit code: $EXIT_CODE)" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
-        ((++FAIL_COUNT))
+    # {
+    #     if (suppress) {
+    #         # Still parse block boundaries but do nothing else (prevents SIGPIPE errors)
+    #         if (in_block) {
+    #             if ($0 ~ /^\}$/) { in_block = 0 }
+    #         } else if ($0 ~ /^\{$/) {
+    #             in_block = 1
+    #         }
+    #         next
+    #     }
 
-    else
-        echo "PASS" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
-        ((++PASS_COUNT))
+    #     if (in_block) {
+    #         block = block $0 "\n";
+                
+    #         # When } is encountered, it is the end of block: compute hash via tmp file
+    #         if ($0 ~ /^\}$/) {
+    #             print block > tmp_file; close(tmp_file);   # Load the block into the tmp file
+    #             cmd = "sha256sum \"" tmp_file "\"";        # Build a system command (cmd) that computes the hash of the block
+    #             cmd | getline line; close(cmd);            # Execute it and read the full sha256sum output line
+    #             hash = line; sub(/ .*/, "", hash);        # Extract the first field (hash) before the first space
 
-    fi
+    #             # If the hash is new, store it in seen[] and increase the count
+    #             if (!(hash in seen)) {
+    #                 print block >> log_file; close(log_file);
+    #                 print "" >> log_file;      # spacer line between blocks
+    #                 print hash >> hash_file; close(hash_file);
+    #                 seen[hash] = 1;
+    #                 unique_warnings_count++;
+
+    #                 # If the cap is reached, exit
+    #                 if (unique_warnings_count >= max_warnings) {
+    #                     suppress = 1;
+    #                 }
+    #             }
+
+    #             # Reset
+    #             in_block = 0;
+    #             block = "";
+    #         }
+    #         next
+    #     }
+
+    #     # When { is detected, start a new block
+    #     if ($0 ~ /^\{$/) {
+    #         in_block = 1;
+    #         block = $0 "\n";
+    #     }
+    # }
+
+    # END {
+    #     print unique_warnings_count > count_file; close(count_file);
+    # }
+    # '
+    
+    # # Capture the exit code of Valgrind (first element of PIPESTATUS)
+    # VALGRIND_EXIT_CODE=${PIPESTATUS[0]}
+    # AWK_EXIT_CODE=${PIPESTATUS[1]}
+    # echo "VALGRIND_EXIT_CODE=$VALGRIND_EXIT_CODE"
+    # echo "AWK_EXIT_CODE=$AWK_EXIT_CODE"
+    # EXIT_CODE=$VALGRIND_EXIT_CODE
+
+    # ERROR_COUNT=$(cat "$LOG_FILE.count" 2>/dev/null)
+    # ERROR_COUNT=${ERROR_COUNT:-0}
+
+    # if [ "$ERROR_COUNT" -eq "$MAX_WARNINGS" ]; then
+    #     echo "FAIL (Valgrind Kyberslash warnings)" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
+    #     echo "  → Found $ERROR_COUNT Valgrind Kyberslash warnings (warning cap reached — further warnings suppressed)" \
+    #         | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
+    #     ((++FAIL_COUNT))
+
+    # elif [ "$ERROR_COUNT" -gt 0 ]; then
+    #     echo "FAIL (Valgrind Kyberslash warnings)" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
+    #     echo "  → Found $ERROR_COUNT Valgrind Kyberslash warnings" \
+    #         | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
+    #     ((++FAIL_COUNT))
+
+    # elif [ $EXIT_CODE -ne 0 ]; then
+    #     echo "FAIL (Exit code: $EXIT_CODE)" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
+    #     ((++FAIL_COUNT))
+
+    # else
+    #     echo "PASS" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
+    #     ((++PASS_COUNT))
+
+    # fi
 done
 
 rm -f "$OUTPUT_DIR"/*.count
