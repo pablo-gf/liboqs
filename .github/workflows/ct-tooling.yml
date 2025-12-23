@@ -7,57 +7,18 @@ on: [workflow_dispatch]
 
 jobs:
 
-  # build-valgrind-varlat:
-  #   runs-on: ubuntu-latest
-  #   container:
-  #     image: openquantumsafe/ci-ubuntu-latest:latest
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
-
-  #     - name: Build valgrind_varlat
-  #       run: |
-  #         set -eux
-
-  #         INSTALL_PREFIX="$PWD/valgrind_varlat"
-
-  #         git clone https://sourceware.org/git/valgrind.git valgrind_varlat_src
-  #         cd valgrind_varlat_src
-  #         git checkout 112f1080b7c21e37dfce0a2e589d0dc7aa115afa
-
-  #         git apply "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat/valgrind-try-patch-20250805.txt"
-  #         git apply "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat/valgrind-varlat-patch-20250805.txt"
-  #         git apply "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat/valgrind-varlat-sup-block.txt"
-
-  #         ./autogen.sh
-  #         ./configure --prefix="$INSTALL_PREFIX"
-  #         make -j"$(nproc)"
-  #         make install
-
-  #         mv "$INSTALL_PREFIX/bin/valgrind" \
-  #            "$INSTALL_PREFIX/bin/valgrind_varlat"
-
-  #     - name: Upload valgrind_varlat
-  #       uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
-  #       with:
-  #         name: valgrind_varlat
-  #         path: valgrind_varlat
-
-  valgrind-varlat:
+  build-valgrind-varlat:
     runs-on: ubuntu-latest
     container:
       image: openquantumsafe/ci-ubuntu-latest:latest
-    strategy:
-      matrix:
-        compiler: [gcc, clang]
-        liboqs_build: [generic, auto]
-        opt_flag: [-O0, -O1, -O2, -O3, -Os, -Ofast, "-O2 -fno-tree-vectorize", "-O3 -fno-tree-vectorize"]
     steps:
-      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - name: Checkout code
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
 
       - name: Build valgrind_varlat
         run: |
           set -eux
+
           INSTALL_PREFIX="$PWD/valgrind_varlat"
 
           git clone https://sourceware.org/git/valgrind.git valgrind_varlat_src
@@ -73,16 +34,44 @@ jobs:
           make -j"$(nproc)"
           make install
 
-          mv "$INSTALL_PREFIX/bin/valgrind" "$INSTALL_PREFIX/bin/valgrind_varlat"
-          chmod -R u+rwX "$INSTALL_PREFIX"
-          export PATH="$INSTALL_PREFIX/bin:$PATH"
-          command -v valgrind_varlat
+          mv "$INSTALL_PREFIX/bin/valgrind" \
+             "$INSTALL_PREFIX/bin/valgrind_varlat"
 
-      - name: Run tests with valgrind_varlat
+      - name: Upload valgrind_varlat
+        uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
+        with:
+          name: valgrind_varlat
+          path: valgrind_varlat
+
+  valgrind-varlat:
+    needs: build-valgrind-varlat
+    runs-on: ubuntu-latest
+    container:
+      image: openquantumsafe/ci-ubuntu-latest:latest
+    strategy:
+      matrix:
+        compiler: [gcc, clang]
+        liboqs_build: [generic, auto]
+        opt_flag: [-O0, -O1, -O2, -O3, -Os, -Ofast, "-O2 -fno-tree-vectorize", "-O3 -fno-tree-vectorize"]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
+
+      - name: Download valgrind_varlat
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # pin@v4
+        with:
+          name: valgrind_varlat
+          path: ./valgrind_varlat
+
+      - name: Add valgrind_varlat to PATH and execute tests
         run: |
-          cd "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat"
-          chmod +x build.sh test.sh
-          ./build.sh ${{ matrix.compiler }} ${{ matrix.liboqs_build }} ${{ matrix.opt_flag }}}
+            chmod +x "$GITHUB_WORKSPACE/valgrind_varlat/bin/valgrind_varlat"
+            echo "$GITHUB_WORKSPACE/valgrind_varlat/bin" >> "$GITHUB_PATH"
+            export PATH="$GITHUB_WORKSPACE/valgrind_varlat/bin:$PATH"
+            which valgrind_varlat
+            cd "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat"
+            chmod +x build.sh test.sh
+            ./build.sh ${{ matrix.compiler }} ${{ matrix.liboqs_build }} ${{ matrix.opt_flag }}
 
       - name: Upload valgrind_varlat logs
         uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
@@ -109,43 +98,43 @@ jobs:
     #       path: |
     #         $GITHUB_WORKSPACE/tests/ct_tooling/results/valgrind_varlat
 
-  # memsan:
-  #   runs-on: ubuntu-latest
-  #   container:
-  #     image: openquantumsafe/ci-ubuntu-latest:latest
-  #   strategy:
-  #     matrix:
-  #       compiler: [clang]
-  #       liboqs_build: [generic, auto]
-  #       opt_flag: [-O1, -O2, -O3, -Os, -Ofast, "-O2 -fno-vectorize", "-O3 -fno-vectorize"]
-  #       algorithm: 
-  #         - BIKE-L1
-  #         - Classic-McEliece-348864
-  #         - Kyber512
-  #         - ML-KEM-512
-  #         - sntrup761
-  #         - FrodoKEM-640-AES
-  #         - ML-DSA-44
-  #         - Falcon-512
-  #         - MAYO-1
-  #         - cross-rsdp-128-balanced
-  #         - OV-Is-pkc-skc
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
+  memsan:
+    runs-on: ubuntu-latest
+    container:
+      image: openquantumsafe/ci-ubuntu-latest:latest
+    strategy:
+      matrix:
+        compiler: [clang]
+        liboqs_build: [generic, auto]
+        opt_flag: [-O1, -O2, -O3, -Os, -Ofast, "-O2 -fno-vectorize", "-O3 -fno-vectorize"]
+        algorithm: 
+          - BIKE-L1
+          - Classic-McEliece-348864
+          - Kyber512
+          - ML-KEM-512
+          - sntrup761
+          - FrodoKEM-640-AES
+          - ML-DSA-44
+          - Falcon-512
+          - MAYO-1
+          - cross-rsdp-128-balanced
+          - OV-Is-pkc-skc
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
 
-  #     - name: Run memsan tests
-  #       run: |
-  #         cd "$GITHUB_WORKSPACE/tests/ct_tooling/tools/memsan"
-  #         chmod +x build.sh test.sh
-  #         ./build.sh ${{ matrix.compiler }} ${{matrix.liboqs_build}} ${{ matrix.opt_flag }} ${{ matrix.algorithm }}
+      - name: Run memsan tests
+        run: |
+          cd "$GITHUB_WORKSPACE/tests/ct_tooling/tools/memsan"
+          chmod +x build.sh test.sh
+          ./build.sh ${{ matrix.compiler }} ${{matrix.liboqs_build}} ${{ matrix.opt_flag }} ${{ matrix.algorithm }}
 
-  #     - name: Upload memsan logs
-  #       uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
-  #       with:
-  #         name: memsan_${{ matrix.compiler }}_${{matrix.liboqs_build}}_${{ matrix.opt_flag }}_${{ matrix.algorithm }}_logs
-  #         path: |
-  #           tests/ct_tooling/tools/memsan/logs/**
+      - name: Upload memsan logs
+        uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
+        with:
+          name: memsan_${{ matrix.compiler }}_${{matrix.liboqs_build}}_${{ matrix.opt_flag }}_${{ matrix.algorithm }}_logs
+          path: |
+            tests/ct_tooling/tools/memsan/logs/**
 
     #   - name: Generate visualizations and CSVs for memsan
     #     run: |
