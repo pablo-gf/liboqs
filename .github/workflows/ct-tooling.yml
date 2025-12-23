@@ -77,8 +77,10 @@ jobs:
 
           mv "$INSTALL_PREFIX/bin/valgrind" "$INSTALL_PREFIX/bin/valgrind_varlat"
           chmod -R u+rwX "$INSTALL_PREFIX"
-          echo "$INSTALL_PREFIX/bin" >> "$GITHUB_PATH"
+          export PATH="$INSTALL_PREFIX/bin:$PATH"
+          echo "PATH: $PATH"
           command -v valgrind_varlat
+          echo "$INSTALL_PREFIX/bin" >> "$GITHUB_PATH"
 
       - name: Run tests with valgrind_varlat
         run: |
