@@ -10,8 +10,9 @@ build_and_test() {
     local compiler_version=$1
     local liboqs_build=$2
     local opt_flag=$3
+    local algorithm=$4
 
-    BUILD_NAME=$(echo "valgrind_varlat${opt_flag//-/_}"_"$compiler_version"_"$liboqs_build" | sed 's/ -/-/g')
+    BUILD_NAME=$(echo "valgrind_varlat_$algorithm${opt_flag//-/_}"_"$compiler_version"_"$liboqs_build" | sed 's/ -/-/g')
     BUILD_DIR="$LIBOQS_DIR/build_$BUILD_NAME"
 
     # Create backup files of the original tests files
@@ -39,14 +40,15 @@ build_and_test() {
 
     # Execute test.sh for both KEMs and SIGs
     cd $SCRIPT_DIR
-    ./test.sh "$BUILD_DIR" kem $compiler_version $liboqs_build
-    ./test.sh "$BUILD_DIR" sig $compiler_version $liboqs_build
+    ./test.sh "$BUILD_DIR" $compiler_version $liboqs_build $algorithm
+    ./test.sh "$BUILD_DIR" $compiler_version $liboqs_build $algorithm
 }
 
 # Read inputs from arguments
 compiler_version=${1:?"Error: Compiler version argument is required."}
 liboqs_build=${2:?"Error: liboqs build is required."}
 opt_flag=${3:?"Error: Optimization flag argument is required."}
+algorithm=${4:?"Error: Algorithm is required."}
 
 # Define a cleanup function that will restore the original test files with the backups
 cleanup() {
@@ -61,4 +63,4 @@ cleanup() {
 trap cleanup EXIT INT
 
 # Run the build and test process
-build_and_test "$compiler_version" "$liboqs_build" "$opt_flag"
+build_and_test "$compiler_version" "$liboqs_build" "$opt_flag" "$algorithm"
