@@ -1,4 +1,4 @@
-name: constant time tooling valgrind-varlat
+name: ct-tooling valgrind-varlat
 
 permissions:
   contents: read
