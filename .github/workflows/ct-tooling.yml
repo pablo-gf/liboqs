@@ -78,7 +78,7 @@ jobs:
         with:
           name: valgrind_varlat logs
           path: |
-            $GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat/logs/**
+            tests/ct_tooling/tools/valgrind_varlat/logs/**
 
     #   - name: Generate visualizations and CSVs for valgrind_varlat
     #     run: |
@@ -134,7 +134,7 @@ jobs:
   #       with:
   #         name: memsan ${{ matrix.compiler }} ${{matrix.liboqs_build}} ${{ matrix.opt_flag }} ${{ matrix.algorithm }} logs
   #         path: |
-  #           $GITHUB_WORKSPACE/tests/ct_tooling/tools/memsan/logs/**
+  #           tests/ct_tooling/tools/memsan/logs/**
 
     #   - name: Generate visualizations and CSVs for memsan
     #     run: |
