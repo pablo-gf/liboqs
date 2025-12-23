@@ -52,7 +52,7 @@ jobs:
       matrix:
         compiler: [gcc, clang]
         liboqs_build: [generic, auto]
-        opt_flag: [O0, O1, O2, O3, Os, Ofast, "-O2 -fno-tree-vectorize", "-O3 -fno-tree-vectorize"]
+        opt_flag: [-O0, -O1, -O2, -O3, -Os, -Ofast, "-O2 -fno-tree-vectorize", "-O3 -fno-tree-vectorize"]
     steps:
       - name: Checkout code
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
@@ -112,8 +112,6 @@ jobs:
   #         - Classic-McEliece-348864
   #         - Kyber512
   #         - ML-KEM-512
-  #         - ML-KEM-768
-  #         - ML-KEM-1024
   #         - sntrup761
   #         - FrodoKEM-640-AES
   #         - ML-DSA-44

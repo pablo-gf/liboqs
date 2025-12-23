@@ -30,6 +30,12 @@ COMPILER_VERSION=$("$COMPILER_PATH" --version 2>&1 | head -n1)
 # Extract system's architecture
 ARCH="$(uname -m)"
 
+# Select test binary
+if [[ "$ALGORITHM" == "BIKE-L1" || "$ALGORITHM" == "Classic-McEliece-348864" || "$ALGORITHM" == "Kyber512" || "$ALGORITHM" == "ML-KEM-512" || "$ALGORITHM" == "sntrup761" || "$ALGORITHM" == "FrodoKEM-640-AES" ]]; then
+    TEST_BINARY="test_kem"
+else
+    TEST_BINARY="test_sig"
+
 # Run tests
 echo "========================================" | tee "$OUTPUT_DIR/${ALGORITHM}_summary_${TIMESTAMP}.txt"
 echo "Testing ${ALGORITHM}" | tee -a "$OUTPUT_DIR/${ALGORITHM}_summary_${TIMESTAMP}.txt"
