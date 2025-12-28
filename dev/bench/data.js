@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1766891217671,
+  "lastUpdate": 1766891255661,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "BIKE-L1": [
@@ -91368,6 +91368,46 @@ window.BENCHMARK_DATA = {
             "value": 214472,
             "unit": "cycles",
             "extra": "Target platform: x86_64-Linux-6.11.0-1018-azure | Compiler: gcc (13.3.0) | Compile options: [-Wa,--noexecstack;-O3;-fomit-frame-pointer;-fdata-sections;-ffunction-sections;-Wl,--gc-sections;-Wbad-function-cast] | OQS version: 0.15.0 (major: 0, minor: 15, patch: 0) | Git commit: c25131f561c55a5307e32b366e2f145705894e2d | OpenSSL enabled: Yes (OpenSSL 3.0.13 30 Jan 2024) | AES: NI | SHA-2: OpenSSL | SHA-3: AVX2 | OQS build flags: OQS_DIST_BUILD OQS_LIBJADE_BUILD OQS_OPT_TARGET=generic CMAKE_BUILD_TYPE=Release | CPU exts active: ADX AES AVX AVX2 BMI1 BMI2 PCLMULQDQ POPCNT SSE SSE2 SSE3 | "
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Pablo Gutiérrez",
+            "username": "pablo-gf",
+            "email": "pablogf@uma.es"
+          },
+          "committer": {
+            "name": "Pablo Gutiérrez",
+            "username": "pablo-gf",
+            "email": "pablogf@uma.es"
+          },
+          "id": "2253bdb1de7504a51ab2d85b1ba22d6f871b5fbf",
+          "message": "Included artifacts for valgrind-varlat\n\nSigned-off-by: Pablo Gutiérrez <pablogf@uma.es>",
+          "timestamp": "2025-12-23T17:54:18Z",
+          "url": "https://github.com/pablo-gf/liboqs/commit/2253bdb1de7504a51ab2d85b1ba22d6f871b5fbf"
+        },
+        "date": 1766891254475,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "OV-Is-pkc keypair",
+            "value": 2505421,
+            "unit": "cycles",
+            "extra": "Target platform: x86_64-Linux-6.11.0-1018-azure | Compiler: gcc (13.3.0) | Compile options: [-Wa,--noexecstack;-O3;-fomit-frame-pointer;-fdata-sections;-ffunction-sections;-Wl,--gc-sections;-Wbad-function-cast] | OQS version: 0.15.0 (major: 0, minor: 15, patch: 0) | Git commit: 2253bdb1de7504a51ab2d85b1ba22d6f871b5fbf | OpenSSL enabled: Yes (OpenSSL 3.0.13 30 Jan 2024) | AES: NI | SHA-2: OpenSSL | SHA-3: AVX2 | OQS build flags: OQS_DIST_BUILD OQS_LIBJADE_BUILD OQS_OPT_TARGET=generic CMAKE_BUILD_TYPE=Release | CPU exts active: ADX AES AVX AVX2 BMI1 BMI2 PCLMULQDQ POPCNT SSE SSE2 SSE3 | "
+          },
+          {
+            "name": "OV-Is-pkc sign",
+            "value": 63292,
+            "unit": "cycles",
+            "extra": "Target platform: x86_64-Linux-6.11.0-1018-azure | Compiler: gcc (13.3.0) | Compile options: [-Wa,--noexecstack;-O3;-fomit-frame-pointer;-fdata-sections;-ffunction-sections;-Wl,--gc-sections;-Wbad-function-cast] | OQS version: 0.15.0 (major: 0, minor: 15, patch: 0) | Git commit: 2253bdb1de7504a51ab2d85b1ba22d6f871b5fbf | OpenSSL enabled: Yes (OpenSSL 3.0.13 30 Jan 2024) | AES: NI | SHA-2: OpenSSL | SHA-3: AVX2 | OQS build flags: OQS_DIST_BUILD OQS_LIBJADE_BUILD OQS_OPT_TARGET=generic CMAKE_BUILD_TYPE=Release | CPU exts active: ADX AES AVX AVX2 BMI1 BMI2 PCLMULQDQ POPCNT SSE SSE2 SSE3 | "
+          },
+          {
+            "name": "OV-Is-pkc verify",
+            "value": 214928,
+            "unit": "cycles",
+            "extra": "Target platform: x86_64-Linux-6.11.0-1018-azure | Compiler: gcc (13.3.0) | Compile options: [-Wa,--noexecstack;-O3;-fomit-frame-pointer;-fdata-sections;-ffunction-sections;-Wl,--gc-sections;-Wbad-function-cast] | OQS version: 0.15.0 (major: 0, minor: 15, patch: 0) | Git commit: 2253bdb1de7504a51ab2d85b1ba22d6f871b5fbf | OpenSSL enabled: Yes (OpenSSL 3.0.13 30 Jan 2024) | AES: NI | SHA-2: OpenSSL | SHA-3: AVX2 | OQS build flags: OQS_DIST_BUILD OQS_LIBJADE_BUILD OQS_OPT_TARGET=generic CMAKE_BUILD_TYPE=Release | CPU exts active: ADX AES AVX AVX2 BMI1 BMI2 PCLMULQDQ POPCNT SSE SSE2 SSE3 | "
           }
         ]
       }
