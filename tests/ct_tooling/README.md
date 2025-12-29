@@ -49,7 +49,7 @@ ct_tools/
   - `*_test.sh <build_dir> <kem|sig>` - Run tests on a single build
 - **Output**: Unique `SUMMARY: MemorySanitizer:` lines
 
-Each tool has two pairs of scripts: One for local testing and another for CI testing. This is because certain configurations and arrangements had to be modified so that CI testing could be enabled through Github Actions using `liboqs/.github\workflows\ct-tooling-valgrind-varlat.yml` and `liboqs/.github\workflows\ct-tooling-memsan.yml`.
+Each tool has two pairs of scripts: One for local testing and another for CI testing. This is because certain configurations and arrangements had to be modified so that a less resource-intensive version of the testing framework could be enabled for CI through Github Actions using `liboqs/.github\workflows\ct-tooling-valgrind-varlat.yml` and `liboqs/.github\workflows\ct-tooling-memsan.yml`. Valgrind-Varlat and MemSan tests are fully integrated into CI, categorized by compiler version, liboqs builds, and optimization flags. Valgrind-Varlat tests cover all algorithms and their variants, while MemSan tests, being more time-consuming, are limited to one variant per algorithm. These tests are executed using the default versions of clang and gcc within the container image.
 
 ### Configuration
 For ValgrindVarlat configuration, see: [ValgrindVarlat's README](liboqs/tests/ct_tooling/tools/valgrind_varlat/README.md)
