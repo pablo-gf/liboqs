@@ -17,7 +17,7 @@ jobs:
         opt_flag: [-O1, -O2, -O3, -Os, -Ofast, "-O2 -fno-vectorize", "-O3 -fno-vectorize"]
         algorithm: 
           - BIKE-L1
-          - Classic-McEliece-348864
+          - Classic-McEliece-348864f
           - Kyber512
           - ML-KEM-512
           - sntrup761
