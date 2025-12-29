@@ -7,8 +7,10 @@ Automated testing framework for detecting constant-time warnings in [liboqs](htt
 ```
 ct_tools/
 ├── memsan/
-│   ├── build.sh              # Script for building liboqs with different testing modes
-│   ├── test.sh               # Script for running MemSan tests
+│   ├── ci_build.sh           # Script for building liboqs with different testing modes in CI
+│   ├── ci_test.sh            # Script for running MemSan tests in CI
+│   ├── local_build.sh        # Script for building liboqs with different testing modes locally
+│   ├── local_test.sh         # Script for running MemSan tests locally
 │   ├── logs/                 # Directory containing all logs for MemSan tests
 │   ├── README.md             # Documentation for MemSan testing
 │   ├── CMakeLists.txt        # MemSan-specific CMakeLists
@@ -17,8 +19,10 @@ ct_tools/
 │   └── rng_poison_memsan.c   # RNG poisoning for MemSan
 
 ├── valgrind_varlat/
-│   ├── build.sh              # Script for building liboqs with different testing modes
-│   ├── test.sh               # Script for running MemSan tests
+│   ├── ci_build.sh           # Script for building liboqs with different testing modes in CI
+│   ├── ci_test.sh            # Script for running MemSan tests in CI
+│   ├── local_build.sh        # Script for building liboqs with different testing modes locally
+│   ├── local_test.sh         # Script for running MemSan tests locally
 │   ├── logs/                 # Directory containing all logs for ValgrindVarlat tests
 │   ├── README.md             # Documentation for Valgrind testing
 │   ├── valgrind-try-patch-20250805.txt       # Valgrind patch file
@@ -34,16 +38,18 @@ ct_tools/
 ### 1. ValgrindVarlat (`valgrind_varlat/`)
 - **Purpose**: Uninitialized memory error detection using patched Valgrind, which includes variable-latency errors
 - **Key Scripts**:
-  - `build.sh` - Build liboqs across compiler versions, liboqs builds, and optimization levels
-  - `test.sh <build_dir> <kem|sig>` - Run tests on a single build
+  - `*_build.sh` - Build liboqs across compiler versions, liboqs builds, and optimization levels
+  - `*_test.sh <build_dir> <kem|sig>` - Run tests on a single build
 - **Output**: Unique suppression blocks for variable-latency errors (deduplicated via SHA-256 hashing)
 
 ### 2. MemSan (`memsan/`)
 - **Purpose**: LLVM-based memory error detection
 - **Key Scripts**:
-  - `build.sh` - Build liboqs across compiler versions, liboqs builds, and optimization levels
-  - `test.sh <build_dir> <kem|sig>` - Run tests on a single build
+  - `*_build.sh` - Build liboqs across compiler versions, liboqs builds, and optimization levels
+  - `*_test.sh <build_dir> <kem|sig>` - Run tests on a single build
 - **Output**: Unique `SUMMARY: MemorySanitizer:` lines
+
+Each tool has two pairs of scripts: One for local testing and another for CI testing. This is because certain configurations and arrangements had to be modified so that CI testing could be enabled through Github Actions using `liboqs/.github\workflows\ct-tooling-valgrind-varlat.yml` and `liboqs/.github\workflows\ct-tooling-memsan.yml`.
 
 ### Configuration
 For ValgrindVarlat configuration, see: [ValgrindVarlat's README](liboqs/tests/ct_tooling/tools/valgrind_varlat/README.md)

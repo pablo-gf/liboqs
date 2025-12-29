@@ -22,8 +22,8 @@ build_and_test() {
 
     # Execute test.sh for both KEMs and SIGs
     cd $SCRIPT_DIR
-    ./test.sh "$BUILD_DIR" kem $compiler_version $liboqs_build
-    ./test.sh "$BUILD_DIR" sig $compiler_version $liboqs_build
+    ./ci_test.sh "$BUILD_DIR" kem $compiler_version $liboqs_build
+    ./ci_test.sh "$BUILD_DIR" sig $compiler_version $liboqs_build
 }
 
 # Read inputs from arguments
