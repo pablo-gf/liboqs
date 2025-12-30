@@ -1,4 +1,4 @@
-# liboqs Constant-Time Tooling
+# Constant-Time Tooling
 
 Automated testing framework for detecting constant-time warnings in [liboqs](https://github.com/open-quantum-safe/liboqs) cryptographic implementations using analysis tools across different compiler optimization levels, compiler versions, and liboqs builds.
 
