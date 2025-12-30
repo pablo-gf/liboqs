@@ -48,7 +48,7 @@ jobs:
       - name: Run tests with valgrind_varlat
         run: |
           cd "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat"
-          chmod +x ci_build.sh test.sh
+          chmod +x ci_build.sh ci_test.sh
           ./ci_build.sh ${{ matrix.compiler }} ${{ matrix.liboqs_build }} ${{ matrix.opt_flag }}
 
       - name: Upload valgrind_varlat logs
