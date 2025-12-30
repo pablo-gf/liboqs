@@ -23,7 +23,7 @@ ct_tools/
 │   ├── ci_test.sh            # Script for running MemSan tests in CI
 │   ├── local_build.sh        # Script for building liboqs with different testing modes locally
 │   ├── local_test.sh         # Script for running MemSan tests locally
-│   ├── logs/                 # Directory containing all logs for ValgrindVarlat tests
+│   ├── logs/                 # Directory containing all logs for Valgrind-Varlat tests
 │   ├── README.md             # Documentation for Valgrind testing
 │   ├── valgrind-try-patch-20250805.txt       # Valgrind patch file
 │   ├── valgrind-varlat-patch-20250805.txt    # Valgrind variable-latency patch
@@ -35,7 +35,7 @@ ct_tools/
 
 ## Tools
 
-### 1. ValgrindVarlat (`valgrind_varlat/`)
+### 1. Valgrind-Varlat (`valgrind_varlat/`)
 - **Purpose**: Uninitialized memory error detection using patched Valgrind, which includes variable-latency errors
 - **Key Scripts**:
   - `*_build.sh` - Build liboqs across compiler versions, liboqs builds, and optimization levels
@@ -52,7 +52,7 @@ ct_tools/
 Each tool has two pairs of scripts: One for local testing and another for CI testing. This is because certain configurations and arrangements had to be modified so that a less resource-intensive version of the testing framework could be enabled for CI through Github Actions using `liboqs/.github\workflows\ct-tooling-valgrind-varlat.yml` and `liboqs/.github\workflows\ct-tooling-memsan.yml`. Valgrind-Varlat and MemSan tests are fully integrated into CI, categorized by compiler version, liboqs builds, and optimization flags. Valgrind-Varlat tests cover all algorithms and their variants, while MemSan tests, being more time-consuming, are limited to one variant per algorithm. These tests are executed using the default versions of clang and gcc within the container image.
 
 ### Configuration
-For ValgrindVarlat configuration, see: [ValgrindVarlat's README](liboqs/tests/ct_tooling/tools/valgrind_varlat/README.md)
+For Valgrind-Varlat configuration, see: [Valgrind-Varlat's README](liboqs/tests/ct_tooling/tools/valgrind_varlat/README.md)
 For MemSan configuration, see: [MemSan's README](liboqs/tests/ct_tooling/tools/memsan/README.md)
 
 ## Workflow
@@ -68,13 +68,13 @@ First, the `build.sh` script builds liboqs with the different variants that we a
 - liboqs build: auto (with optimizations), and generic
 - Optimization flags: -O0, -O1, -O2, -O3, -Os, -Ofast, -O2 -fno-tree-vectorize, and -O3 -fno-tree-vectorize
 
-Note that ValgrindVarlat tests can be compiled using both gcc and clang, while MemSan is only native to the clang compiler. This leaves the following possible configurations for each of the optimization flags:
+Note that Valgrind-Varlat tests can be compiled using both gcc and clang, while MemSan is only native to the clang compiler. This leaves the following possible configurations for each of the optimization flags:
 
 <table>
   <thead>
     <tr>
       <th></th>
-      <th colspan="4">ValgrindVarlat</th>
+      <th colspan="4">Valgrind-Varlat</th>
       <th colspan="2">MemSan</th>
     </tr>
     <tr>
@@ -112,7 +112,7 @@ Note that ValgrindVarlat tests can be compiled using both gcc and clang, while M
 Once the script builds each configuration into a build folder, it calls the test execution script (`test.sh`) on the build folder generated.
 
 2. **Test execution**
-Then, the `test.sh` script is tasked with executing the tool's test on selected liboqs algorithms. It retrieves the OQS enabled algorithms using the helpers module, and starts the constant time testing on each one of the variants that are returned. Each tool has a different process through which it parses the tool's output to keep unique instances of the warnings, which are further detailed in their respective README files: [ValgrindVarlat's README](liboqs/tests/ct_tooling/tools/valgrind_varlat/README.md) and [MemSan's README](liboqs/tests/ct_tooling/tools/memsan/README.md).
+Then, the `test.sh` script is tasked with executing the tool's test on selected liboqs algorithms. It retrieves the OQS enabled algorithms using the helpers module, and starts the constant time testing on each one of the variants that are returned. Each tool has a different process through which it parses the tool's output to keep unique instances of the warnings, which are further detailed in their respective README files: [Valgrind-Varlat's README](liboqs/tests/ct_tooling/tools/valgrind_varlat/README.md) and [MemSan's README](liboqs/tests/ct_tooling/tools/memsan/README.md).
 
 ### Output Structure
 The workflow organizes test outputs into log files that capture unique warnings for each algorithm. These logs are categorized into concrete subdirectories based on the compiler and build configuration (`gcc_14_auto`, `clang_generic`, ...), which then contain further subdivisions by optimization levels (`O0`, `O1`, ...) and algorithm types (`kem` or `sig`). The structure is as follows:
@@ -142,7 +142,7 @@ Use `scripts/analyze_results.py` to parse the warnings data from the log files a
 
 ```bash
 python3 analyze_results.py \
-    --tool <ValgrindVarlat|MemSan> \
+    --tool <Valgrind-Varlat|MemSan> \
     --input liboqs/tests/ct_testing/ct_tools/<tool>/logs \
     --output results_<tool>
 ```
