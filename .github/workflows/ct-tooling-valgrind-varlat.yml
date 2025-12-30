@@ -25,7 +25,7 @@ jobs:
           set -eux
           INSTALL_PREFIX="$PWD/valgrind_varlat"
 
-          git clone https://sourceware.org/git/valgrind.git valgrind_varlat_src
+          git clone ssh://sourceware.org/git/valgrind.git valgrind_varlat_src
           cd valgrind_varlat_src
           git checkout 112f1080b7c21e37dfce0a2e589d0dc7aa115afa
 
