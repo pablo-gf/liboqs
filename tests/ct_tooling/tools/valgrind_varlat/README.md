@@ -1,9 +1,9 @@
-# ValgrindVarlat
+# Valgrind-Varlat
 
 This directory contains the necessary files to execute Valgrind's memcheck tool on liboqs with [Bernstein's Kyberslash patches](https://kyberslash.cr.yp.to/papers.html) (valgrind-try-patch-20250805.txt and valgrind-varlat-patch-20250805.txt) and another patch including variable latency warnings in the suppression block (valgrind_varlat_sup_block.txt).
 
-## ValgrindVarlat Install Requirements
-In order to successfully execute ValgrindVarlat's test using the tooling developed in this subrepository follow the next steps:
+## Valgrind-Varlat Install Requirements
+In order to successfully execute Valgrind-Varlat's test using the tooling developed in this subrepository follow the next steps:
 
 - Install valgrind using the official git repository. Go to [Bernstein's suggested](https://sourceforge.net/p/valgrind/mailman/message/59216875/) [commit](https://sourceware.org/git/?p=valgrind.git;a=commit;h=112f1080b7c21e37dfce0a2e589d0dc7aa115afa) to cleanly apply Kyberslash patches to Valgrind without encountering dependency issues: 112f1080b7c21e37dfce0a2e589d0dc7aa115afa.
 
@@ -84,7 +84,7 @@ To check whether the installation was successful, you can use the varlat tests p
 
 ## Algorithm Testing
 
-Because of how many warnings are output, it is not feasible to store all the warnings in terms of memory and runtime. Therefore, the test script handles ValgrindVarlat's output as follows:
+Because of how many warnings are output, it is not feasible to store all the warnings in terms of memory and runtime. Therefore, the test script handles Valgrind-Varlat's output as follows:
 - Since the suppression block (the data inside the curly braces {...}) contains the overall information of the issue, each unique block will be logged into the log file for the sake of simplicity.
 - These unique blocks will be the ones counted as warnings, since the same warning may be output several times throughout the execution.
 
