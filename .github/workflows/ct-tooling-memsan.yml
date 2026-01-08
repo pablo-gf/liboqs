@@ -20,7 +20,6 @@ jobs:
           - Classic-McEliece-348864f
           - Kyber512
           - ML-KEM-512
-          - sntrup761
           - FrodoKEM-640-AES
           - ML-DSA-44
           - Falcon-512
