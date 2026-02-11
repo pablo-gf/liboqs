@@ -62,10 +62,7 @@ for compiler_version in clang clang-20; do
     for liboqs_build in generic auto; do
         # Iterate through the different optimization flags and execute tests asynchronously
         for opt_flag in  -O0 -O1 -O2 -O3 -Os -Ofast "-O2 -fno-vectorize" "-O3 -fno-vectorize"; do
-            build_and_test "$compiler_version" "$liboqs_build" "$opt_flag" &
+            build_and_test "$compiler_version" "$liboqs_build" "$opt_flag"
         done
     done
 done
-
-# Wait for all background jobs to complete
-wait
