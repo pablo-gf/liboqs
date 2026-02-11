@@ -5,7 +5,7 @@ Automated testing framework for detecting constant-time warnings in [liboqs](htt
 ## Repository Structure
 
 ```
-ct_tools/
+tools/
 ├── memsan/
 │   ├── ci_build.sh           # Script for building liboqs with different testing modes in CI
 │   ├── ci_test.sh            # Script for running MemSan tests in CI
@@ -28,7 +28,6 @@ ct_tools/
 │   ├── valgrind-try-patch-20250805.txt       # Valgrind patch file
 │   ├── valgrind-varlat-patch-20250805.txt    # Valgrind variable-latency patch
 │   └── valgrind-varlat-sup-block.txt         # Valgrind suppression block
-├── results/            # Aggregated results (CSVs and figures) per experiment
 ├── scripts/            # helper scripts (analyze_results.py, compare_logs.py)
 ├── README.md
 ```
