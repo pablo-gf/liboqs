@@ -16,6 +16,15 @@ if [[ "$TEST_TYPE" != "kem" && "$TEST_TYPE" != "sig" ]]; then
 fi
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Generate suppression flags for all suppression files containing false positives
+SUP_DIR="$SCRIPT_DIR/false_positives"
+SUP_FLAGS=()
+for f in "$SUP_DIR"/*.supp "$SUP_DIR"/*; do
+  [ -f "$f" ] || continue
+  SUP_FLAGS+=( "--suppressions=$f" )
+done
+
 LIBOQS_DIR="$(realpath "$SCRIPT_DIR/../../../..")"
 LOG_DIR="${SCRIPT_DIR}/logs/${COMP_V}_${LIBOQS_BUILD}"
 
@@ -76,10 +85,11 @@ VALGRIND_OPTS=(
     "valgrind_varlat"
     --tool=memcheck
     --gen-suppressions=all
+    "{$SUP_FLAGS[@]}"        # Include all suppression files
     --error-exitcode=123
     --max-stackframe=20480000
     --num-callers=20
-    --variable-latency-errors=yes      # ENABLE the KyberSlash patch
+    --variable-latency-errors=yes   # ENABLE the KyberSlash patch
 )
 
 # Extract the compiler path from CMakeCache.txt in each build
