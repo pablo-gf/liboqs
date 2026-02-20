@@ -20,7 +20,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Generate suppression flags for all suppression files containing false positives
 SUP_DIR="$SCRIPT_DIR/false_positives"
 SUP_FLAGS=()
-for f in "$SUP_DIR"/*.supp "$SUP_DIR"/*; do
+for f in "$SUP_DIR"/*.supp; do
   [ -f "$f" ] || continue
   SUP_FLAGS+=( "--suppressions=$f" )
 done
@@ -50,44 +50,43 @@ cd "$LIBOQS_DIR"
 export OQS_BUILD_DIR="$BUILD_DIR"
 
 # Get list of algorithms based on test type
-# if [[ "$TEST_TYPE" == "kem" ]]; then
-#     ALGORITHMS=$(python3 -c "
-# import sys
-# sys.path.insert(0, 'tests')
-# import helpers
-# for kem in helpers.available_kems_by_name():
-#     if helpers.is_kem_enabled_by_name(kem):
-#         print(kem)
-# ")
-#     TEST_BINARY="test_kem"
-#     UPPER_TYPE="KEM"
-# else
-#     ALGORITHMS=$(python3 -c "
-# import sys
-# sys.path.insert(0, 'tests')
-# import helpers
-# for sig in helpers.available_sigs_by_name():
-#     if helpers.is_sig_enabled_by_name(sig):
-#         print(sig)
-# ")
-#     TEST_BINARY="test_sig"
-#     UPPER_TYPE="SIG"
-# fi
+if [[ "$TEST_TYPE" == "kem" ]]; then
+    ALGORITHMS=$(python3 -c "
+import sys
+sys.path.insert(0, 'tests')
+import helpers
+for kem in helpers.available_kems_by_name():
+    if helpers.is_kem_enabled_by_name(kem):
+        print(kem)
+")
+    TEST_BINARY="test_kem"
+    UPPER_TYPE="KEM"
+else
+    ALGORITHMS=$(python3 -c "
+import sys
+sys.path.insert(0, 'tests')
+import helpers
+for sig in helpers.available_sigs_by_name():
+    if helpers.is_sig_enabled_by_name(sig):
+        print(sig)
+")
+    TEST_BINARY="test_sig"
+    UPPER_TYPE="SIG"
+fi
 
-# ALGO_COUNT=$(echo "$ALGORITHMS" | wc -l)
+ALGO_COUNT=$(echo "$ALGORITHMS" | wc -l)
 
-# echo "Found $ALGO_COUNT ${UPPER_TYPE}s"
-# echo ""
+echo "Found $ALGO_COUNT ${UPPER_TYPE}s"
+echo ""
 
-ALGORITHMS="ML-KEM512 ML-KEM-768 ML-KEM-1024"
 
 COMPILATION_FLAGS=$(grep "CMAKE_C_FLAGS:" "$BUILD_DIR/CMakeCache.txt" | cut -d'=' -f2-)
 
 VALGRIND_OPTS=(
-    "valgrind_varlat"
+    valgrind_varlat
     --tool=memcheck
     --gen-suppressions=all
-    "{$SUP_FLAGS[@]}"        # Include all suppression files
+    "${SUP_FLAGS[@]}"        # Include all suppression files
     --error-exitcode=123
     --max-stackframe=20480000
     --num-callers=20
@@ -116,7 +115,7 @@ echo "" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
 PASS_COUNT=0
 FAIL_COUNT=0
 
-for algo in "$ALGORITHMS"; do
+for algo in $ALGORITHMS; do
     # Skip SPHINCS and SLH-DSA for SIG tests
     if [[ "$TEST_TYPE" == "sig" && ( "$algo" == *SPHINCS* || "$algo" == *SLH_DSA* ) ]]; then
         echo "Skipping $UPPER_TYPE $algo" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"

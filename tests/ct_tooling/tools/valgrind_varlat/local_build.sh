@@ -23,15 +23,15 @@ build_and_test() {
     # Execute test.sh for both KEMs and SIGs
     cd $SCRIPT_DIR
     ./local_test.sh "$BUILD_DIR" kem $compiler_version $liboqs_build
-    #./local_test.sh "$BUILD_DIR" sig $compiler_version $liboqs_build
+    ./local_test.sh "$BUILD_DIR" sig $compiler_version $liboqs_build
 }
 
-# Iterate through the default and latest compiler versions. gcc-14 clang clang-20
-for compiler_version in gcc ; do
-    # Iterate through both liboqs builds: generic vs. optimized. auto
-    for liboqs_build in generic ; do
-        # Iterate through the different optimization flags (gcc uses -fno-tree-vectorize instead of -fno-vectorize) and execute tests asynchronously. -O0 -O1 -O3 -Os -Ofast "-O2 -fno-tree-vectorize" "-O3 -fno-tree-vectorize"
-        for opt_flag in -O2; do
+# Iterate through the default and latest compiler versions
+for compiler_version in gcc gcc-14 clang clang-20; do
+    # Iterate through both liboqs builds: generic vs. optimized
+    for liboqs_build in generic auto; do
+        # Iterate through the different optimization flags (gcc uses -fno-tree-vectorize instead of -fno-vectorize) and execute tests asynchronously
+        for opt_flag in -O0 -O1 -O2 -O3 -Os -Ofast "-O2 -fno-tree-vectorize" "-O3 -fno-tree-vectorize"; do
             build_and_test "$compiler_version" "$liboqs_build" "$opt_flag" &
         done
     done
