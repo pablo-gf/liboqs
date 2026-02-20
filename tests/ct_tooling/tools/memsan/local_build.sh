@@ -40,8 +40,8 @@ build_and_test() {
 
     # Execute test.sh for both KEMs and SIGs
     cd $SCRIPT_DIR
-    ./test.sh "$BUILD_DIR" kem $compiler_version $liboqs_build
-    ./test.sh "$BUILD_DIR" sig $compiler_version $liboqs_build
+    ./local_test.sh "$BUILD_DIR" kem $compiler_version $liboqs_build
+    ./local_test.sh "$BUILD_DIR" sig $compiler_version $liboqs_build
 }
 
 # Define a cleanup function that will restore the original test files with the backups
