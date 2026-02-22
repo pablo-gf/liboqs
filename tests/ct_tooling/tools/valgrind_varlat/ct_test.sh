@@ -3,6 +3,9 @@
 
 set -e
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+LIBOQS_DIR="$(realpath "$SCRIPT_DIR/../../../..")"
+
 # Build function
 build() {
     local COMP_V=$1
@@ -24,51 +27,56 @@ test() {
     local COMP_V=$3
     local LIBOQS_BUILD=$4
     local ALGORITHM=$5
+    local SCRIPT_DIR=$6
 
     COMP_V="${COMP_V//-/_}" # Replace - with _
 
-    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    # Set test binary depending on whether it is a KEM or SIG
+    if [[ "$TEST_TYPE" == "kem" ]]; then
+        TEST_BINARY="test_kem"
+        UPPER_TYPE="KEM"
+    elif [[ "$TEST_TYPE" == "sig" ]]; then
+        TEST_BINARY="test_sig"
+        UPPER_TYPE="SIG"
+    fi
 
     # Generate suppression flags for all suppression files containing false positives
     SUP_DIR="$SCRIPT_DIR/false_positives"
     SUP_FLAGS=()
-    for f in "$SUP_DIR"/*.supp "$SUP_DIR"/*; do
+    for f in "$SUP_DIR"/*.supp; do
     [ -f "$f" ] || continue
     SUP_FLAGS+=( "--suppressions=$f" )
     done
 
     LIBOQS_DIR="$(realpath "$SCRIPT_DIR/../../../..")"
-    LOG_DIR="${SCRIPT_DIR}/logs/${COMP_V}_${LIBOQS_BUILD}"
-
-    # Ensure base log directory exists
-    mkdir -p "$LOG_DIR"
 
     # Extract optimization level from BUILD_DIR
     OPT_LEVEL=$(basename "$BUILD_DIR" | sed -E 's/.*-O([0-9a-zA-Z]+)(.*)/\1\2/' | sed 's/_/-/g')
 
-    CURRENT_RUN_DIR="$LOG_DIR/${OPT_LEVEL}"
-    TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-
     # Create log directory
+    LOG_DIR="${SCRIPT_DIR}/logs/${COMP_V}_${LIBOQS_BUILD}"
+    mkdir -p "$LOG_DIR"
+    CURRENT_RUN_DIR="$LOG_DIR/${OPT_LEVEL}"
     mkdir -p "$CURRENT_RUN_DIR"
 
-    # Create output directory based on test type
+    # Create output directories
     OUTPUT_DIR="$CURRENT_RUN_DIR/$TEST_TYPE"
     mkdir -p "$OUTPUT_DIR"
+    SUMMARY_FILE="$OUTPUT_DIR/${TEST_TYPE}_summary.txt"
 
     cd "$LIBOQS_DIR"
 
     COMPILATION_FLAGS=$(grep "CMAKE_C_FLAGS:" "$BUILD_DIR/CMakeCache.txt" | cut -d'=' -f2-)
 
     VALGRIND_OPTS=(
-        "valgrind_varlat"
+        valgrind_varlat
         --tool=memcheck
         --gen-suppressions=all
-        "{$SUP_FLAGS[@]}"        # Include all suppression files
+        "${SUP_FLAGS[@]}"        # Include all suppression files
         --error-exitcode=123
         --max-stackframe=20480000
         --num-callers=20
-        --variable-latency-errors=yes      # ENABLE the KyberSlash patch
+        --variable-latency-errors=yes   # ENABLE the KyberSlash patch
     )
 
     # Extract the compiler path from CMakeCache.txt in each build
@@ -80,22 +88,29 @@ test() {
 
     MAX_WARNINGS=100000
 
-    # Run tests
-    echo "========================================" | tee "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
-    echo "Testing ${UPPER_TYPE}s" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
-    echo "Compiled with: $COMPILATION_FLAGS" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
-    echo "Executed with: ${VALGRIND_OPTS[*]}" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
-    echo "Compiler version: ${COMPILER_VERSION}" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
-    echo "Architecture: ${ARCH}" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
-    echo "========================================" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
-    echo "" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
+    # Check if this is first algorithm (header only once)
+    if [[ ! -s "$SUMMARY_FILE" ]]; then
+        # FIRST algorithm: write full header
+        {
+            echo "========================================"
+            echo "Compiled with: $COMPILATION_FLAGS"
+            echo "Executed with: ${VALGRIND_OPTS[*]}"
+            echo "Compiler version: ${COMPILER_VERSION}"
+            echo "Architecture: ${ARCH}"
+            echo "========================================"
+            echo ""
+        } | tee "$SUMMARY_FILE"
+    else
+        # SUBSEQUENT algorithms: skip header, just separator
+        echo "" | tee -a "$SUMMARY_FILE"
+    fi
 
     PASS_COUNT=0
     FAIL_COUNT=0
    
-    echo -n "Testing $UPPER_TYPE: $algo ... " | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
+    echo -n "Testing $UPPER_TYPE: $ALGORITHM ... " | tee -a "$SUMMARY_FILE"
     
-    LOG_FILE="$OUTPUT_DIR/${algo}_${TIMESTAMP}.log"
+    LOG_FILE="$OUTPUT_DIR/${ALGORITHM}_${TIMESTAMP}.log"
     # Create empty files per algorithm run
     : > "$LOG_FILE"
     : > "$LOG_FILE.hashes"
@@ -187,23 +202,23 @@ test() {
     ERROR_COUNT=${ERROR_COUNT:-0}
 
     if [ "$ERROR_COUNT" -eq "$MAX_WARNINGS" ]; then
-        echo "FAIL (Valgrind-Varlat warnings)" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
-        echo "  → Found $ERROR_COUNT Valgrind-Varlat warnings (warning cap reached — further warnings suppressed)" \
-            | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
+        echo "FAIL" | tee -a "$SUMMARY_FILE"
+        echo "  → Found $ERROR_COUNT warnings (warning cap reached — further warnings suppressed)" \
+            | tee -a "$SUMMARY_FILE"
         ((++FAIL_COUNT))
 
     elif [ "$ERROR_COUNT" -gt 0 ]; then
-        echo "FAIL (Valgrind-Varlat warnings)" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
-        echo "  → Found $ERROR_COUNT Valgrind-Varlat warnings" \
-            | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
+        echo "FAIL" | tee -a "$SUMMARY_FILE"
+        echo "  → Found $ERROR_COUNT warnings" \
+            | tee -a "$SUMMARY_FILE"
         ((++FAIL_COUNT))
 
     elif [ $EXIT_CODE -ne 0 ]; then
-        echo "FAIL (Exit code: $EXIT_CODE)" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
+        echo "FAIL (Exit code: $EXIT_CODE)" | tee -a "$SUMMARY_FILE"
         ((++FAIL_COUNT))
 
     else
-        echo "PASS" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
+        echo "PASS" | tee -a "$SUMMARY_FILE"
         ((++PASS_COUNT))
 
     fi
@@ -212,9 +227,9 @@ test() {
     rm -f "$OUTPUT_DIR"/*.hashes
     rm -f "$OUTPUT_DIR"/*log.tmp
 
-    echo "" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
-    echo "$UPPER_TYPE Results: $PASS_COUNT passed, $FAIL_COUNT failed" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
-    echo "" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
+    #echo "" | tee -a "$SUMMARY_FILE"
+    #echo "$UPPER_TYPE Results: $PASS_COUNT passed, $FAIL_COUNT failed" | tee -a "$SUMMARY_FILE"
+    #echo "" | tee -a "$SUMMARY_FILE"
 }
 
 # Read inputs from arguments
@@ -229,42 +244,43 @@ BUILD_NAME=$(echo "valgrind_varlat${opt_flag//-/_}"_"$compiler_version"_"$liboqs
 BUILD_DIR="$LIBOQS_DIR/build_$BUILD_NAME"
 
 # Retrieve all enabled KEMs and SIGs by liboqs
-export OQS_BUILD_DIR="$BUILD_DIR"
-KEMS=$(python3 -c "
-    import sys
-    sys.path.insert(0, 'tests')
-    import helpers
-    for kem in helpers.available_kems_by_name():
-        if helpers.is_kem_enabled_by_name(kem):
-            print(kem)
-    ")
+TESTS_DIR="$LIBOQS_DIR/tests"
+export LIBOQS_SRC="$LIBOQS_DIR"
+KEMS=$(cd "$LIBOQS_DIR" && python3 -c "
+import sys
+sys.path.insert(0, '$TESTS_DIR')
+import helpers
+for kem in helpers.available_kems_by_name():
+    if helpers.is_kem_enabled_by_name(kem):
+        print(kem)
+")
 
-SIGS=$(python3 -c "
-    import sys
-    sys.path.insert(0, 'tests')
-    import helpers
-    for sig in helpers.available_sigs_by_name():
-        if helpers.is_sig_enabled_by_name(sig):
-            print(sig)
-    ")
+SIGS=$(cd "$LIBOQS_DIR" && python3 -c "
+import sys
+sys.path.insert(0, '$TESTS_DIR')
+import helpers
+for sig in helpers.available_sigs_by_name():
+    if helpers.is_sig_enabled_by_name(sig):
+        print(sig)
+")
 
 # Find what the user wants to test
 # Case 1: All algorithms
 if [[ "$input" == "all" ]]; then
 
-    build $compiler_version $liboqs_build $opt_flag $BUILD_DIR
+    build $compiler_version $liboqs_build $opt_flag $BUILD_DIR 
 
     for kem in $KEMS; do
-        test "$BUILD_DIR" kem $compiler_version $liboqs_build $kem
+        test "$BUILD_DIR" kem $compiler_version $liboqs_build "$kem" "$SCRIPT_DIR"
     done
 
     for sig in $SIGS; do
         # Skip SPHINCS and SLH-DSA for SIG tests
         if [[ "$sig" == *SPHINCS* || "$sig" == *SLH_DSA* ]]; then
-            echo "Skipping $UPPER_TYPE $sig" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
+            echo "Skipping $UPPER_TYPE $sig" | tee -a "$SUMMARY_FILE"
             continue
         fi
-        test "$BUILD_DIR" sig $compiler_version $liboqs_build $sig
+        test "$BUILD_DIR" sig $compiler_version $liboqs_build "$sig" "$SCRIPT_DIR"
     done
 
 # Case 2: All KEMs
@@ -273,7 +289,7 @@ elif [[ "$input" == "kems" ]]; then
     build $compiler_version $liboqs_build $opt_flag $BUILD_DIR
 
     for kem in $KEMS; do
-        test "$BUILD_DIR" kem $compiler_version $liboqs_build $kem
+        test "$BUILD_DIR" kem $compiler_version $liboqs_build "$kem" "$SCRIPT_DIR"
     done
 
 # Case 3: All SIGS
@@ -284,28 +300,28 @@ elif [[ "$input" == "sigs" ]]; then
     for sig in $SIGS; do
         # Skip SPHINCS and SLH-DSA for SIG tests
         if [[ "$sig" == *SPHINCS* || "$sig" == *SLH_DSA* ]]; then
-            echo "Skipping $UPPER_TYPE $sig" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
+            echo "Skipping $UPPER_TYPE $sig" | tee -a "$SUMMARY_FILE"
             return 0
         fi
-        test "$BUILD_DIR" sig $compiler_version $liboqs_build $sig
+        test "$BUILD_DIR" sig $compiler_version $liboqs_build "$sig" "$SCRIPT_DIR"
     done
 
 # Case 4: A specific KEM
 elif echo "$KEMS" | grep -Fxq "$input"; then
 
     build $compiler_version $liboqs_build $opt_flag $BUILD_DIR
-    test "$BUILD_DIR" kem $compiler_version $liboqs_build $input
+    test "$BUILD_DIR" kem $compiler_version $liboqs_build "$input" "$SCRIPT_DIR"
 
 # Case 5: A specific SIG
 elif echo "$SIGS" | grep -Fxq "$input"; then
 
     # Skip SPHINCS and SLH-DSA for SIG tests
     if [[ "$input" == *SPHINCS* || "$input" == *SLH_DSA* ]]; then
-        echo "Skipping $UPPER_TYPE $input" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
+        echo "Skipping $UPPER_TYPE $input" | tee -a "$SUMMARY_FILE"
         continue
     fi
     build $compiler_version $liboqs_build $opt_flag $BUILD_DIR
-    test "$BUILD_DIR" sig $compiler_version $liboqs_build $input
+    test "$BUILD_DIR" sig $compiler_version $liboqs_build "$input" "$SCRIPT_DIR"
 
 # If none of the above, exit
 else 
