@@ -15,6 +15,10 @@ jobs:
         compiler: [gcc, clang]
         liboqs_build: [generic, auto]
         opt_flag: [-O0, -O1, -O2, -O3, -Os, -Ofast, "-O2 -fno-tree-vectorize", "-O3 -fno-tree-vectorize"]
+        algorithm: 
+          - ML-KEM-512
+          - ML-KEM-768
+          - ML-KEM-1024
       max-parallel: 5
     steps:
       - name: Checkout code
@@ -49,7 +53,7 @@ jobs:
         run: |
           cd "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat"
           chmod +x ct_test.sh
-          ./ct_test.sh ${{ matrix.compiler }} ${{ matrix.liboqs_build }} ${{ matrix.opt_flag }} all
+          ./ct_test.sh ${{ matrix.compiler }} ${{ matrix.liboqs_build }} ${{ matrix.opt_flag }} ${{ matrix.algorithm }}
 
       - name: Upload valgrind_varlat logs
         uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
