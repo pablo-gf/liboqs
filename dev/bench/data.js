@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1771730641139,
+  "lastUpdate": 1771730682352,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "BIKE-L1": [
@@ -30276,6 +30276,46 @@ window.BENCHMARK_DATA = {
             "value": 254706,
             "unit": "cycles",
             "extra": "Target platform: x86_64-Linux-6.14.0-1017-azure | Compiler: gcc (13.3.0) | Compile options: [-Wa,--noexecstack;-O3;-fomit-frame-pointer;-fdata-sections;-ffunction-sections;-Wl,--gc-sections;-Wbad-function-cast] | OQS version: 0.15.0 (major: 0, minor: 15, patch: 0) | Git commit: 338662034538a78d0cb24a2f1dc795ea17150b5e | OpenSSL enabled: Yes (OpenSSL 3.0.13 30 Jan 2024) | AES: NI | SHA-2: OpenSSL | SHA-3: AVX2 | OQS build flags: OQS_DIST_BUILD OQS_LIBJADE_BUILD OQS_OPT_TARGET=generic CMAKE_BUILD_TYPE=Release | CPU exts active: ADX AES AVX AVX2 BMI1 BMI2 PCLMULQDQ POPCNT SSE SSE2 SSE3 | "
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf",
+            "email": "pablogf@uma.es"
+          },
+          "committer": {
+            "name": "Pablo Gutiérrez Félix",
+            "username": "pablo-gf",
+            "email": "pablogf@uma.es"
+          },
+          "id": "c4dac1dac3afcbd3b5300cfbd072f688a6eb1b70",
+          "message": "valgrind-varlat local successfully handling false positives for ML-KEM variants\n\nSigned-off-by: Pablo Gutiérrez Félix <pablogf@uma.es>",
+          "timestamp": "2026-02-20T11:19:58Z",
+          "url": "https://github.com/pablo-gf/liboqs/commit/c4dac1dac3afcbd3b5300cfbd072f688a6eb1b70"
+        },
+        "date": 1771730681312,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Classic-McEliece-8192128 keygen",
+            "value": 436951171,
+            "unit": "cycles",
+            "extra": "Target platform: x86_64-Linux-6.11.0-1018-azure | Compiler: gcc (13.3.0) | Compile options: [-Wa,--noexecstack;-O3;-fomit-frame-pointer;-fdata-sections;-ffunction-sections;-Wl,--gc-sections;-Wbad-function-cast] | OQS version: 0.15.0 (major: 0, minor: 15, patch: 0) | Git commit: c4dac1dac3afcbd3b5300cfbd072f688a6eb1b70 | OpenSSL enabled: Yes (OpenSSL 3.0.13 30 Jan 2024) | AES: NI | SHA-2: OpenSSL | SHA-3: AVX2 | OQS build flags: OQS_DIST_BUILD OQS_LIBJADE_BUILD OQS_OPT_TARGET=generic CMAKE_BUILD_TYPE=Release | CPU exts active: ADX AES AVX AVX2 BMI1 BMI2 PCLMULQDQ POPCNT SSE SSE2 SSE3 | "
+          },
+          {
+            "name": "Classic-McEliece-8192128 encaps",
+            "value": 157866,
+            "unit": "cycles",
+            "extra": "Target platform: x86_64-Linux-6.11.0-1018-azure | Compiler: gcc (13.3.0) | Compile options: [-Wa,--noexecstack;-O3;-fomit-frame-pointer;-fdata-sections;-ffunction-sections;-Wl,--gc-sections;-Wbad-function-cast] | OQS version: 0.15.0 (major: 0, minor: 15, patch: 0) | Git commit: c4dac1dac3afcbd3b5300cfbd072f688a6eb1b70 | OpenSSL enabled: Yes (OpenSSL 3.0.13 30 Jan 2024) | AES: NI | SHA-2: OpenSSL | SHA-3: AVX2 | OQS build flags: OQS_DIST_BUILD OQS_LIBJADE_BUILD OQS_OPT_TARGET=generic CMAKE_BUILD_TYPE=Release | CPU exts active: ADX AES AVX AVX2 BMI1 BMI2 PCLMULQDQ POPCNT SSE SSE2 SSE3 | "
+          },
+          {
+            "name": "Classic-McEliece-8192128 decaps",
+            "value": 254124,
+            "unit": "cycles",
+            "extra": "Target platform: x86_64-Linux-6.11.0-1018-azure | Compiler: gcc (13.3.0) | Compile options: [-Wa,--noexecstack;-O3;-fomit-frame-pointer;-fdata-sections;-ffunction-sections;-Wl,--gc-sections;-Wbad-function-cast] | OQS version: 0.15.0 (major: 0, minor: 15, patch: 0) | Git commit: c4dac1dac3afcbd3b5300cfbd072f688a6eb1b70 | OpenSSL enabled: Yes (OpenSSL 3.0.13 30 Jan 2024) | AES: NI | SHA-2: OpenSSL | SHA-3: AVX2 | OQS build flags: OQS_DIST_BUILD OQS_LIBJADE_BUILD OQS_OPT_TARGET=generic CMAKE_BUILD_TYPE=Release | CPU exts active: ADX AES AVX AVX2 BMI1 BMI2 PCLMULQDQ POPCNT SSE SSE2 SSE3 | "
           }
         ]
       }
