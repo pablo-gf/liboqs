@@ -257,15 +257,41 @@ for sig in helpers.available_sigs_by_name():
 }
 
 # Read inputs from arguments
-compiler_version=${1:?"Error: Compiler version argument is required."}
-liboqs_build=${2:?"Error: liboqs build is required."}
-opt_flag=${3:?"Error: Optimization flag argument is required."}
-input=${4:?"Error: Input is required."}
+if [ "$#" -lt 4 ]; then
+    echo "Usage: $0 <compiler_version> <liboqs_build> <opt_flags...> <input>"
+    echo "Example: $0 clang-20 generic -O2 -fno-tree-vectorize all"
+    exit 1
+fi
+
+compiler_version="$1"
+liboqs_build="$2"
+
+# The last argument is the input (all/kems/sigs/<specific_variant>)
+input="${!#}"
+
+# Collect all optimization flags between position 3 and the last-1 argument
+if [ "$#" -gt 3 ]; then
+    num_opt_args=$(( $# - 3 ))
+    opt_flag="${@:3:num_opt_args}"
+else
+    opt_flag=""
+fi
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LIBOQS_DIR="$(realpath "$SCRIPT_DIR/../../../..")"
-BUILD_NAME=$(echo "valgrind_varlat${opt_flag//-/_}"_"$compiler_version"_"$liboqs_build" | sed 's/ -/-/g')
+
+# Sanitize opt flags for use in build directory name
+sanitized_opt_flag=$(printf "%s" "$opt_flag" | tr ' ' '_' | tr -c '[:alnum:]_-' '_')
+if [ -z "$sanitized_opt_flag" ]; then
+    sanitized_opt_flag=default
+fi
+
+BUILD_NAME="valgrind_varlat_${sanitized_opt_flag}_${compiler_version}_${liboqs_build}"
 BUILD_DIR="$LIBOQS_DIR/build_$BUILD_NAME"
+
+# Build liboqs with the specified compilation parameters
+build "$compiler_version" "$liboqs_build" "$opt_flag" "$BUILD_DIR"
+
 
 # Export build dir for tests/helpers.py to find generated headers
 export OQS_BUILD_DIR="$BUILD_DIR"
@@ -277,7 +303,6 @@ get_enabled_algs kems "$LIBOQS_DIR" "$BUILD_DIR"
 get_enabled_algs sigs "$LIBOQS_DIR" "$BUILD_DIR"
 
 if [[ "$input" == "all" ]]; then
-    build $compiler_version $liboqs_build $opt_flag $BUILD_DIR
     for kem in $KEMS; do
         test "$BUILD_DIR" kem $compiler_version $liboqs_build "$kem" "$SCRIPT_DIR"
     done
@@ -293,14 +318,12 @@ if [[ "$input" == "all" ]]; then
 
 # Case 2: All KEMs
 elif [[ "$input" == "kems" ]]; then
-    build $compiler_version $liboqs_build $opt_flag $BUILD_DIR
     for kem in $KEMS; do
         test "$BUILD_DIR" kem $compiler_version $liboqs_build "$kem" "$SCRIPT_DIR"
     done
 
 # Case 3: All SIGS
 elif [[ "$input" == "sigs" ]]; then
-    build $compiler_version $liboqs_build $opt_flag $BUILD_DIR
     for sig in $SIGS; do
         # Skip SPHINCS and SLH-DSA for SIG tests
         if [[ "$sig" == *SPHINCS* || "$sig" == *SLH_DSA* ]]; then
@@ -312,7 +335,6 @@ elif [[ "$input" == "sigs" ]]; then
 
 # Case 4: A specific KEM
 elif echo "$KEMS" | grep -Fxq "$input"; then
-        build $compiler_version $liboqs_build $opt_flag $BUILD_DIR
         test "$BUILD_DIR" kem $compiler_version $liboqs_build "$input" "$SCRIPT_DIR"
 
 # Case 5: A specific SIG
@@ -322,7 +344,6 @@ elif echo "$SIGS" | grep -Fxq "$input"; then
         echo "Skipping $UPPER_TYPE $input" | tee -a "$SUMMARY_FILE"
         continue
     fi
-    build $compiler_version $liboqs_build $opt_flag $BUILD_DIR
     test "$BUILD_DIR" sig $compiler_version $liboqs_build "$input" "$SCRIPT_DIR"
 
 # If none of the above, exit
