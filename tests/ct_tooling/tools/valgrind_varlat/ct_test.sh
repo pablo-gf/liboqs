@@ -243,14 +243,14 @@ get_enabled_algs() {
     echo "[debug] header path: $BUILD_DIR_ARG/include/oqs/oqsconfig.h exists=$( [ -f \"$BUILD_DIR_ARG/include/oqs/oqsconfig.h\" ] && echo yes || echo no )" >&2
 
     if [[ "$ALG_TYPE" == "kems" ]]; then
-        KEMS=$(cd "$LIBOQS_DIR" && OQS_BUILD_DIR="$BUILD_DIR_ARG" python3 -c "import sys
+        KEMS=$(cd "$LIBOQS_DIR" && env OQS_BUILD_DIR="$BUILD_DIR_ARG" python3 -c "import sys
 sys.path.insert(0, '$TESTS_DIR')
 import helpers
 for kem in helpers.available_kems_by_name():
     if helpers.is_kem_enabled_by_name(kem):
         print(kem)")
     elif [[ "$ALG_TYPE" == "sigs" ]]; then
-        SIGS=$(cd "$LIBOQS_DIR" && OQS_BUILD_DIR="$BUILD_DIR_ARG" python3 -c "import sys
+        SIGS=$(cd "$LIBOQS_DIR" && env OQS_BUILD_DIR="$BUILD_DIR_ARG" python3 -c "import sys
 sys.path.insert(0, '$TESTS_DIR')
 import helpers
 for sig in helpers.available_sigs_by_name():
