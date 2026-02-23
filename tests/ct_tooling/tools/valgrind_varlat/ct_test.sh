@@ -232,6 +232,33 @@ test() {
     #echo "" | tee -a "$SUMMARY_FILE"
 }
 
+get_enabled_algs() {
+    local ALG_TYPE="$1"
+    local LIBOQS_DIR="$2"
+
+    TESTS_DIR="$LIBOQS_DIR/tests"
+
+    if [[ "$ALG_TYPE" == "kems" ]]; then
+    KEMS=$(cd "$LIBOQS_DIR" && python3 -c "
+import sys
+sys.path.insert(0, '$TESTS_DIR')
+import helpers
+for kem in helpers.available_kems_by_name():
+    if helpers.is_kem_enabled_by_name(kem):
+        print(kem)
+")
+    elif [[ "$ALG_TYPE" == "sigs" ]]; then
+    SIGS=$(cd "$LIBOQS_DIR" && python3 -c "
+import sys
+sys.path.insert(0, '$TESTS_DIR')
+import helpers
+for sig in helpers.available_sigs_by_name():
+    if helpers.is_sig_enabled_by_name(sig):
+        print(sig)
+")
+    fi
+}
+
 # Read inputs from arguments
 compiler_version=${1:?"Error: Compiler version argument is required."}
 liboqs_build=${2:?"Error: liboqs build is required."}
@@ -243,36 +270,22 @@ LIBOQS_DIR="$(realpath "$SCRIPT_DIR/../../../..")"
 BUILD_NAME=$(echo "valgrind_varlat${opt_flag//-/_}"_"$compiler_version"_"$liboqs_build" | sed 's/ -/-/g')
 BUILD_DIR="$LIBOQS_DIR/build_$BUILD_NAME"
 
-# Retrieve all enabled KEMs and SIGs by liboqs
-TESTS_DIR="$LIBOQS_DIR/tests"
-export LIBOQS_SRC="$LIBOQS_DIR"
-KEMS=$(cd "$LIBOQS_DIR" && python3 -c "
-import sys
-sys.path.insert(0, '$TESTS_DIR')
-import helpers
-for kem in helpers.available_kems_by_name():
-    if helpers.is_kem_enabled_by_name(kem):
-        print(kem)
-")
-
-SIGS=$(cd "$LIBOQS_DIR" && python3 -c "
-import sys
-sys.path.insert(0, '$TESTS_DIR')
-import helpers
-for sig in helpers.available_sigs_by_name():
-    if helpers.is_sig_enabled_by_name(sig):
-        print(sig)
-")
+# Export build dir for tests/helpers.py to find generated headers
+export OQS_BUILD_DIR="$BUILD_DIR"
 
 # Find what the user wants to test
 # Case 1: All algorithms
 if [[ "$input" == "all" ]]; then
 
-    build $compiler_version $liboqs_build $opt_flag $BUILD_DIR 
+    build $compiler_version $liboqs_build $opt_flag $BUILD_DIR
+
+    get_enabled_algs kems "$LIBOQS_DIR"
 
     for kem in $KEMS; do
         test "$BUILD_DIR" kem $compiler_version $liboqs_build "$kem" "$SCRIPT_DIR"
     done
+
+    get_enabled_algs sigs "$LIBOQS_DIR"
 
     for sig in $SIGS; do
         # Skip SPHINCS and SLH-DSA for SIG tests
@@ -287,6 +300,7 @@ if [[ "$input" == "all" ]]; then
 elif [[ "$input" == "kems" ]]; then
 
     build $compiler_version $liboqs_build $opt_flag $BUILD_DIR
+    get_enabled_algs kems "$LIBOQS_DIR"
 
     for kem in $KEMS; do
         test "$BUILD_DIR" kem $compiler_version $liboqs_build "$kem" "$SCRIPT_DIR"
@@ -296,6 +310,7 @@ elif [[ "$input" == "kems" ]]; then
 elif [[ "$input" == "sigs" ]]; then
 
     build $compiler_version $liboqs_build $opt_flag $BUILD_DIR
+    get_enabled_algs sigs "$LIBOQS_DIR"
 
     for sig in $SIGS; do
         # Skip SPHINCS and SLH-DSA for SIG tests
