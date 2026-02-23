@@ -277,9 +277,7 @@ get_enabled_algs kems "$LIBOQS_DIR" "$BUILD_DIR"
 get_enabled_algs sigs "$LIBOQS_DIR" "$BUILD_DIR"
 
 if [[ "$input" == "all" ]]; then
-
     build $compiler_version $liboqs_build $opt_flag $BUILD_DIR
-
     for kem in $KEMS; do
         test "$BUILD_DIR" kem $compiler_version $liboqs_build "$kem" "$SCRIPT_DIR"
     done
@@ -295,18 +293,14 @@ if [[ "$input" == "all" ]]; then
 
 # Case 2: All KEMs
 elif [[ "$input" == "kems" ]]; then
-
     build $compiler_version $liboqs_build $opt_flag $BUILD_DIR
-
     for kem in $KEMS; do
         test "$BUILD_DIR" kem $compiler_version $liboqs_build "$kem" "$SCRIPT_DIR"
     done
 
 # Case 3: All SIGS
 elif [[ "$input" == "sigs" ]]; then
-
     build $compiler_version $liboqs_build $opt_flag $BUILD_DIR
-
     for sig in $SIGS; do
         # Skip SPHINCS and SLH-DSA for SIG tests
         if [[ "$sig" == *SPHINCS* || "$sig" == *SLH_DSA* ]]; then
@@ -317,15 +311,12 @@ elif [[ "$input" == "sigs" ]]; then
     done
 
 # Case 4: A specific KEM
-else
-
-    if echo "$KEMS" | grep -Fxq "$input"; then
+elif echo "$KEMS" | grep -Fxq "$input"; then
         build $compiler_version $liboqs_build $opt_flag $BUILD_DIR
         test "$BUILD_DIR" kem $compiler_version $liboqs_build "$input" "$SCRIPT_DIR"
 
 # Case 5: A specific SIG
 elif echo "$SIGS" | grep -Fxq "$input"; then
-
     # Skip SPHINCS and SLH-DSA for SIG tests
     if [[ "$input" == *SPHINCS* || "$input" == *SLH_DSA* ]]; then
         echo "Skipping $UPPER_TYPE $input" | tee -a "$SUMMARY_FILE"
