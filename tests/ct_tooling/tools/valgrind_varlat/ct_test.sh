@@ -243,14 +243,14 @@ get_enabled_algs() {
     echo "[debug] header path: $BUILD_DIR_ARG/include/oqs/oqsconfig.h exists=$( [ -f \"$BUILD_DIR_ARG/include/oqs/oqsconfig.h\" ] && echo yes || echo no )" >&2
 
     if [[ "$ALG_TYPE" == "kems" ]]; then
-        KEMS=$(cd "$LIBOQS_DIR" && env OQS_BUILD_DIR="$BUILD_DIR_ARG" python3 -c "import sys
+        KEMS=$(cd "$LIBOQS_DIR" && python3 -c "import sys
 sys.path.insert(0, '$TESTS_DIR')
 import helpers
 for kem in helpers.available_kems_by_name():
     if helpers.is_kem_enabled_by_name(kem):
         print(kem)")
     elif [[ "$ALG_TYPE" == "sigs" ]]; then
-        SIGS=$(cd "$LIBOQS_DIR" && env OQS_BUILD_DIR="$BUILD_DIR_ARG" python3 -c "import sys
+        SIGS=$(cd "$LIBOQS_DIR" && python3 -c "import sys
 sys.path.insert(0, '$TESTS_DIR')
 import helpers
 for sig in helpers.available_sigs_by_name():
@@ -325,6 +325,7 @@ elif [[ "$input" == "sigs" ]]; then
 elif echo "$KEMS" | grep -Fxq "$input"; then
 
     build $compiler_version $liboqs_build $opt_flag $BUILD_DIR
+    get_enabled_algs kems "$LIBOQS_DIR" "$BUILD_DIR"
     test "$BUILD_DIR" kem $compiler_version $liboqs_build "$input" "$SCRIPT_DIR"
 
 # Case 5: A specific SIG
@@ -336,6 +337,7 @@ elif echo "$SIGS" | grep -Fxq "$input"; then
         continue
     fi
     build $compiler_version $liboqs_build $opt_flag $BUILD_DIR
+    get_enabled_algs sigs "$LIBOQS_DIR" "$BUILD_DIR"
     test "$BUILD_DIR" sig $compiler_version $liboqs_build "$input" "$SCRIPT_DIR"
 
 # If none of the above, exit
