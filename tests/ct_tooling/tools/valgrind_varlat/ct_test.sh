@@ -239,7 +239,7 @@ get_enabled_algs() {
     TESTS_DIR="$LIBOQS_DIR/tests"
 
     if [[ "$ALG_TYPE" == "kems" ]]; then
-    KEMS=$(cd "$LIBOQS_DIR" && python3 -c "
+    KEMS=$(cd "$LIBOQS_DIR" && OQS_BUILD_DIR="$BUILD_DIR" python3 -c "
 import sys
 sys.path.insert(0, '$TESTS_DIR')
 import helpers
@@ -248,7 +248,7 @@ for kem in helpers.available_kems_by_name():
         print(kem)
 ")
     elif [[ "$ALG_TYPE" == "sigs" ]]; then
-    SIGS=$(cd "$LIBOQS_DIR" && python3 -c "
+    SIGS=$(cd "$LIBOQS_DIR" && OQS_BUILD_DIR="$BUILD_DIR" python3 -c "
 import sys
 sys.path.insert(0, '$TESTS_DIR')
 import helpers
