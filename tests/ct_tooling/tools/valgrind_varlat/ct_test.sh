@@ -239,9 +239,6 @@ get_enabled_algs() {
 
     TESTS_DIR="$LIBOQS_DIR/tests"
 
-    echo "[debug] get_enabled_algs: ALG_TYPE=$ALG_TYPE BUILD_DIR_ARG=$BUILD_DIR_ARG" >&2
-    echo "[debug] header path: $BUILD_DIR_ARG/include/oqs/oqsconfig.h exists=$( [ -f \"$BUILD_DIR_ARG/include/oqs/oqsconfig.h\" ] && echo yes || echo no )" >&2
-
     if [[ "$ALG_TYPE" == "kems" ]]; then
         KEMS=$(cd "$LIBOQS_DIR" && python3 -c "import sys
 sys.path.insert(0, '$TESTS_DIR')
@@ -275,17 +272,17 @@ export OQS_BUILD_DIR="$BUILD_DIR"
 
 # Find what the user wants to test
 # Case 1: All algorithms
+
+get_enabled_algs kems "$LIBOQS_DIR" "$BUILD_DIR"
+get_enabled_algs sigs "$LIBOQS_DIR" "$BUILD_DIR"
+
 if [[ "$input" == "all" ]]; then
 
     build $compiler_version $liboqs_build $opt_flag $BUILD_DIR
 
-    get_enabled_algs kems "$LIBOQS_DIR" "$BUILD_DIR"
-
     for kem in $KEMS; do
         test "$BUILD_DIR" kem $compiler_version $liboqs_build "$kem" "$SCRIPT_DIR"
     done
-
-    get_enabled_algs sigs "$LIBOQS_DIR" "$BUILD_DIR"
 
     for sig in $SIGS; do
         # Skip SPHINCS and SLH-DSA for SIG tests
@@ -300,7 +297,6 @@ if [[ "$input" == "all" ]]; then
 elif [[ "$input" == "kems" ]]; then
 
     build $compiler_version $liboqs_build $opt_flag $BUILD_DIR
-    get_enabled_algs kems "$LIBOQS_DIR" "$BUILD_DIR"
 
     for kem in $KEMS; do
         test "$BUILD_DIR" kem $compiler_version $liboqs_build "$kem" "$SCRIPT_DIR"
@@ -310,7 +306,6 @@ elif [[ "$input" == "kems" ]]; then
 elif [[ "$input" == "sigs" ]]; then
 
     build $compiler_version $liboqs_build $opt_flag $BUILD_DIR
-    get_enabled_algs sigs "$LIBOQS_DIR" "$BUILD_DIR"
 
     for sig in $SIGS; do
         # Skip SPHINCS and SLH-DSA for SIG tests
@@ -322,11 +317,11 @@ elif [[ "$input" == "sigs" ]]; then
     done
 
 # Case 4: A specific KEM
-elif echo "$KEMS" | grep -Fxq "$input"; then
+else
 
-    build $compiler_version $liboqs_build $opt_flag $BUILD_DIR
-    get_enabled_algs kems "$LIBOQS_DIR" "$BUILD_DIR"
-    test "$BUILD_DIR" kem $compiler_version $liboqs_build "$input" "$SCRIPT_DIR"
+    if echo "$KEMS" | grep -Fxq "$input"; then
+        build $compiler_version $liboqs_build $opt_flag $BUILD_DIR
+        test "$BUILD_DIR" kem $compiler_version $liboqs_build "$input" "$SCRIPT_DIR"
 
 # Case 5: A specific SIG
 elif echo "$SIGS" | grep -Fxq "$input"; then
@@ -337,7 +332,6 @@ elif echo "$SIGS" | grep -Fxq "$input"; then
         continue
     fi
     build $compiler_version $liboqs_build $opt_flag $BUILD_DIR
-    get_enabled_algs sigs "$LIBOQS_DIR" "$BUILD_DIR"
     test "$BUILD_DIR" sig $compiler_version $liboqs_build "$input" "$SCRIPT_DIR"
 
 # If none of the above, exit
