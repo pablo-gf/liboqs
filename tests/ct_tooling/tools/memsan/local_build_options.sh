@@ -6,7 +6,7 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Iterate through the default and latest compiler versions
-for compiler_version in gcc gcc-14 clang clang-20; do
+for compiler_version in clang clang-20; do
     # Iterate through both liboqs builds: generic vs. optimized
     for liboqs_build in generic auto; do
         # Iterate through the different optimization flags (gcc uses -fno-tree-vectorize instead of -fno-vectorize) and execute tests asynchronously

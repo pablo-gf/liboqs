@@ -12,13 +12,42 @@ build() {
     local LIBOQS_BUILD=$2
     local OPT_FLAG=$3
     local BUILD_DIR=$4
-    
+   
+    # Create backup files of the original tests files
+    mv "$LIBOQS_DIR/tests/CMakeLists.txt" "$LIBOQS_DIR/tests/CMakeLists.txt.bak"
+    mv "$LIBOQS_DIR/tests/test_kem.c" "$LIBOQS_DIR/tests/test_kem.c.bak"
+    mv "$LIBOQS_DIR/tests/test_sig.c" "$LIBOQS_DIR/tests/test_sig.c.bak"
+
+    # Replace original tests/CMakeLists.txt, test_kem.c, and test_sig.txt for their "MemSan poisoned" version
+    cp "$SCRIPT_DIR/CMakeLists.txt" "$LIBOQS_DIR/tests/CMakeLists.txt"
+    cp "$SCRIPT_DIR/test_kem.c" "$LIBOQS_DIR/tests/test_kem.c"
+    cp "$SCRIPT_DIR/test_sig.c" "$LIBOQS_DIR/tests/test_sig.c"
+    cp "$SCRIPT_DIR/rng_poison_memsan.c" "$LIBOQS_DIR/tests/rng_poison_memsan.c"
+
     # Build liboqs with the current configuration
     mkdir -p "$BUILD_DIR"
     cd "$BUILD_DIR"
-    cmake -S .. -G Ninja -DCMAKE_C_FLAGS="$OPT_FLAG" -DCMAKE_C_COMPILER=$COMP_V -DOQS_OPT_TARGET=$LIBOQS_BUILD  -DCMAKE_BUILD_TYPE=Debug -DOQS_USE_OPENSSL=OFF -DOQS_DIST_BUILD=OFF -DOQS_ENABLE_TEST_CONSTANT_TIME=ON
+    cmake -S .. -G Ninja -DBUILD_SHARED_LIBS=ON -DCMAKE_C_COMPILER=$compiler_version -DCMAKE_BUILD_TYPE=Debug -DOQS_USE_OPENSSL=OFF -DOQS_DIST_BUILD=OFF -DOQS_OPT_TARGET=$liboqs_build -DCMAKE_C_FLAGS="-fsanitize=memory -fsanitize-recover=all $opt_flag -g" -DCMAKE_EXE_LINKER_FLAGS="-fsanitize=memory" -DCMAKE_SHARED_LINKER_FLAGS="-fsanitize=memory"
     cmake --build . -j$(nproc)
+
+    # Restore the original test files with the backups
+    mv "$LIBOQS_DIR/tests/CMakeLists.txt.bak" "$LIBOQS_DIR/tests/CMakeLists.txt"
+    mv "$LIBOQS_DIR/tests/test_kem.c.bak" "$LIBOQS_DIR/tests/test_kem.c"
+    mv "$LIBOQS_DIR/tests/test_sig.c.bak" "$LIBOQS_DIR/tests/test_sig.c"
+    rm "$LIBOQS_DIR/tests/rng_poison_memsan.c"
 }
+
+# Define a cleanup function that will restore the original test files with the backups
+cleanup() {
+    echo "Restoring original test files..."
+    mv "$LIBOQS_DIR/tests/CMakeLists.txt.bak" "$LIBOQS_DIR/tests/CMakeLists.txt" 2>/dev/null || true
+    mv "$LIBOQS_DIR/tests/test_kem.c.bak" "$LIBOQS_DIR/tests/test_kem.c" 2>/dev/null || true
+    mv "$LIBOQS_DIR/tests/test_sig.c.bak" "$LIBOQS_DIR/tests/test_sig.c" 2>/dev/null || true
+    rm "$LIBOQS_DIR/tests/rng_poison_memsan.c" 2>/dev/null || true
+}
+
+# Set the trap to call cleanup on EXIT or INT (Ctrl+C)
+trap cleanup EXIT INT
 
 # Test function for individual algorithm testing
 test() {
@@ -40,14 +69,6 @@ test() {
         UPPER_TYPE="SIG"
     fi
 
-    # Generate suppression flags for all suppression files containing false positives
-    SUP_DIR="$SCRIPT_DIR/false_positives"
-    SUP_FLAGS=()
-    for f in "$SUP_DIR"/*.supp; do
-        [ -f "$f" ] || continue
-        SUP_FLAGS+=( "--suppressions=$f" )
-    done
-
     # Extract optimization level from BUILD_DIR
     OPT_LEVEL=$(basename "$BUILD_DIR" | sed -E 's/.*-O([0-9a-zA-Z]+)(.*)/\1\2/' | sed 's/_/-/g')
 
@@ -64,18 +85,8 @@ test() {
 
     cd "$LIBOQS_DIR"
 
-    COMPILATION_FLAGS=$(grep "CMAKE_C_FLAGS:" "$BUILD_DIR/CMakeCache.txt" | cut -d'=' -f2-)
-
-    VALGRIND_OPTS=(
-        valgrind_varlat
-        --tool=memcheck
-        --gen-suppressions=all
-        "${SUP_FLAGS[@]}"        # Include all suppression files
-        --error-exitcode=123
-        --max-stackframe=20480000
-        --num-callers=20
-        --variable-latency-errors=yes   # ENABLE the KyberSlash patch
-    )
+    # Retrieve MemSan compilation options from CMakeCache.txt
+    MEMSAN_OPTIONS=$(grep "CMAKE_C_FLAGS:" "$BUILD_DIR/CMakeCache.txt" | cut -d'=' -f2-)
 
     # Extract the compiler path from CMakeCache.txt in each build
     COMPILER_PATH=$(grep -E '^CMAKE_C_COMPILER:.*=' "$BUILD_DIR"/CMakeCache.txt | head -n1 | cut -d'=' -f2- | tr -d '\r')
@@ -91,8 +102,7 @@ test() {
         # FIRST algorithm: write full header
         {
             echo "========================================"
-            echo "Compiled with: $COMPILATION_FLAGS"
-            echo "Executed with: ${VALGRIND_OPTS[*]}"
+            echo "Compiled with: $MEMSAN_OPTIONS"
             echo "Compiler version: ${COMPILER_VERSION}"
             echo "Architecture: ${ARCH}"
             echo "========================================"
@@ -109,93 +119,40 @@ test() {
     echo -n "Testing $UPPER_TYPE: $ALGORITHM ... " | tee -a "$SUMMARY_FILE"
     
     LOG_FILE="$OUTPUT_DIR/${ALGORITHM}_${TIMESTAMP}.log"
-    # Create empty files per algorithm run
-    : > "$LOG_FILE"
-    : > "$LOG_FILE.hashes"
-    : > "$LOG_FILE.count"
+    touch "$LOG_FILE"
 
-    "${VALGRIND_OPTS[@]}" "$BUILD_DIR"/tests/$TEST_BINARY "$ALGORITHM" 2>&1 | awk \
-        -v log_file="$LOG_FILE" \
-        -v tmp_file="$LOG_FILE.tmp" \
-        -v hash_file="$LOG_FILE.hashes" \
-        -v count_file="$LOG_FILE.count" \
-        -v max_warnings="$MAX_WARNINGS" '
-    # Extract unique suppression blocks from Valgrind output
-    BEGIN {
-        unique_warnings_count = 0;
-        in_block = 0;         # Whether we are inside a { ... } block
-        block = "";           # Current block content (including braces)
-        suppress = 0;         # reached max_warnings
+    # Only count and store unique summary lines
+    # Exit early if warning count exceeds MAX_WARNINGS threshold
+    "$BUILD_DIR"/tests/$TEST_BINARY "$algo" 2>&1 | awk -v log_file="$LOG_FILE" -v max_warnings="$MAX_WARNINGS" '
+        /^SUMMARY: MemorySanitizer:/ {
+            # Check if this exact SUMMARY was already logged and store it if not
+            cmd = "grep -Fxq \"" $0 "\" " log_file
+            if (system(cmd) != 0) {
+                warnings++
+                print >> log_file
+                fflush(log_file)
+            }
 
-        # Preload known hashes if present
-        while ((getline line < hash_file) > 0) {
-            gsub(/\r$/, "", line);  # Change Windows newlines \r\n to simple \n
-            if (length(line) > 0) {
-                seen[line] = 1;     # Variable storing the hashes of all the blocks already gathered
+            if (warnings >= max_warnings) {
+                print warnings > log_file ".count"
+                print "TERMINATED: Exceeded " max_warnings " warnings" >> log_file
+                fflush(log_file)
+                terminated = 1
+                exit 1
             }
         }
-        close(hash_file);
-    }
-
-    {
-        if (suppress) {
-            # Still parse block boundaries but do nothing else (prevents SIGPIPE errors)
-            if (in_block) {
-                if ($0 ~ /^\}$/) { in_block = 0 }
-            } else if ($0 ~ /^\{$/) {
-                in_block = 1
+        # Count and store the number of unique warnings obtained and store it
+        END {
+            if (!terminated && warnings > 0) {
+                print warnings > log_file ".count"
+            } else if (!terminated) {
+                print 0 > log_file ".count"
             }
-            next
         }
-
-        if (in_block) {
-            block = block $0 "\n";
-                
-            # When } is encountered, it is the end of block: compute hash via tmp file
-            if ($0 ~ /^\}$/) {
-                print block > tmp_file; close(tmp_file);   # Load the block into the tmp file
-                cmd = "sha256sum \"" tmp_file "\"";        # Build a system command (cmd) that computes the hash of the block
-                cmd | getline line; close(cmd);            # Execute it and read the full sha256sum output line
-                hash = line; sub(/ .*/, "", hash);        # Extract the first field (hash) before the first space
-
-                # If the hash is new, store it in seen[] and increase the count
-                if (!(hash in seen)) {
-                    print block >> log_file; close(log_file);
-                    print "" >> log_file;      # spacer line between blocks
-                    print hash >> hash_file; close(hash_file);
-                    seen[hash] = 1;
-                    unique_warnings_count++;
-
-                    # If the cap is reached, exit
-                    if (unique_warnings_count >= max_warnings) {
-                        suppress = 1;
-                    }
-                }
-
-                # Reset
-                in_block = 0;
-                block = "";
-            }
-            next
-        }
-
-        # When { is detected, start a new block
-        if ($0 ~ /^\{$/) {
-            in_block = 1;
-            block = $0 "\n";
-        }
-    }
-
-    END {
-        print unique_warnings_count > count_file; close(count_file);
-    }
     '
-    
-    # Capture the exit code of Valgrind (first element of PIPESTATUS)
-    VALGRIND_EXIT_CODE=${PIPESTATUS[0]}
-    AWK_EXIT_CODE=${PIPESTATUS[1]}
-    EXIT_CODE=$VALGRIND_EXIT_CODE
+    EXIT_CODE=$?
 
+    # Retrieve the contents of the warnings count
     ERROR_COUNT=$(cat "$LOG_FILE.count" 2>/dev/null)
     ERROR_COUNT=${ERROR_COUNT:-0}
 
@@ -221,13 +178,11 @@ test() {
 
     fi
 
-    rm -f "$OUTPUT_DIR"/*.count
-    rm -f "$OUTPUT_DIR"/*.hashes
-    rm -f "$OUTPUT_DIR"/*log.tmp
+    rm -f "$OUTPUT_DIR"/*.log.count
 
-    #echo "" | tee -a "$SUMMARY_FILE"
-    #echo "$UPPER_TYPE Results: $PASS_COUNT passed, $FAIL_COUNT failed" | tee -a "$SUMMARY_FILE"
-    #echo "" | tee -a "$SUMMARY_FILE"
+    # echo "" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
+    # echo "$UPPER_TYPE Results: $PASS_COUNT passed, $FAIL_COUNT failed" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
+    # echo "" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
 }
 
 get_enabled_algs() {
