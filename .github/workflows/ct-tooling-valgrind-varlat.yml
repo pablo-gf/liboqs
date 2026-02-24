@@ -50,6 +50,7 @@ jobs:
           echo "$INSTALL_PREFIX/bin" >> "$GITHUB_PATH"
 
       - name: Run tests with valgrind_varlat
+        shell: bash
         run: |
           cd "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat"
           chmod +x ct_test.sh

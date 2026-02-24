@@ -288,11 +288,11 @@ fi
 BUILD_NAME="valgrind_varlat_${sanitized_opt_flag}_${compiler_version}_${liboqs_build}"
 BUILD_DIR="$LIBOQS_DIR/build_$BUILD_NAME"
 
-# Export build dir for tests/helpers.py to find generated headers
-export OQS_BUILD_DIR="$BUILD_DIR"
-
 # Build liboqs with the specified compilation parameters
 build "$compiler_version" "$liboqs_build" "$opt_flag" "$BUILD_DIR"
+
+# Export build dir for tests/helpers.py to find generated headers
+export OQS_BUILD_DIR="$BUILD_DIR"
 
 get_enabled_algs kems "$LIBOQS_DIR"
 get_enabled_algs sigs "$LIBOQS_DIR"
