@@ -18,13 +18,13 @@ jobs:
         uses: boasiHQ/interactive-inputs@v2
         with:
           timeout: 300
-          title: 'Select algorithm(s) to execute valgrind_varlat'
+          title: 'Valgrind-Varlat CT Testing: Select input algorithm(s) for execution'
           interactive: |
             fields:
               - label: runtime-options
                 properties:
-                  description: Choose one or more algorithms to execute valgrind-varlat constant-time tests on
-                  display: Select the algorithm(s) to execute valgrind-varlat constant-time tests on
+                  description: Choose one or more algorithms to execute valgrind-varlat constant-time testing on
+                  display: Select the algorithm(s) to execute valgrind-varlat constant-time testing on
                   type: multiselect
                   choices:
                     - "BIKE-L1"
@@ -107,11 +107,6 @@ jobs:
                     - "OV-III-pkc-skc"
                     - "OV-V-pkc-skc"
                   required: true
-              - label: notes
-                properties:
-                  display: Optional - Additional note(s)
-                  type: textarea
-                  description: Additional notes on why this selection was made.
           notifier-slack-enabled: "false"
           notifier-discord-enabled: "false"
           github-token: ${{ github.token }}
@@ -129,7 +124,7 @@ jobs:
         compiler: [gcc, clang]
         liboqs_build: [generic, auto]
         opt_flag: [-O0, -O1, -O2, -O3, -Os, -Ofast, "-O2 -fno-tree-vectorize", "-O3 -fno-tree-vectorize"]
-        algorithm: ${{ fromJSON(needs.interactive-inputs.outputs.runtime-options) }}
+        algorithm: ${{ fromJson(steps.interactive-inputs.outputs.runtime-options) }}
       max-parallel: 5
     steps:
       - name: Checkout code
