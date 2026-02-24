@@ -236,6 +236,8 @@ get_enabled_algs() {
     local ALG_TYPE="$1"
     local LIBOQS_DIR="$2"
 
+    env | grep OQS || echo "NO OQS ENV FOUND"
+
     if [[ "$ALG_TYPE" == "kems" ]]; then
         KEMS=$(cd "$LIBOQS_DIR" && python3 -c "import sys
 sys.path.insert(0, 'tests')
@@ -290,9 +292,13 @@ BUILD_DIR="$LIBOQS_DIR/build_$BUILD_NAME"
 build "$compiler_version" "$liboqs_build" "$opt_flag" "$BUILD_DIR"
 
 # Export build dir for tests/helpers.py to find generated headers
-export OQS_BUILD_DIR="$BUILD_DIR"
-
 cd "$LIBOQS_DIR"
+export OQS_BUILD_DIR="$BUILD_DIR"
+echo "==== DEBUG BEFORE GET_ENABLED_ALGS ===="
+echo "PWD=$(pwd)"
+echo "OQS_BUILD_DIR=$OQS_BUILD_DIR"
+env | grep OQS || true
+echo "========================================"
 get_enabled_algs kems "$LIBOQS_DIR"
 get_enabled_algs sigs "$LIBOQS_DIR"
 
