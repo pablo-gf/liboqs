@@ -290,7 +290,7 @@ BUILD_DIR="$LIBOQS_DIR/build_$BUILD_NAME"
 build "$compiler_version" "$liboqs_build" "$opt_flag" "$BUILD_DIR"
 
 # Export build dir for tests/helpers.py to find generated headers
-export OQS_BUILD_DIR="$BUILD_DIR"
+export OQS_BUILD_DIR="$(basename "$BUILD_DIR")"
 
 get_enabled_algs kems "$LIBOQS_DIR"
 get_enabled_algs sigs "$LIBOQS_DIR"
