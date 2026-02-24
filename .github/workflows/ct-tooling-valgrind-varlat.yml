@@ -124,7 +124,6 @@ jobs:
         compiler: [gcc, clang]
         liboqs_build: [generic, auto]
         opt_flag: [-O0, -O1, -O2, -O3, -Os, -Ofast, "-O2 -fno-tree-vectorize", "-O3 -fno-tree-vectorize"]
-        algorithm: ${{ split(needs.interactive-inputs.outputs.runtime-options, ',') }}
       max-parallel: 5
     steps:
       - name: Checkout code
@@ -157,14 +156,22 @@ jobs:
 
       - name: Run tests with valgrind_varlat
         run: |
+          set -eux
           cd "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat"
           chmod +x ct_test.sh
-          ./ct_test.sh ${{ matrix.compiler }} ${{ matrix.liboqs_build }} ${{ matrix.opt_flag }} ${{ matrix.algorithm }}
+          # runtime-options is a comma-separated string like "alg1,alg2"
+          raw_algs="${{ needs.interactive-inputs.outputs.runtime-options }}"
+          # convert to array
+          IFS=',' read -r -a algs <<< "$raw_algs"
+          for alg in "${algs[@]}"; do
+            echo "Running valgrind_varlat for algorithm: $alg"
+            ./ct_test.sh ${{ matrix.compiler }} ${{ matrix.liboqs_build }} ${{ matrix.opt_flag }} "$alg"
+          done
 
       - name: Upload valgrind_varlat logs
         uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
         with:
-          name: valgrind_varlat_${{ matrix.compiler }}_${{ matrix.liboqs_build }}_${{ matrix.opt_flag }}_${{ matrix.algorithm }}_logs
+          name: valgrind_varlat_${{ matrix.compiler }}_${{ matrix.liboqs_build }}_${{ matrix.opt_flag }}_logs
           path: |
             tests/ct_tooling/tools/valgrind_varlat/logs/**
 
