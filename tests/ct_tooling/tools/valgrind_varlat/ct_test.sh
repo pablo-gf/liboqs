@@ -12,12 +12,20 @@ build() {
     local LIBOQS_BUILD=$2
     local OPT_FLAG=$3
     local BUILD_DIR=$4
+
+    echo "starting build"
     
     # Build liboqs with the current configuration
     mkdir -p "$BUILD_DIR"
     cd "$BUILD_DIR"
     cmake -S .. -G Ninja -DCMAKE_C_FLAGS="$OPT_FLAG" -DCMAKE_C_COMPILER=$COMP_V -DOQS_OPT_TARGET=$LIBOQS_BUILD  -DCMAKE_BUILD_TYPE=Debug -DOQS_USE_OPENSSL=OFF -DOQS_DIST_BUILD=OFF -DOQS_ENABLE_TEST_CONSTANT_TIME=ON
     cmake --build . -j$(nproc)
+
+    echo "finished build"
+
+    ls -la "$BUILD_DIR"
+    ls -la "$BUILD_DIR/include/oqs/oqsconfig.h"
+    grep -n "CMAKE" "$BUILD_DIR/CMakeCache.txt" || true
 }
 
 # Test function for individual algorithm testing
@@ -298,6 +306,9 @@ echo "==== DEBUG BEFORE GET_ENABLED_ALGS ===="
 echo "PWD=$(pwd)"
 echo "OQS_BUILD_DIR=$OQS_BUILD_DIR"
 env | grep OQS || true
+echo "BUILD_DIR=$BUILD_DIR"
+echo "Listing build include dir:"
+ls -la "$BUILD_DIR/include" || true
 echo "========================================"
 get_enabled_algs kems "$LIBOQS_DIR"
 get_enabled_algs sigs "$LIBOQS_DIR"
