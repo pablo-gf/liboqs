@@ -50,11 +50,17 @@ jobs:
           echo "$INSTALL_PREFIX/bin" >> "$GITHUB_PATH"
 
       - name: Run tests with valgrind_varlat
-        shell: bash
         run: |
           cd "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat"
+          echo "--- git HEAD ---"
+          git rev-parse --short HEAD || true
+          echo "--- git status ---"
+          git status --porcelain || true
+          echo "--- ct_test.sh (first 200 lines) ---"
+          sed -n '1,200p' ct_test.sh || true
           chmod +x ct_test.sh
-          ./ct_test.sh ${{ matrix.compiler }} ${{ matrix.liboqs_build }} ${{ matrix.opt_flag }} ${{ matrix.algorithm }}
+          echo "--- Running with bash -x -e ---"
+          bash -x -e ./ct_test.sh ${{ matrix.compiler }} ${{ matrix.liboqs_build }} ${{ matrix.opt_flag }} ${{ matrix.algorithm }}
 
       - name: Upload valgrind_varlat logs
         uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
