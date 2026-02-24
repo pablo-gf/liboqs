@@ -119,6 +119,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: openquantumsafe/ci-ubuntu-latest:latest
+    if: steps.interactive-inputs.outputs.runtime-options != ''  # Skip if none
     strategy:
       matrix:
         compiler: [gcc, clang]
