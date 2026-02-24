@@ -17,6 +17,7 @@ jobs:
         id: interactive-inputs
         uses: boasiHQ/interactive-inputs@v2
         with:
+          ngrok-authtoken: usr_3A7c60RRDGk1uqoG1G8V3M0SorT
           timeout: 300
           title: 'Select algorithm(s) to execute valgrind_varlat'
           interactive: |
