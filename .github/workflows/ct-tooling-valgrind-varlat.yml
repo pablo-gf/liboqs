@@ -119,13 +119,12 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: openquantumsafe/ci-ubuntu-latest:latest
-    if: steps.interactive-inputs.outputs.runtime-options != ''  # Skip if none
     strategy:
       matrix:
         compiler: [gcc, clang]
         liboqs_build: [generic, auto]
         opt_flag: [-O0, -O1, -O2, -O3, -Os, -Ofast, "-O2 -fno-tree-vectorize", "-O3 -fno-tree-vectorize"]
-        algorithm: ${{ fromJson(steps.interactive-inputs.outputs.runtime-options) }}
+        algorithm: ${{ join(needs.interactive-inputs.outputs.runtime-options) }}
       max-parallel: 5
     steps:
       - name: Checkout code
