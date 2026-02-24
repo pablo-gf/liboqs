@@ -155,14 +155,13 @@ jobs:
           echo "$INSTALL_PREFIX/bin" >> "$GITHUB_PATH"
 
       - name: Run tests with valgrind_varlat
+        shell: bash
         run: |
           set -eux
           cd "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat"
           chmod +x ct_test.sh
-          # runtime-options is a comma-separated string like "alg1,alg2"
           raw_algs="${{ needs.interactive-inputs.outputs.runtime-options }}"
-          # convert to array
-          IFS=',' read -r -a algs <<< "$raw_algs"
+          IFS=',' read -r -a algs <<< "$raw_algs"    # convert to array
           for alg in "${algs[@]}"; do
             echo "Running valgrind_varlat for algorithm: $alg"
             ./ct_test.sh ${{ matrix.compiler }} ${{ matrix.liboqs_build }} ${{ matrix.opt_flag }} "$alg"
