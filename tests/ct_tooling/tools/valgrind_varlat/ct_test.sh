@@ -235,7 +235,6 @@ test() {
 get_enabled_algs() {
     local ALG_TYPE="$1"
     local LIBOQS_DIR="$2"
-    local BUILD_DIR_ARG="$3"
 
     TESTS_DIR="$LIBOQS_DIR/tests"
 
@@ -289,19 +288,17 @@ fi
 BUILD_NAME="valgrind_varlat_${sanitized_opt_flag}_${compiler_version}_${liboqs_build}"
 BUILD_DIR="$LIBOQS_DIR/build_$BUILD_NAME"
 
-# Build liboqs with the specified compilation parameters
-build "$compiler_version" "$liboqs_build" "$opt_flag" "$BUILD_DIR"
-
-
 # Export build dir for tests/helpers.py to find generated headers
 export OQS_BUILD_DIR="$BUILD_DIR"
 
+# Build liboqs with the specified compilation parameters
+build "$compiler_version" "$liboqs_build" "$opt_flag" "$BUILD_DIR"
+
+get_enabled_algs kems "$LIBOQS_DIR"
+get_enabled_algs sigs "$LIBOQS_DIR"
+
 # Find what the user wants to test
 # Case 1: All algorithms
-
-get_enabled_algs kems "$LIBOQS_DIR" "$BUILD_DIR"
-get_enabled_algs sigs "$LIBOQS_DIR" "$BUILD_DIR"
-
 if [[ "$input" == "all" ]]; then
     for kem in $KEMS; do
         test "$BUILD_DIR" kem $compiler_version $liboqs_build "$kem" "$SCRIPT_DIR"
