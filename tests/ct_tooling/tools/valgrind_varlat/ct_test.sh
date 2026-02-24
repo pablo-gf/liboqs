@@ -236,18 +236,16 @@ get_enabled_algs() {
     local ALG_TYPE="$1"
     local LIBOQS_DIR="$2"
 
-    TESTS_DIR="$LIBOQS_DIR/tests"
-
     if [[ "$ALG_TYPE" == "kems" ]]; then
         KEMS=$(cd "$LIBOQS_DIR" && python3 -c "import sys
-sys.path.insert(0, '$TESTS_DIR')
+sys.path.insert(0, 'tests')
 import helpers
 for kem in helpers.available_kems_by_name():
     if helpers.is_kem_enabled_by_name(kem):
         print(kem)")
     elif [[ "$ALG_TYPE" == "sigs" ]]; then
         SIGS=$(cd "$LIBOQS_DIR" && python3 -c "import sys
-sys.path.insert(0, '$TESTS_DIR')
+sys.path.insert(0, 'tests')
 import helpers
 for sig in helpers.available_sigs_by_name():
     if helpers.is_sig_enabled_by_name(sig):
