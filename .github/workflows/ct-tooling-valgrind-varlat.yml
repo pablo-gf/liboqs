@@ -18,7 +18,7 @@ jobs:
         uses: boasiHQ/interactive-inputs@v2
         with:
           timeout: 300
-          title: 'Valgrind-Varlat CT Testing: Select input algorithm(s) for execution'
+          title: Select algorithm(s) Valgrind-Varlat CT Testing'
           interactive: |
             fields:
               - label: runtime-options

@@ -3,7 +3,8 @@ name: ct-tooling memsan
 permissions:
   contents: read
 
-on: [workflow_dispatch]
+on: 
+  workflow_dispatch:
 
 jobs:
   interactive-inputs:
@@ -17,7 +18,7 @@ jobs:
         uses: boasiHQ/interactive-inputs@v2
         with:
           timeout: 300
-          title: 'MemSan CT Testing: Select input algorithm(s) for execution'
+          title: 'Select algorithm(s) for MemSan CT Testing'
           interactive: |
             fields:
               - label: runtime-options
@@ -114,6 +115,7 @@ jobs:
       runtime-options: ${{ steps.interactive-inputs.outputs.runtime-options }}
 
   memsan:
+    needs: [interactive-inputs]
     runs-on: ubuntu-latest
     container:
       image: openquantumsafe/ci-ubuntu-latest:latest
