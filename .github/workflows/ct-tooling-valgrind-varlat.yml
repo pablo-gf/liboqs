@@ -130,6 +130,7 @@ jobs:
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
 
       - name: Build valgrind_varlat
+        shell: bash
         run: |
           set -eu -o pipefail
           INSTALL_PREFIX="$PWD/valgrind_varlat"
@@ -157,7 +158,7 @@ jobs:
       - name: Run tests with valgrind_varlat
         shell: bash
         run: |
-          set -eux
+          set -eu -o pipefail
           cd "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat"
           chmod +x ct_test.sh
           raw_algs="${{ needs.interactive-inputs.outputs.runtime-options }}"

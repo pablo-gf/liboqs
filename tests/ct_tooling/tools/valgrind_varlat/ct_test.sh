@@ -16,7 +16,6 @@ build() {
     # Build liboqs with the current configuration
     mkdir -p "$BUILD_DIR"
     cd "$BUILD_DIR"
-    echo "Building liboqs with -DCMAKE_C_COMPILER=$compiler_version -DOQS_OPT_TARGET=$liboqs_build and optimization flag=$opt_flag"
     cmake -S .. -G Ninja -DCMAKE_C_FLAGS="$OPT_FLAG" -DCMAKE_C_COMPILER=$COMP_V -DOQS_OPT_TARGET=$LIBOQS_BUILD  -DCMAKE_BUILD_TYPE=Debug -DOQS_USE_OPENSSL=OFF -DOQS_DIST_BUILD=OFF -DOQS_ENABLE_TEST_CONSTANT_TIME=ON > /dev/null 2>&1 || true
     cmake --build . -j$(nproc)
 }
