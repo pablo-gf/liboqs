@@ -320,7 +320,12 @@ fi
 notify "Preparing Valgrind-Varlat build (compiler=${compiler_version}, target=${liboqs_build}, flags=${opt_flag})"
 build "$compiler_version" "$liboqs_build" "$opt_flag" "$BUILD_DIR" "$build_input"
 
+# Export build dir for tests/helpers.py to find generated headers
+export OQS_BUILD_DIR="$BUILD_DIR"
 cd "$LIBOQS_DIR"
+get_enabled_algs kems "$LIBOQS_DIR"
+get_enabled_algs sigs "$LIBOQS_DIR"
+
 notify "Proceeding with Valgrind-Varlat CT testing"
 
 # Find what the user wants to test

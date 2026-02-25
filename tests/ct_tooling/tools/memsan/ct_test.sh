@@ -16,7 +16,7 @@ build() {
     local LIBOQS_BUILD=$2
     local OPT_FLAG=$3
     local BUILD_DIR=$4
-    local $ALGORITHM=$5
+    local ALGORITHM=$5
 
     # To handle a minimal liboqs build only if a single algorithm is passed as input, otherwise build the complete library
     local MINIMAL_BUILD_ARG=()
@@ -205,7 +205,7 @@ test() {
     # echo "" | tee -a "$OUTPUT_DIR/${TEST_TYPE}_summary_${TIMESTAMP}.txt"
 }
 
-get_enabled_algs() {
+get_available_algs() {
     local ALG_TYPE="$1"
     local LIBOQS_DIR="$2"
 
@@ -214,14 +214,12 @@ get_enabled_algs() {
 sys.path.insert(0, 'tests')
 import helpers
 for kem in helpers.available_kems_by_name():
-    if helpers.is_kem_enabled_by_name(kem):
         print(kem)")
     elif [[ "$ALG_TYPE" == "sigs" ]]; then
         SIGS=$(cd "$LIBOQS_DIR" && python3 -c "import sys
 sys.path.insert(0, 'tests')
 import helpers
 for sig in helpers.available_sigs_by_name():
-    if helpers.is_sig_enabled_by_name(sig):
         print(sig)")
     fi
 }
@@ -260,10 +258,8 @@ BUILD_NAME="memsan_${sanitized_opt_flag}_${compiler_version}_${liboqs_build}"
 BUILD_DIR="$LIBOQS_DIR/build_$BUILD_NAME"
 
 # Export build dir for tests/helpers.py to find generated headers
-export OQS_BUILD_DIR="$BUILD_DIR"
-
-get_enabled_algs kems "$LIBOQS_DIR"
-get_enabled_algs sigs "$LIBOQS_DIR"
+get_available_algs kems "$LIBOQS_DIR"
+get_available_algs sigs "$LIBOQS_DIR"
 
 build_input="$input"
 if echo "$KEMS" | grep -Fxq "$input"; then
@@ -276,9 +272,10 @@ fi
 
 # Build liboqs with the specified compilation parameters
 notify "Preparing MemSan build (compiler=${compiler_version}, target=${liboqs_build}, flags=${opt_flag})"
-build "$compiler_version" "$liboqs_build" "$opt_flag" "$BUILD_DIR" "$input"
+build "$compiler_version" "$liboqs_build" "$opt_flag" "$BUILD_DIR" "$build_input"
 
 cd "$LIBOQS_DIR"
+
 notify "Proceeding with MemSan CT testing"
 
 # Find what the user wants to test
