@@ -301,6 +301,9 @@ fi
 BUILD_NAME="valgrind_varlat_${sanitized_opt_flag}_${compiler_version}_${liboqs_build}"
 BUILD_DIR="$LIBOQS_DIR/build_$BUILD_NAME"
 
+# Sanitize input algorithm for OQS_MIN_BUILD option if applicable
+# Export build dir for tests/helpers.py to find generated headers
+export OQS_BUILD_DIR="$BUILD_DIR"
 get_enabled_algs kems "$LIBOQS_DIR"
 get_enabled_algs sigs "$LIBOQS_DIR"
 
@@ -317,12 +320,7 @@ fi
 notify "Preparing Valgrind-Varlat build (compiler=${compiler_version}, target=${liboqs_build}, flags=${opt_flag})"
 build "$compiler_version" "$liboqs_build" "$opt_flag" "$BUILD_DIR" "$build_input"
 
-# Export build dir for tests/helpers.py to find generated headers
 cd "$LIBOQS_DIR"
-export OQS_BUILD_DIR="$BUILD_DIR"
-
-
-
 notify "Proceeding with Valgrind-Varlat CT testing"
 
 # Find what the user wants to test
