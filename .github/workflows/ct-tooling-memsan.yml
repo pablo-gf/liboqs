@@ -132,20 +132,20 @@ jobs:
       - name: Run memsan tests
         shell: bash
         run: |
-          set -eux
+          set -eu -o pipefail
           cd "$GITHUB_WORKSPACE/tests/ct_tooling/tools/memsan"
           chmod +x ct_test.sh
           raw_algs="${{ needs.interactive-inputs.outputs.runtime-options }}"
           IFS=',' read -r -a algs <<< "$raw_algs"    # convert to array
           for alg in "${algs[@]}"; do
-            echo "memsan CT testing for $alg"
             ./ct_test.sh ${{ matrix.compiler }} ${{ matrix.liboqs_build }} ${{ matrix.opt_flag }} "$alg"
           done
+          echo "----------------------------"
 
       - name: Upload memsan logs
         uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
         with:
-          name: memsan_${{ matrix.compiler }}_${{matrix.liboqs_build}}_${{ matrix.opt_flag }}_${{ matrix.algorithm }}_logs
+          name: memsan_${{ matrix.compiler }}_${{matrix.liboqs_build}}_${{ matrix.opt_flag }}_logs
           path: |
             tests/ct_tooling/tools/memsan/logs/**
 

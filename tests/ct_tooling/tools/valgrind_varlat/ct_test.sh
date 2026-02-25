@@ -235,8 +235,6 @@ get_enabled_algs() {
     local ALG_TYPE="$1"
     local LIBOQS_DIR="$2"
 
-    env | grep OQS || echo "NO OQS ENV FOUND"
-
     if [[ "$ALG_TYPE" == "kems" ]]; then
         KEMS=$(cd "$LIBOQS_DIR" && python3 -c "import sys
 sys.path.insert(0, 'tests')

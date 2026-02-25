@@ -131,7 +131,7 @@ jobs:
 
       - name: Build valgrind_varlat
         run: |
-          set -eux
+          set -eu -o pipefail
           INSTALL_PREFIX="$PWD/valgrind_varlat"
 
           git clone git://sourceware.org/git/valgrind.git valgrind_varlat_src
@@ -163,9 +163,9 @@ jobs:
           raw_algs="${{ needs.interactive-inputs.outputs.runtime-options }}"
           IFS=',' read -r -a algs <<< "$raw_algs"    # convert to array
           for alg in "${algs[@]}"; do
-            echo "valgrind_varlat CT testing for $alg"
             ./ct_test.sh ${{ matrix.compiler }} ${{ matrix.liboqs_build }} ${{ matrix.opt_flag }} "$alg" > /dev/null 2>&1 || true
           done
+          echo "----------------------------"
 
       - name: Upload valgrind_varlat logs
         uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
