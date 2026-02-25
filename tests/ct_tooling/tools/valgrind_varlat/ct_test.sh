@@ -6,6 +6,10 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LIBOQS_DIR="$(realpath "$SCRIPT_DIR/../../../..")"
 
+notify() {
+    printf '[%s] %s\n\n' "$(date '+%H:%M:%S')" "$*"
+}
+
 # Build function
 build() {
     local COMP_V=$1
@@ -17,7 +21,7 @@ build() {
     mkdir -p "$BUILD_DIR"
     cd "$BUILD_DIR"
     cmake -S .. -G Ninja -DCMAKE_C_FLAGS="$OPT_FLAG" -DCMAKE_C_COMPILER=$COMP_V -DOQS_OPT_TARGET=$LIBOQS_BUILD  -DCMAKE_BUILD_TYPE=Debug -DOQS_USE_OPENSSL=OFF -DOQS_DIST_BUILD=OFF -DOQS_ENABLE_TEST_CONSTANT_TIME=ON > /dev/null 2>&1 || true
-    cmake --build . -j$(nproc)
+    cmake --build . -j$(nproc) > /dev/null 2>&1 || true
 }
 
 # Test function for individual algorithm testing
@@ -91,22 +95,21 @@ test() {
         # FIRST algorithm: write full header
         {
             echo "========================================"
-            echo "Compiled with: $COMPILATION_FLAGS"
-            echo "Executed with: ${VALGRIND_OPTS[*]}"
+            echo "Compiled with: $MEMSAN_OPTIONS"
             echo "Compiler version: ${COMPILER_VERSION}"
             echo "Architecture: ${ARCH}"
             echo "========================================"
             echo ""
-        } | tee "$SUMMARY_FILE"
+        } > "$SUMMARY_FILE"
     else
         # SUBSEQUENT algorithms: skip header, just separator
-        echo "" | tee -a "$SUMMARY_FILE"
+        echo "" >> "$SUMMARY_FILE"
     fi
 
     PASS_COUNT=0
     FAIL_COUNT=0
    
-    echo -n "Testing $UPPER_TYPE: $ALGORITHM ... " | tee -a "$SUMMARY_FILE"
+    echo -n "Testing $ALGORITHM ... " | tee -a "$SUMMARY_FILE"
     
     LOG_FILE="$OUTPUT_DIR/${ALGORITHM}_${TIMESTAMP}.log"
     # Create empty files per algorithm run
@@ -285,6 +288,7 @@ BUILD_NAME="valgrind_varlat_${sanitized_opt_flag}_${compiler_version}_${liboqs_b
 BUILD_DIR="$LIBOQS_DIR/build_$BUILD_NAME"
 
 # Build liboqs with the specified compilation parameters
+notify "Preparing Valgrind-Varlat build (compiler=${compiler_version}, target=${liboqs_build}, flags=${opt_flag})"
 build "$compiler_version" "$liboqs_build" "$opt_flag" "$BUILD_DIR"
 
 # Export build dir for tests/helpers.py to find generated headers
@@ -293,6 +297,9 @@ export OQS_BUILD_DIR="$BUILD_DIR"
 
 get_enabled_algs kems "$LIBOQS_DIR"
 get_enabled_algs sigs "$LIBOQS_DIR"
+
+echo ""
+notify "Proceeding with Valgrind-Varlat CT testing"
 
 # Find what the user wants to test
 # Case 1: All algorithms
@@ -345,3 +352,6 @@ else
     echo "Enter a valid input: all/kems/sigs/<specific_variant>"
     exit 1
 fi
+
+echo ""
+notify "Finished Valgrind-Varlat CT testing"

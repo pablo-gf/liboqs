@@ -6,6 +6,10 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LIBOQS_DIR="$(realpath "$SCRIPT_DIR/../../../..")"
 
+notify() {
+    printf '[%s] %s\n\n' "$(date '+%H:%M:%S')" "$*"
+}
+
 # Build function
 build() {
     local COMP_V=$1
@@ -106,23 +110,23 @@ test() {
             echo "Architecture: ${ARCH}"
             echo "========================================"
             echo ""
-        } | tee "$SUMMARY_FILE"
+        } > "$SUMMARY_FILE"
     else
         # SUBSEQUENT algorithms: skip header, just separator
-        echo "" | tee -a "$SUMMARY_FILE"
+        echo "" >> "$SUMMARY_FILE"
     fi
 
     PASS_COUNT=0
     FAIL_COUNT=0
    
-    echo -n "Testing $UPPER_TYPE: $ALGORITHM ... " | tee -a "$SUMMARY_FILE"
+    echo -n "$ALGORITHM ... " | tee -a "$SUMMARY_FILE"
     
     LOG_FILE="$OUTPUT_DIR/${ALGORITHM}_${TIMESTAMP}.log"
     touch "$LOG_FILE"
 
     # Only count and store unique summary lines
     # Exit early if warning count exceeds MAX_WARNINGS threshold
-    "$BUILD_DIR"/tests/$TEST_BINARY "$algo" 2>&1 | awk -v log_file="$LOG_FILE" -v max_warnings="$MAX_WARNINGS" '
+    "$BUILD_DIR"/tests/$TEST_BINARY "$ALGORITHM" 2>&1 | awk -v log_file="$LOG_FILE" -v max_warnings="$MAX_WARNINGS" '
         /^SUMMARY: MemorySanitizer:/ {
             # Check if this exact SUMMARY was already logged and store it if not
             cmd = "grep -Fxq \"" $0 "\" " log_file
@@ -235,10 +239,11 @@ if [ -z "$sanitized_opt_flag" ]; then
     sanitized_opt_flag=default
 fi
 
-BUILD_NAME="valgrind_varlat_${sanitized_opt_flag}_${compiler_version}_${liboqs_build}"
+BUILD_NAME="memsan_${sanitized_opt_flag}_${compiler_version}_${liboqs_build}"
 BUILD_DIR="$LIBOQS_DIR/build_$BUILD_NAME"
 
 # Build liboqs with the specified compilation parameters
+notify "Preparing MemSan build (compiler=${compiler_version}, target=${liboqs_build}, flags=${opt_flag})"
 build "$compiler_version" "$liboqs_build" "$opt_flag" "$BUILD_DIR"
 
 # Export build dir for tests/helpers.py to find generated headers
@@ -247,6 +252,9 @@ export OQS_BUILD_DIR="$BUILD_DIR"
 
 get_enabled_algs kems "$LIBOQS_DIR"
 get_enabled_algs sigs "$LIBOQS_DIR"
+
+echo ""
+notify "Proceeding with MemSan CT testing"
 
 # Find what the user wants to test
 # Case 1: All algorithms
@@ -299,3 +307,6 @@ else
     echo "Enter a valid input: all/kems/sigs/<specific_variant>"
     exit 1
 fi
+
+echo ""
+notify "Finished MemSan CT testing"
