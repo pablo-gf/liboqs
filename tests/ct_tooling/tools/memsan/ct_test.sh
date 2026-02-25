@@ -16,6 +16,13 @@ build() {
     local LIBOQS_BUILD=$2
     local OPT_FLAG=$3
     local BUILD_DIR=$4
+    local $ALGORITHM=$5
+
+    # To handle a minimal liboqs build only if a single algorithm is passed as input, otherwise build the complete library
+    local MINIMAL_BUILD_ARG()
+    if [[ -n "$ALGORITHM" && "$ALGORITHM" != "all" && "$ALGORITHM" != "kems" && "$ALGORITHM" != "sigs"]]; then
+        MINIMAL_BUILD_ARG=(-DOQS_MINIMAL_BUILD="$ALGORITHM")
+    fi
    
     # Create backup files of the original tests files
     mv "$LIBOQS_DIR/tests/CMakeLists.txt" "$LIBOQS_DIR/tests/CMakeLists.txt.bak"
@@ -31,7 +38,17 @@ build() {
     # Build liboqs with the current configuration
     mkdir -p "$BUILD_DIR"
     cd "$BUILD_DIR"
-    cmake -S .. -G Ninja -DBUILD_SHARED_LIBS=ON -DCMAKE_C_COMPILER=$compiler_version -DCMAKE_BUILD_TYPE=Debug -DOQS_USE_OPENSSL=OFF -DOQS_DIST_BUILD=OFF -DOQS_OPT_TARGET=$liboqs_build -DCMAKE_C_FLAGS="-fsanitize=memory -fsanitize-recover=all $opt_flag -g" -DCMAKE_EXE_LINKER_FLAGS="-fsanitize=memory" -DCMAKE_SHARED_LINKER_FLAGS="-fsanitize=memory" > /dev/null 2>&1 || true
+    cmake -S .. -G Ninja \
+        "${MINIMAL_BUILD_ARG[@]}" \
+        -DBUILD_SHARED_LIBS=ON \
+        -DCMAKE_C_COMPILER=$compiler_version \
+        -DCMAKE_BUILD_TYPE=Debug \
+        -DOQS_USE_OPENSSL=OFF \
+        -DOQS_DIST_BUILD=OFF \
+        -DOQS_OPT_TARGET=$liboqs_build \
+        -DCMAKE_C_FLAGS="-fsanitize=memory -fsanitize-recover=all $opt_flag -g" \
+        -DCMAKE_EXE_LINKER_FLAGS="-fsanitize=memory" \
+        -DCMAKE_SHARED_LINKER_FLAGS="-fsanitize=memory" > /dev/null 2>&1 || true
     cmake --build . -j$(nproc) > /dev/null 2>&1 || true
 
     # Restore the original test files with the backups
@@ -244,7 +261,7 @@ BUILD_DIR="$LIBOQS_DIR/build_$BUILD_NAME"
 
 # Build liboqs with the specified compilation parameters
 notify "Preparing MemSan build (compiler=${compiler_version}, target=${liboqs_build}, flags=${opt_flag})"
-build "$compiler_version" "$liboqs_build" "$opt_flag" "$BUILD_DIR"
+build "$compiler_version" "$liboqs_build" "$opt_flag" "$BUILD_DIR" "$input"
 
 # Export build dir for tests/helpers.py to find generated headers
 cd "$LIBOQS_DIR"
@@ -253,7 +270,6 @@ export OQS_BUILD_DIR="$BUILD_DIR"
 get_enabled_algs kems "$LIBOQS_DIR"
 get_enabled_algs sigs "$LIBOQS_DIR"
 
-echo ""
 notify "Proceeding with MemSan CT testing"
 
 # Find what the user wants to test
@@ -308,5 +324,4 @@ else
     exit 1
 fi
 
-echo ""
 notify "Finished MemSan CT testing"

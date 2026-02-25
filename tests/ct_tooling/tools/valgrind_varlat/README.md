@@ -1,11 +1,11 @@
 # Valgrind-Varlat
 
-This directory contains the necessary files to execute Valgrind's memcheck tool on liboqs with [Bernstein's Kyberslash patches](https://kyberslash.cr.yp.to/papers.html) (valgrind-try-patch-20250805.txt and valgrind-varlat-patch-20250805.txt) and another patch including variable latency warnings in the suppression block (valgrind_varlat_sup_block.txt).
+This directory contains the necessary files to execute Valgrind's memcheck tool on liboqs with [Daniel Bernstein's Kyberslash patches](https://kyberslash.cr.yp.to/papers.html) (valgrind-try-patch-20250805.txt and valgrind-varlat-patch-20250805.txt) and another patch including variable latency warnings in the suppression block (valgrind_varlat_sup_block.txt).
 
 ## Valgrind-Varlat Install Requirements
 In order to successfully execute Valgrind-Varlat's test using the tooling developed in this subrepository follow the next steps:
 
-- Install valgrind using the official git repository. Go to [Bernstein's suggested](https://sourceforge.net/p/valgrind/mailman/message/59216875/) [commit](https://sourceware.org/git/?p=valgrind.git;a=commit;h=112f1080b7c21e37dfce0a2e589d0dc7aa115afa) to cleanly apply Kyberslash patches to Valgrind without encountering dependency issues: 112f1080b7c21e37dfce0a2e589d0dc7aa115afa.
+- Install valgrind using the official git repository. Go to [Daniel Bernstein's suggested](https://sourceforge.net/p/valgrind/mailman/message/59216875/) [commit](https://sourceware.org/git/?p=valgrind.git;a=commit;h=112f1080b7c21e37dfce0a2e589d0dc7aa115afa) to cleanly apply Kyberslash patches to Valgrind without encountering dependency issues: 112f1080b7c21e37dfce0a2e589d0dc7aa115afa.
 
 ```
 VALGRIND_REPO="https://sourceware.org/git/valgrind.git"
@@ -84,11 +84,11 @@ To check whether the installation was successful, you can use the varlat tests p
 
 ## Algorithm Testing
 
-Because of how many warnings are output, it is not feasible to store all the warnings in terms of memory and runtime. Therefore, the test script handles Valgrind-Varlat's output as follows:
-- Since the suppression block (the data inside the curly braces {...}) contains the overall information of the issue, each unique block will be logged into the log file for the sake of simplicity.
-- These unique blocks will be the ones counted as warnings, since the same warning may be output several times throughout the execution.
+Valgrind-Varlat produces numerous warnings, making complete storage impractical in terms of memory and runtime. The test script therefore processes output as follows:
+- It captures each unique suppression block (the {...} content with full warning details) and logs it to a file.
+- Only these unique blocks are counted as warnings, avoiding duplication from repeated occurrences during execution.
 
-The testing framework currently disregarding all SPHINCS, ML-DSA tests due to the execessive length of time they require to execute.
+The testing framework currently skips all SPHINCS and SLH-DSA tests due to the execessive length of time they require to execute.
 
 ## Dependencies
 Remember to install the prerequisites for building liboqs:

@@ -11,7 +11,7 @@ for compiler_version in gcc gcc-14 clang clang-20; do
     for liboqs_build in generic auto; do
         # Iterate through the different optimization flags (gcc uses -fno-tree-vectorize instead of -fno-vectorize) and execute tests asynchronously
         for opt_flag in -O0 -O1 -O2 -O3 -Os -Ofast "-O2 -fno-tree-vectorize" "-O3 -fno-tree-vectorize"; do
-            ./ct_test.sh "$compiler_version" "$liboqs_build" "$opt_flag" all 
+            ./ct_test.sh "$compiler_version" "$liboqs_build" "$opt_flag" all
         done
     done
 done

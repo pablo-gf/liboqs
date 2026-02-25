@@ -136,9 +136,9 @@ jobs:
           INSTALL_PREFIX="$PWD/valgrind_varlat"
 
           echo "Cloning Valgrind's source code"
-          git clone git://sourceware.org/git/valgrind.git valgrind_varlat_src
+          git clone git://sourceware.org/git/valgrind.git valgrind_varlat_src> /dev/null 2>&1 || true
           cd valgrind_varlat_src
-          git checkout 112f1080b7c21e37dfce0a2e589d0dc7aa115afa
+          git checkout 112f1080b7c21e37dfce0a2e589d0dc7aa115afa > /dev/null 2>&1 || true
 
           echo "Applying Kyberslash patch"
           git apply "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat/valgrind-try-patch-20250805.txt" > /dev/null 2>&1 || true
@@ -158,7 +158,7 @@ jobs:
           command -v valgrind_varlat
           echo "$INSTALL_PREFIX/bin" >> "$GITHUB_PATH"
 
-      - name: Run tests with valgrind_varlat
+      - name: Run valgrind_varlat tests
         shell: bash
         run: |
           set -eu -o pipefail
@@ -167,7 +167,7 @@ jobs:
           raw_algs="${{ needs.interactive-inputs.outputs.runtime-options }}"
           IFS=',' read -r -a algs <<< "$raw_algs"    # convert to array
           for alg in "${algs[@]}"; do
-            ./ct_test.sh ${{ matrix.compiler }} ${{ matrix.liboqs_build }} ${{ matrix.opt_flag }} "$alg" > /dev/null 2>&1 || true
+            ./ct_test.sh ${{ matrix.compiler }} ${{ matrix.liboqs_build }} ${{ matrix.opt_flag }} "$alg"
           done
 
       - name: Upload valgrind_varlat logs

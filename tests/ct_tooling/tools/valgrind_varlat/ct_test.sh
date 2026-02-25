@@ -16,11 +16,25 @@ build() {
     local LIBOQS_BUILD=$2
     local OPT_FLAG=$3
     local BUILD_DIR=$4
-    
-    # Build liboqs with the current configuration
+    local $ALGORITHM=$5
+
+    # To handle a minimal liboqs build only if a single algorithm is passed as input, otherwise build the complete library
+    local MINIMAL_BUILD_ARG()
+    if [[ -n "$ALGORITHM" && "$ALGORITHM" != "all" && "$ALGORITHM" != "kems" && "$ALGORITHM" != "sigs"]]; then
+        MINIMAL_BUILD_ARG=(-DOQS_MINIMAL_BUILD="$ALGORITHM")
+    fi
+
     mkdir -p "$BUILD_DIR"
     cd "$BUILD_DIR"
-    cmake -S .. -G Ninja -DCMAKE_C_FLAGS="$OPT_FLAG" -DCMAKE_C_COMPILER=$COMP_V -DOQS_OPT_TARGET=$LIBOQS_BUILD  -DCMAKE_BUILD_TYPE=Debug -DOQS_USE_OPENSSL=OFF -DOQS_DIST_BUILD=OFF -DOQS_ENABLE_TEST_CONSTANT_TIME=ON > /dev/null 2>&1 || true
+    cmake -S .. -G Ninja \
+        "${MINIMAL_BUILD_ARG[@]}" \
+        -DCMAKE_C_FLAGS="$OPT_FLAG" \
+        -DCMAKE_C_COMPILER=$COMP_V \
+        -DOQS_OPT_TARGET=$LIBOQS_BUILD  \
+        -DCMAKE_BUILD_TYPE=Debug \
+        -DOQS_USE_OPENSSL=OFF \
+        -DOQS_DIST_BUILD=OFF \
+        -DOQS_ENABLE_TEST_CONSTANT_TIME=ON > /dev/null 2>&1 || true
     cmake --build . -j$(nproc) > /dev/null 2>&1 || true
 }
 
@@ -289,7 +303,7 @@ BUILD_DIR="$LIBOQS_DIR/build_$BUILD_NAME"
 
 # Build liboqs with the specified compilation parameters
 notify "Preparing Valgrind-Varlat build (compiler=${compiler_version}, target=${liboqs_build}, flags=${opt_flag})"
-build "$compiler_version" "$liboqs_build" "$opt_flag" "$BUILD_DIR"
+build "$compiler_version" "$liboqs_build" "$opt_flag" "$BUILD_DIR" "$input"
 
 # Export build dir for tests/helpers.py to find generated headers
 cd "$LIBOQS_DIR"
@@ -298,7 +312,6 @@ export OQS_BUILD_DIR="$BUILD_DIR"
 get_enabled_algs kems "$LIBOQS_DIR"
 get_enabled_algs sigs "$LIBOQS_DIR"
 
-echo ""
 notify "Proceeding with Valgrind-Varlat CT testing"
 
 # Find what the user wants to test
@@ -353,5 +366,4 @@ else
     exit 1
 fi
 
-echo ""
 notify "Finished Valgrind-Varlat CT testing"
