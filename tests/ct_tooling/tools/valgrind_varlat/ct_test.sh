@@ -247,7 +247,7 @@ test() {
     #echo "" | tee -a "$SUMMARY_FILE"
 }
 
-get_enabled_algs() {
+get_available_algs() {
     local ALG_TYPE="$1"
     local LIBOQS_DIR="$2"
 
@@ -256,14 +256,12 @@ get_enabled_algs() {
 sys.path.insert(0, 'tests')
 import helpers
 for kem in helpers.available_kems_by_name():
-    if helpers.is_kem_enabled_by_name(kem):
         print(kem)")
     elif [[ "$ALG_TYPE" == "sigs" ]]; then
         SIGS=$(cd "$LIBOQS_DIR" && python3 -c "import sys
 sys.path.insert(0, 'tests')
 import helpers
 for sig in helpers.available_sigs_by_name():
-    if helpers.is_sig_enabled_by_name(sig):
         print(sig)")
     fi
 }
@@ -304,8 +302,8 @@ BUILD_DIR="$LIBOQS_DIR/build_$BUILD_NAME"
 # Sanitize input algorithm for OQS_MIN_BUILD option if applicable
 # Export build dir for tests/helpers.py to find generated headers
 export OQS_BUILD_DIR="$BUILD_DIR"
-get_enabled_algs kems "$LIBOQS_DIR"
-get_enabled_algs sigs "$LIBOQS_DIR"
+get_available_algs kems "$LIBOQS_DIR"
+get_available_algs sigs "$LIBOQS_DIR"
 
 build_input="$input"
 if echo "$KEMS" | grep -Fxq "$input"; then
@@ -320,11 +318,7 @@ fi
 notify "Preparing Valgrind-Varlat build (compiler=${compiler_version}, target=${liboqs_build}, flags=${opt_flag})"
 build "$compiler_version" "$liboqs_build" "$opt_flag" "$BUILD_DIR" "$build_input"
 
-# Export build dir for tests/helpers.py to find generated headers
-export OQS_BUILD_DIR="$BUILD_DIR"
 cd "$LIBOQS_DIR"
-get_enabled_algs kems "$LIBOQS_DIR"
-get_enabled_algs sigs "$LIBOQS_DIR"
 
 notify "Proceeding with Valgrind-Varlat CT testing"
 
