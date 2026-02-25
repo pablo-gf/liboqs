@@ -46,17 +46,10 @@ Both tools use their respective `ct_testing.sh` script with the same argument st
 ./ct_test.sh <compiler_version> <liboqs_build> <opt_flags...> <input>
 ```
 
-- Positional argument 1: `compiler_version`
-- Positional argument 2: `liboqs_build` (`generic` or `auto`)
-- Positional argument N (last): `input`
-- All arguments from position 3 up to position N-1 are treated as compiler optimization flags (including multi-flag combinations).
-
-Where `input` is one of:
-
-- `all` (all enabled KEM + SIG algorithms)
-- `kems` (all enabled KEM algorithms)
-- `sigs` (all enabled SIG algorithms)
-- a specific enabled algorithm variant
+- `compiler_version`: clang, clang-20, gcc, gcc14 , ...
+- `liboqs_build`: `generic` or `auto`
+- `input`: all, kems, sigs, or a specific enabled algorithm variant
+- `opt_flags`: All arguments from position 3 up to position N-1 are treated as compiler optimization flags (including multi-flag combinations such as `-O3 -fno-tree-vectorize`).
 
 Examples:
 
@@ -69,7 +62,7 @@ Examples:
 
 The `local_build_options.sh` shell script uses `ct_test.sh` to execute CT test locally on all liboqs algorithms across a variety of compilers, compiler versions, liboqs target builds, and optimization flags.
 
-The `ct-tooling-valgrind-varlat.yml` and `ct-tooling-memsan.yml` Github Actions workflows also use `ct_testing.sh` to execute CT tests in CI on selected algorithms when the workflows are triggered.
+The `ct-tooling-valgrind-varlat.yml` and `ct-tooling-memsan.yml` workflows also use `ct_testing.sh` to execute CT tests in CI on user-selected algorithms (using [interactive-inputs](https://github.com/marketplace/actions/interactive-inputs)) when the workflows are manually triggered on GitHub Actions.
 
 ### Configuration
 For Valgrind-Varlat configuration, see: [Valgrind-Varlat's README](liboqs/tests/ct_tooling/tools/valgrind_varlat/README.md)
@@ -87,6 +80,8 @@ First, the `build()` function builds liboqs with the compiler options desired. I
 - Compiler versions: gcc, gcc-14, clang, and clang-20
 - liboqs build: auto (with optimizations), and generic
 - Optimization flags: -O0, -O1, -O2, -O3, -Os, -Ofast, -O2 -fno-tree-vectorize, and -O3 -fno-tree-vectorize
+
+When `ct_test.sh` is executed on a single algorithm variant, `build()` builds liboqs with the `OQS_MINIMAL_BUILD` option, minimizing the time and resources required for building. For the other input options, liboqs is built entirely.
 
 Note that Valgrind-Varlat tests can be compiled using both gcc and clang, while MemSan is only native to the clang compiler. This leaves the following possible configurations for each of the optimization flags:
 

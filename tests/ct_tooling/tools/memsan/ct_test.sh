@@ -19,7 +19,7 @@ build() {
     local $ALGORITHM=$5
 
     # To handle a minimal liboqs build only if a single algorithm is passed as input, otherwise build the complete library
-    local MINIMAL_BUILD_ARG()
+    local MINIMAL_BUILD_ARG=()
     if [[ -n "$ALGORITHM" && "$ALGORITHM" != "all" && "$ALGORITHM" != "kems" && "$ALGORITHM" != "sigs"]]; then
         MINIMAL_BUILD_ARG=(-DOQS_MINIMAL_BUILD="$ALGORITHM")
     fi
@@ -259,6 +259,18 @@ fi
 BUILD_NAME="memsan_${sanitized_opt_flag}_${compiler_version}_${liboqs_build}"
 BUILD_DIR="$LIBOQS_DIR/build_$BUILD_NAME"
 
+get_enabled_algs kems "$LIBOQS_DIR"
+get_enabled_algs sigs "$LIBOQS_DIR"
+
+build_input="$input"
+if echo "$KEMS" | grep -Fxq "$input"; then
+    normalized_input="$(printf '%s' "$input" | tr '[:upper:]-' '[:lower:]_')"
+    build_input="KEM_${normalized_input}"
+elif echo "$SIGS" | grep -Fxq "$input"; then
+    normalized_input="$(printf '%s' "$input" | tr '[:upper:]-' '[:lower:]_')"
+    build_input="SIG_${normalized_input}"
+fi
+
 # Build liboqs with the specified compilation parameters
 notify "Preparing MemSan build (compiler=${compiler_version}, target=${liboqs_build}, flags=${opt_flag})"
 build "$compiler_version" "$liboqs_build" "$opt_flag" "$BUILD_DIR" "$input"
@@ -266,9 +278,6 @@ build "$compiler_version" "$liboqs_build" "$opt_flag" "$BUILD_DIR" "$input"
 # Export build dir for tests/helpers.py to find generated headers
 cd "$LIBOQS_DIR"
 export OQS_BUILD_DIR="$BUILD_DIR"
-
-get_enabled_algs kems "$LIBOQS_DIR"
-get_enabled_algs sigs "$LIBOQS_DIR"
 
 notify "Proceeding with MemSan CT testing"
 
