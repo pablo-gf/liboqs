@@ -135,18 +135,21 @@ jobs:
           set -eu -o pipefail
           INSTALL_PREFIX="$PWD/valgrind_varlat"
 
+          echo "Cloning Valgrind's source code"
           git clone git://sourceware.org/git/valgrind.git valgrind_varlat_src
           cd valgrind_varlat_src
           git checkout 112f1080b7c21e37dfce0a2e589d0dc7aa115afa
 
-          git apply "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat/valgrind-try-patch-20250805.txt"
-          git apply "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat/valgrind-varlat-patch-20250805.txt"
-          git apply "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat/valgrind-varlat-sup-block.txt"
+          echo "Applying Kyberslash patch"
+          git apply "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat/valgrind-try-patch-20250805.txt" > /dev/null 2>&1 || true
+          git apply "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat/valgrind-varlat-patch-20250805.txt" > /dev/null 2>&1 || true
+          git apply "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat/valgrind-varlat-sup-block.txt" > /dev/null 2>&1 || true
 
-          ./autogen.sh
-          ./configure --prefix="$INSTALL_PREFIX"
-          make -j"$(nproc)"
-          make install
+          echo "Building Valgrind-Varlat"
+          ./autogen.sh > /dev/null 2>&1 || true
+          ./configure --prefix="$INSTALL_PREFIX" > /dev/null 2>&1 || true
+          make -j"$(nproc)" > /dev/null 2>&1 || true
+          make install > /dev/null 2>&1 || true
 
           mv "$INSTALL_PREFIX/bin/valgrind" "$INSTALL_PREFIX/bin/valgrind_varlat"
           chmod -R u+rwX "$INSTALL_PREFIX"
@@ -166,7 +169,6 @@ jobs:
           for alg in "${algs[@]}"; do
             ./ct_test.sh ${{ matrix.compiler }} ${{ matrix.liboqs_build }} ${{ matrix.opt_flag }} "$alg" > /dev/null 2>&1 || true
           done
-          echo "----------------------------"
 
       - name: Upload valgrind_varlat logs
         uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4

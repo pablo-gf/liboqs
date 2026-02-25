@@ -140,7 +140,6 @@ jobs:
           for alg in "${algs[@]}"; do
             ./ct_test.sh ${{ matrix.compiler }} ${{ matrix.liboqs_build }} ${{ matrix.opt_flag }} "$alg"
           done
-          echo "----------------------------"
 
       - name: Upload memsan logs
         uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
