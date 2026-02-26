@@ -32,17 +32,25 @@ build() {
     # Build depending on the tool selected
     mkdir -p "$BUILD_DIR"
     cd "$BUILD_DIR"
-    local cmake_args=("-S .." "-G Ninja" "${MINIMAL_BUILD_ARG[@]}" "-DCMAKE_C_COMPILER=$COMP_V" "-DOQS_OPT_TARGET=$LIBOQS_BUILD" "-DCMAKE_BUILD_TYPE=Debug" "-DOQS_USE_OPENSSL=OFF" "-DOQS_DIST_BUILD=OFF")
+    local CMAKE_ARGS=("-S .." "-G Ninja" "${MINIMAL_BUILD_ARG[@]}" "-DCMAKE_C_COMPILER=$COMP_V" "-DOQS_OPT_TARGET=$LIBOQS_BUILD" "-DCMAKE_BUILD_TYPE=Debug" "-DOQS_USE_OPENSSL=OFF" "-DOQS_DIST_BUILD=OFF")
 
     case "$TOOL" in
         valgrind-varlat)
 
-            cmake "${cmake_args[@]}" \
+            cmake "${CMAKE_ARGS[@]}" \
                 -DCMAKE_C_FLAGS="$OPT_FLAG" \
-                -DOQS_ENABLE_TEST_CONSTANT_TIME=ON > /dev/null 2>&1 || true
-            cmake --build . -j$(nproc) > /dev/null 2>&1 || true
+                -DOQS_ENABLE_TEST_CONSTANT_TIME=ON > /dev/null 2>&1
+            cmake --build . -j$(nproc) > /dev/null 2>&1
             ;;
         memsan)
+
+            # Generate suppression flags for all suppression files containing false positives
+            SUP_DIR="$SCRIPT_DIR/tools/memsan/false_positives"
+            SUP_FLAGS=()
+            for f in "$SUP_DIR"/*.txt; do
+                [ -f "$f" ] || continue
+                SUP_FLAGS+=( "-fsanitize-ignorelist=$f" )
+            done
 
             # Create backup files of the original tests files
             mv "$LIBOQS_DIR/tests/CMakeLists.txt" "$LIBOQS_DIR/tests/CMakeLists.txt.bak"
@@ -55,12 +63,12 @@ build() {
             cp "$SCRIPT_DIR/tools/memsan/test_sig.c" "$LIBOQS_DIR/tests/test_sig.c"
             cp "$SCRIPT_DIR/tools/memsan/rng_poison_memsan.c" "$LIBOQS_DIR/tests/rng_poison_memsan.c"
 
-            cmake "${cmake_args[@]}" \
+            cmake "${CMAKE_ARGS[@]}" \
                 -DBUILD_SHARED_LIBS=ON \
-                -DCMAKE_C_FLAGS="-fsanitize=memory -fsanitize-recover=all $OPT_FLAG -g" \
+                -DCMAKE_C_FLAGS="-fsanitize=memory -fsanitize-recover=all ${SUP_FLAGS[*]} $OPT_FLAG -g" \
                 -DCMAKE_EXE_LINKER_FLAGS="-fsanitize=memory" \
-                -DCMAKE_SHARED_LINKER_FLAGS="-fsanitize=memory" > /dev/null 2>&1 || true
-            cmake --build . -j$(nproc) > /dev/null 2>&1 || true
+                -DCMAKE_SHARED_LINKER_FLAGS="-fsanitize=memory" > /dev/null 2>&1
+            cmake --build . -j$(nproc) > /dev/null 2>&1
 
             # Restore the original test files with the backups
             mv "$LIBOQS_DIR/tests/CMakeLists.txt.bak" "$LIBOQS_DIR/tests/CMakeLists.txt"
@@ -150,7 +158,7 @@ test() {
             # Generate suppression flags for all suppression files containing false positives
             SUP_DIR="$SCRIPT_DIR/tools/valgrind_varlat/false_positives"
             SUP_FLAGS=()
-            for f in "$SUP_DIR"/*.supp; do
+            for f in "$SUP_DIR"/*.txt; do
                 [ -f "$f" ] || continue
                 SUP_FLAGS+=( "--suppressions=$f" )
             done
@@ -252,10 +260,17 @@ test() {
         
         memsan)
             touch "$LOG_FILE"
+
             # Only count and store unique summary lines
             # Exit early if warning count exceeds MAX_WARNINGS threshold
-            "$BUILD_DIR"/tests/$TEST_BINARY "$ALGORITHM" 2>&1 | awk -v log_file="$LOG_FILE" -v max_warnings="$MAX_WARNINGS" '
+            "$BUILD_DIR"/tests/$TEST_BINARY "$ALGORITHM" 2>&1 | awk \
+                -v log_file="$LOG_FILE" \
+                -v max_warnings="$MAX_WARNINGS" '
                 /^SUMMARY: MemorySanitizer:/ {
+                    # memcmp/bcmp warnings are known false positives but -fsanitize-ignorelist has no effect because they are not compiled by clang
+                    # Skip their warnings here instead.
+                    if ($0 ~ / in (memcmp|bcmp)$/) next
+
                     # Check if this exact SUMMARY was already logged and store it if not
                     cmd = "grep -Fxq \"" $0 "\" " log_file
                     if (system(cmd) != 0) {

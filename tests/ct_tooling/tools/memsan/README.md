@@ -2,6 +2,8 @@
 
 This directory contains the files required to execute MemSan's tooling for liboqs constant-time testing.
 
+MemSan handles false-positive warnings by storing specific functions into `.txt` files within the `false_positives/` directory. These files are passed as parameters of the `-fsanitize-ignorelist` flag during compilation, successfully disregarding those warnings that are cathegorized as not constant-time issues after review.
+
 ## Compiling liboqs with MemSan
 MemSan is inherently included with the clang compiler, so no requirement besides installing clang is needed. However, it does require certain workarounds to mark memory as uninitialized when building liboqs. Nonetheless, this process is directly implemented by using the `build()` function within the `ct_test.sh` script.
 
