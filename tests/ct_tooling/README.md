@@ -34,7 +34,7 @@ tests/ct_tooling/
 
 ### 1. Valgrind-Varlat (`valgrind_varlat/`)
 - **Purpose**: Uninitialized memory error detection for cosntant-time analysis using Kyberslash patch for Valgrind
-- **Output**: Directory containing allUnique suppression blocks for each warning output
+- **Output**: Directory containing all unique suppression blocks for each warning output
 
 ### 2. MemSan (`memsan/`)
 - **Purpose**: LLVM-based uninitialized memory error detection for constant-time analysis using MemorySanitizer

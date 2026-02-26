@@ -7,7 +7,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LIBOQS_DIR="$(realpath "$SCRIPT_DIR/../../../..")"
 
 notify() {
-    printf '[%s] %s\n\n' "$(date '+%H:%M:%S')" "$*"
+    printf '[%s] %s\n' "$(date '+%H:%M:%S')" "$*"
 }
 
 # Build function
@@ -271,12 +271,12 @@ elif echo "$SIGS" | grep -Fxq "$input"; then
 fi
 
 # Build liboqs with the specified compilation parameters
-notify "Preparing MemSan build (compiler=${compiler_version}, target=${liboqs_build}, flags=${opt_flag})"
+notify "Preparing liboqs build (compiler=${compiler_version}, target=${liboqs_build}, flags=${opt_flag})"
 build "$compiler_version" "$liboqs_build" "$opt_flag" "$BUILD_DIR" "$build_input"
 
 cd "$LIBOQS_DIR"
 
-notify "Proceeding with MemSan CT testing"
+notify "Setting up MemSan CT testing"
 
 # Find what the user wants to test
 # Case 1: All algorithms

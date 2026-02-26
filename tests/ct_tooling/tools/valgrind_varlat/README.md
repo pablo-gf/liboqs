@@ -2,6 +2,8 @@
 
 This directory contains the necessary files to execute Valgrind's memcheck tool on liboqs with [Daniel Bernstein's Kyberslash patches](https://kyberslash.cr.yp.to/papers.html) (valgrind-try-patch-20250805.txt and valgrind-varlat-patch-20250805.txt) and another patch including variable latency warnings in the suppression block (valgrind_varlat_sup_block.txt).
 
+Valgrind-Varlat handles false-positive warnings by storing their suppression block into `.supp` files within the `false_positives/` directory. These files are passed during the tools execution, successfully disregarding those warnings that are cathegorized as not constant-time issues after review.
+
 ## Valgrind-Varlat Install Requirements
 In order to successfully execute Valgrind-Varlat's test using the tooling developed in this subrepository follow the next steps:
 
