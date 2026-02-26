@@ -124,6 +124,24 @@ jobs:
         compiler: [gcc, clang]
         liboqs_build: [generic, auto]
         opt_flag: [-O0, -O1, -O2, -O3, -Os, -Ofast, "-O2 -fno-tree-vectorize", "-O3 -fno-tree-vectorize"]
+        exclude:
+          - compiler: clang
+            opt_flag: "-O2 -fno-tree-vectorize"
+          - compiler: clang
+            opt_flag: "-O3 -fno-tree-vectorize"
+        include:
+          - compiler: clang
+            liboqs_build: generic
+            opt_flag: "-O2 -fno-vectorize"
+          - compiler: clang
+            liboqs_build: auto
+            opt_flag: "-O2 -fno-vectorize"
+          - compiler: clang
+            liboqs_build: generic
+            opt_flag: "-O3 -fno-vectorize"
+          - compiler: clang
+            liboqs_build: auto
+            opt_flag: "-O3 -fno-vectorize"
       max-parallel: 5
     steps:
       - name: Checkout code
@@ -162,12 +180,12 @@ jobs:
         shell: bash
         run: |
           set -eu -o pipefail
-          cd "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat"
+          cd "$GITHUB_WORKSPACE/tests/ct_tooling"
           chmod +x ct_test.sh
           raw_algs="${{ needs.interactive-inputs.outputs.runtime-options }}"
           IFS=',' read -r -a algs <<< "$raw_algs"    # convert to array
           for alg in "${algs[@]}"; do
-            ./ct_test.sh ${{ matrix.compiler }} ${{ matrix.liboqs_build }} ${{ matrix.opt_flag }} "$alg"
+            ./ct_test.sh valgrind-varlat ${{ matrix.compiler }} ${{ matrix.liboqs_build }} ${{ matrix.opt_flag }} "$alg"
           done
 
       - name: Upload valgrind_varlat logs

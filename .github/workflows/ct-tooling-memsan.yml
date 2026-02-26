@@ -133,12 +133,12 @@ jobs:
         shell: bash
         run: |
           set -eu -o pipefail
-          cd "$GITHUB_WORKSPACE/tests/ct_tooling/tools/memsan"
+          cd "$GITHUB_WORKSPACE/tests/ct_tooling"
           chmod +x ct_test.sh
           raw_algs="${{ needs.interactive-inputs.outputs.runtime-options }}"
           IFS=',' read -r -a algs <<< "$raw_algs"    # convert to array
           for alg in "${algs[@]}"; do
-            ./ct_test.sh ${{ matrix.compiler }} ${{ matrix.liboqs_build }} ${{ matrix.opt_flag }} "$alg"
+            ./ct_test.sh memsan ${{ matrix.compiler }} ${{ matrix.liboqs_build }} ${{ matrix.opt_flag }} "$alg"
           done
 
       - name: Upload memsan logs
