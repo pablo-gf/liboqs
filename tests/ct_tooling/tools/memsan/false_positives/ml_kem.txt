@@ -1,5 +1,6 @@
 fun:PQCP_MLKEM_NATIVE_MLKEM*_C_poly_decompress_d*
 fun:PQCP_MLKEM_NATIVE_MLKEM*_C_poly_reduce
+PQCP_MLKEM_NATIVE_MLKEM*_X86_64_poly_frommsg
 fun:mlk_ct_memcmp
 fun:mlk_ct_cmov_zero
 fun:mlk_rej_uniform_scalar
