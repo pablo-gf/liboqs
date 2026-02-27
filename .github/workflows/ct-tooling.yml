@@ -1,4 +1,4 @@
-name: ct-tooling valgrind-varlat
+name: ct-tooling
 
 permissions:
   contents: read
