@@ -195,20 +195,36 @@ jobs:
           path: |
             tests/ct_tooling/tools/valgrind_varlat/logs/**
 
-    #   - name: Generate visualizations and CSVs for valgrind_varlat
-    #     run: |
-    #       python3 -m ensurepip --upgrade
-    #       python3 -m pip install --upgrade --user pip
-    #       python3 -m pip install --user matplotlib
-    #       cd "$GITHUB_WORKSPACE/tests/ct_tooling/scripts"
-    #       python3 analyze_results.py \
-    #         -t valgrind_varlat \
-    #         -i "$GITHUB_WORKSPACE/tests/ct_tooling/tools/valgrind_varlat/logs" \
-    #         -o "$GITHUB_WORKSPACE/tests/ct_tooling/results/valgrind_varlat"
+  memsan:
+    needs: [interactive-inputs]
+    runs-on: ubuntu-latest
+    container:
+      image: openquantumsafe/ci-ubuntu-latest:latest
+    strategy:
+      matrix:
+        compiler: [clang]
+        liboqs_build: [generic, auto]
+        opt_flag: [-O1, -O2, -O3, -Os, -Ofast, "-O2 -fno-vectorize", "-O3 -fno-vectorize"]
+      max-parallel: 5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
 
-    #   - name: Upload visualizations and CSVs for valgrind_varlat
-    #     uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
-    #     with:
-    #       name: valgrind_varlat visualizations and CSVs
-    #       path: |
-    #         $GITHUB_WORKSPACE/tests/ct_tooling/results/valgrind_varlat
+      - name: Run memsan tests
+        shell: bash
+        run: |
+          set -eu -o pipefail
+          cd "$GITHUB_WORKSPACE/tests/ct_tooling"
+          chmod +x ct_test.sh
+          raw_algs="${{ needs.interactive-inputs.outputs.runtime-options }}"
+          IFS=',' read -r -a algs <<< "$raw_algs"    # convert to array
+          for alg in "${algs[@]}"; do
+            ./ct_test.sh memsan ${{ matrix.compiler }} ${{ matrix.liboqs_build }} ${{ matrix.opt_flag }} "$alg"
+          done
+
+      - name: Upload memsan logs
+        uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # pin@v4
+        with:
+          name: memsan_${{ matrix.compiler }}_${{matrix.liboqs_build}}_${{ matrix.opt_flag }}_logs
+          path: |
+            tests/ct_tooling/tools/memsan/logs/**
