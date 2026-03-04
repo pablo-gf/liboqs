@@ -377,13 +377,20 @@ KEMS=$(get_available_algs kem "$LIBOQS_DIR")
 SIGS=$(get_available_algs sig "$LIBOQS_DIR")
 
 # Convert user-facing algorithm name to CMake OQS_MINIMAL_BUILD key
+# Some OQS API names don't match the CMake variable suffix directly (e.g. sntrup761 maps to OQS_ENABLE_KEM_ntruprime_sntrup761, OV-Is to OQS_ENABLE_SIG_uov_ov_Is)
+# Detect the type (KEM/SIG), then look up the correct suffix from alg_support.cmake
 BUILD_INPUT="$INPUT"
-if echo "$KEMS" | grep -Fxq "$INPUT"; then
+ALG_TYPE=""
+echo "$KEMS" | grep -Fxq "$INPUT" && ALG_TYPE="KEM"
+echo "$SIGS" | grep -Fxq "$INPUT" && ALG_TYPE="SIG"
+
+if [[ -n "$ALG_TYPE" ]]; then
     NORMALIZED_INPUT="$(printf '%s' "$INPUT" | tr '[:upper:]-' '[:lower:]_')"
-    BUILD_INPUT="KEM_${NORMALIZED_INPUT}"
-elif echo "$SIGS" | grep -Fxq "$INPUT"; then
-    NORMALIZED_INPUT="$(printf '%s' "$INPUT" | tr '[:upper:]-' '[:lower:]_')"
-    BUILD_INPUT="SIG_${NORMALIZED_INPUT}"
+    CMAKE_SUFFIX=$(grep -oE "OQS_ENABLE_${ALG_TYPE}_[a-zA-Z0-9_]+" "$LIBOQS_DIR/.CMake/alg_support.cmake" \
+        | sed "s/OQS_ENABLE_${ALG_TYPE}_//" \
+        | grep -vE "(_avx2|_avx|_aesni|_x86_64|_aarch64|_icicle_cuda|_cuda)$" \
+        | grep -iE "_${NORMALIZED_INPUT}$|^${NORMALIZED_INPUT}$" | head -1)
+    BUILD_INPUT="${ALG_TYPE}_${CMAKE_SUFFIX:-$NORMALIZED_INPUT}"
 fi
 
 # Build liboqs with the specified compilation parameters
