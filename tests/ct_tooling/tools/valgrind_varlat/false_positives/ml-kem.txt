@@ -1,60 +1,8 @@
 {
    <insert_a_suppression_name_here>
    Memcheck:Cond
-   fun:mlk_rej_uniform_scalar*
-   fun:mlk_rej_uniform
-   fun:PQCP_MLKEM_NATIVE_MLKEM*_C_poly_rej_uniform_x4
-   fun:PQCP_MLKEM_NATIVE_MLKEM*_C_gen_matrix
-   fun:PQCP_MLKEM_NATIVE_MLKEM*_C_indcpa_keypair_derand
-   fun:PQCP_MLKEM_NATIVE_MLKEM*_C_keypair_derand
    ...
-   fun:kem_test_correctness
-   fun:test_wrapper
-   fun:start_thread
-   fun:clone
-}
-
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Cond
-   fun:mlk_rej_uniform_scalar*
    fun:mlk_rej_uniform
-   fun:PQCP_MLKEM_NATIVE_MLKEM*_C_poly_rej_uniform
-   fun:PQCP_MLKEM_NATIVE_MLKEM*_C_gen_matrix
-   fun:PQCP_MLKEM_NATIVE_MLKEM*_C_indcpa_keypair_derand
-   fun:PQCP_MLKEM_NATIVE_MLKEM*_C_keypair_derand
-   ...
-   fun:kem_test_correctness
-   fun:test_wrapper
-   fun:start_thread
-   fun:clone
-}
-
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Cond
-   fun:mlk_rej_uniform_scalar*
-   fun:mlk_rej_uniform
-   fun:PQCP_MLKEM_NATIVE_MLKEM*_C_poly_rej_uniform_x4
-   fun:PQCP_MLKEM_NATIVE_MLKEM*_C_gen_matrix
-   fun:PQCP_MLKEM_NATIVE_MLKEM*_C_indcpa_enc
-   fun:PQCP_MLKEM_NATIVE_MLKEM*_C_dec
-   ...
-   fun:kem_test_correctness
-   fun:test_wrapper
-   fun:start_thread
-   fun:clone
-}
-
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Cond
-   fun:mlk_rej_uniform_scalar*
-   fun:mlk_rej_uniform
-   fun:PQCP_MLKEM_NATIVE_MLKEM*_C_poly_rej_uniform
-   fun:PQCP_MLKEM_NATIVE_MLKEM*_C_gen_matrix
-   fun:PQCP_MLKEM_NATIVE_MLKEM*_C_indcpa_enc
-   fun:PQCP_MLKEM_NATIVE_MLKEM*_C_dec
    ...
    fun:kem_test_correctness
    fun:test_wrapper
@@ -72,16 +20,28 @@
    fun:start_thread
    fun:clone
 }
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Cond
+   fun:PQCP_MLKEM_NATIVE_MLKEM*_X86_64_poly_rej_uniform*
+   ...
+   fun:kem_test_correctness
+   fun:test_wrapper
+   fun:start_thread
+   fun:clone
+}
+
 
 {
    <insert_a_suppression_name_here>
    Memcheck:Cond
    ...
    fun:mlk_check_sk
-   fun:PQCP_MLKEM_NATIVE_MLKEM*_C_dec
    ...
    fun:kem_test_correctness
    fun:test_wrapper
    fun:start_thread
    fun:clone
 }
+
