@@ -42,6 +42,7 @@
 #cmakedefine OQS_OPENSSL_CRYPTO_SONAME "@OQS_OPENSSL_CRYPTO_SONAME@"
 
 #cmakedefine OQS_EMBEDDED_BUILD 1
+#cmakedefine OQS_MEMOPT_BUILD 1
 
 #cmakedefine OQS_USE_PTHREADS 1
 
@@ -86,6 +87,12 @@
 #cmakedefine OQS_ENABLE_KEM_frodokem_976_shake 1
 #cmakedefine OQS_ENABLE_KEM_frodokem_1344_aes 1
 #cmakedefine OQS_ENABLE_KEM_frodokem_1344_shake 1
+#cmakedefine OQS_ENABLE_KEM_efrodokem_640_aes 1
+#cmakedefine OQS_ENABLE_KEM_efrodokem_640_shake 1
+#cmakedefine OQS_ENABLE_KEM_efrodokem_976_aes 1
+#cmakedefine OQS_ENABLE_KEM_efrodokem_976_shake 1
+#cmakedefine OQS_ENABLE_KEM_efrodokem_1344_aes 1
+#cmakedefine OQS_ENABLE_KEM_efrodokem_1344_shake 1
 
 #cmakedefine OQS_ENABLE_KEM_NTRUPRIME 1
 #cmakedefine OQS_ENABLE_KEM_ntruprime_sntrup761 1
@@ -162,11 +169,14 @@
 
 #cmakedefine OQS_ENABLE_SIG_ML_DSA 1
 #cmakedefine OQS_ENABLE_SIG_ml_dsa_44 1
-#cmakedefine OQS_ENABLE_SIG_ml_dsa_44_avx2 1
+#cmakedefine OQS_ENABLE_SIG_ml_dsa_44_x86_64 1
+#cmakedefine OQS_ENABLE_SIG_ml_dsa_44_aarch64 1
 #cmakedefine OQS_ENABLE_SIG_ml_dsa_65 1
-#cmakedefine OQS_ENABLE_SIG_ml_dsa_65_avx2 1
+#cmakedefine OQS_ENABLE_SIG_ml_dsa_65_x86_64 1
+#cmakedefine OQS_ENABLE_SIG_ml_dsa_65_aarch64 1
 #cmakedefine OQS_ENABLE_SIG_ml_dsa_87 1
-#cmakedefine OQS_ENABLE_SIG_ml_dsa_87_avx2 1
+#cmakedefine OQS_ENABLE_SIG_ml_dsa_87_x86_64 1
+#cmakedefine OQS_ENABLE_SIG_ml_dsa_87_aarch64 1
 
 #cmakedefine OQS_ENABLE_SIG_FALCON 1
 #cmakedefine OQS_ENABLE_SIG_falcon_512 1
@@ -181,32 +191,6 @@
 #cmakedefine OQS_ENABLE_SIG_falcon_padded_1024 1
 #cmakedefine OQS_ENABLE_SIG_falcon_padded_1024_avx2 1
 #cmakedefine OQS_ENABLE_SIG_falcon_padded_1024_aarch64 1
-
-#cmakedefine OQS_ENABLE_SIG_SPHINCS 1
-#cmakedefine OQS_ENABLE_SIG_sphincs_sha2_128f_simple 1
-#cmakedefine OQS_ENABLE_SIG_sphincs_sha2_128f_simple_avx2 1
-#cmakedefine OQS_ENABLE_SIG_sphincs_sha2_128s_simple 1
-#cmakedefine OQS_ENABLE_SIG_sphincs_sha2_128s_simple_avx2 1
-#cmakedefine OQS_ENABLE_SIG_sphincs_sha2_192f_simple 1
-#cmakedefine OQS_ENABLE_SIG_sphincs_sha2_192f_simple_avx2 1
-#cmakedefine OQS_ENABLE_SIG_sphincs_sha2_192s_simple 1
-#cmakedefine OQS_ENABLE_SIG_sphincs_sha2_192s_simple_avx2 1
-#cmakedefine OQS_ENABLE_SIG_sphincs_sha2_256f_simple 1
-#cmakedefine OQS_ENABLE_SIG_sphincs_sha2_256f_simple_avx2 1
-#cmakedefine OQS_ENABLE_SIG_sphincs_sha2_256s_simple 1
-#cmakedefine OQS_ENABLE_SIG_sphincs_sha2_256s_simple_avx2 1
-#cmakedefine OQS_ENABLE_SIG_sphincs_shake_128f_simple 1
-#cmakedefine OQS_ENABLE_SIG_sphincs_shake_128f_simple_avx2 1
-#cmakedefine OQS_ENABLE_SIG_sphincs_shake_128s_simple 1
-#cmakedefine OQS_ENABLE_SIG_sphincs_shake_128s_simple_avx2 1
-#cmakedefine OQS_ENABLE_SIG_sphincs_shake_192f_simple 1
-#cmakedefine OQS_ENABLE_SIG_sphincs_shake_192f_simple_avx2 1
-#cmakedefine OQS_ENABLE_SIG_sphincs_shake_192s_simple 1
-#cmakedefine OQS_ENABLE_SIG_sphincs_shake_192s_simple_avx2 1
-#cmakedefine OQS_ENABLE_SIG_sphincs_shake_256f_simple 1
-#cmakedefine OQS_ENABLE_SIG_sphincs_shake_256f_simple_avx2 1
-#cmakedefine OQS_ENABLE_SIG_sphincs_shake_256s_simple 1
-#cmakedefine OQS_ENABLE_SIG_sphincs_shake_256s_simple_avx2 1
 
 #cmakedefine OQS_ENABLE_SIG_MAYO 1
 #cmakedefine OQS_ENABLE_SIG_mayo_1 1

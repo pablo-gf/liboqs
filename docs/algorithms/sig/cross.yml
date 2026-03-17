@@ -26,7 +26,7 @@ standardization-status: Under [NIST](https://www.cross-crypto.com/CROSS_Specific
   consideration
 spec-version: 2.2 + PQClean and OQS patches
 primary-upstream:
-  source: https://github.com/CROSS-signature/CROSS-lib-oqs/commit/c8f7411fed136f0e37600973fa3dbed53465e54f
+  source: https://github.com/CROSS-signature/CROSS-lib-oqs/commit/a21ebc314e06b0972a9bbcf2813a185ecb2917f1
   spdx-license-identifier: CC0-1.0
 parameter-sets:
 - name: cross-rsdp-128-balanced
@@ -46,6 +46,7 @@ parameter-sets:
     no-secret-dependent-branching-claimed: true
     no-secret-dependent-branching-checked-by-valgrind: true
     large-stack-usage: false
+    default: true
   - upstream: primary-upstream
     upstream-id: avx2
     supported-platforms:
@@ -74,6 +75,7 @@ parameter-sets:
     no-secret-dependent-branching-claimed: true
     no-secret-dependent-branching-checked-by-valgrind: true
     large-stack-usage: false
+    default: true
   - upstream: primary-upstream
     upstream-id: avx2
     supported-platforms:
@@ -102,6 +104,7 @@ parameter-sets:
     no-secret-dependent-branching-claimed: true
     no-secret-dependent-branching-checked-by-valgrind: true
     large-stack-usage: true
+    default: true
   - upstream: primary-upstream
     upstream-id: avx2
     supported-platforms:
@@ -130,6 +133,7 @@ parameter-sets:
     no-secret-dependent-branching-claimed: true
     no-secret-dependent-branching-checked-by-valgrind: true
     large-stack-usage: false
+    default: true
   - upstream: primary-upstream
     upstream-id: avx2
     supported-platforms:
@@ -158,6 +162,7 @@ parameter-sets:
     no-secret-dependent-branching-claimed: true
     no-secret-dependent-branching-checked-by-valgrind: true
     large-stack-usage: false
+    default: true
   - upstream: primary-upstream
     upstream-id: avx2
     supported-platforms:
@@ -186,6 +191,7 @@ parameter-sets:
     no-secret-dependent-branching-claimed: true
     no-secret-dependent-branching-checked-by-valgrind: true
     large-stack-usage: true
+    default: true
   - upstream: primary-upstream
     upstream-id: avx2
     supported-platforms:
@@ -214,6 +220,7 @@ parameter-sets:
     no-secret-dependent-branching-claimed: true
     no-secret-dependent-branching-checked-by-valgrind: true
     large-stack-usage: true
+    default: true
   - upstream: primary-upstream
     upstream-id: avx2
     supported-platforms:
@@ -242,6 +249,7 @@ parameter-sets:
     no-secret-dependent-branching-claimed: true
     no-secret-dependent-branching-checked-by-valgrind: true
     large-stack-usage: false
+    default: true
   - upstream: primary-upstream
     upstream-id: avx2
     supported-platforms:
@@ -270,6 +278,7 @@ parameter-sets:
     no-secret-dependent-branching-claimed: true
     no-secret-dependent-branching-checked-by-valgrind: true
     large-stack-usage: true
+    default: true
   - upstream: primary-upstream
     upstream-id: avx2
     supported-platforms:
@@ -298,6 +307,7 @@ parameter-sets:
     no-secret-dependent-branching-claimed: true
     no-secret-dependent-branching-checked-by-valgrind: true
     large-stack-usage: false
+    default: true
   - upstream: primary-upstream
     upstream-id: avx2
     supported-platforms:
@@ -326,6 +336,7 @@ parameter-sets:
     no-secret-dependent-branching-claimed: true
     no-secret-dependent-branching-checked-by-valgrind: true
     large-stack-usage: false
+    default: true
   - upstream: primary-upstream
     upstream-id: avx2
     supported-platforms:
@@ -354,6 +365,7 @@ parameter-sets:
     no-secret-dependent-branching-claimed: true
     no-secret-dependent-branching-checked-by-valgrind: true
     large-stack-usage: false
+    default: true
   - upstream: primary-upstream
     upstream-id: avx2
     supported-platforms:
@@ -382,6 +394,7 @@ parameter-sets:
     no-secret-dependent-branching-claimed: true
     no-secret-dependent-branching-checked-by-valgrind: true
     large-stack-usage: false
+    default: true
   - upstream: primary-upstream
     upstream-id: avx2
     supported-platforms:
@@ -410,6 +423,7 @@ parameter-sets:
     no-secret-dependent-branching-claimed: true
     no-secret-dependent-branching-checked-by-valgrind: true
     large-stack-usage: false
+    default: true
   - upstream: primary-upstream
     upstream-id: avx2
     supported-platforms:
@@ -438,6 +452,7 @@ parameter-sets:
     no-secret-dependent-branching-claimed: true
     no-secret-dependent-branching-checked-by-valgrind: true
     large-stack-usage: true
+    default: true
   - upstream: primary-upstream
     upstream-id: avx2
     supported-platforms:
@@ -466,6 +481,7 @@ parameter-sets:
     no-secret-dependent-branching-claimed: true
     no-secret-dependent-branching-checked-by-valgrind: true
     large-stack-usage: false
+    default: true
   - upstream: primary-upstream
     upstream-id: avx2
     supported-platforms:
@@ -494,6 +510,7 @@ parameter-sets:
     no-secret-dependent-branching-claimed: true
     no-secret-dependent-branching-checked-by-valgrind: true
     large-stack-usage: false
+    default: true
   - upstream: primary-upstream
     upstream-id: avx2
     supported-platforms:
@@ -522,6 +539,7 @@ parameter-sets:
     no-secret-dependent-branching-claimed: true
     no-secret-dependent-branching-checked-by-valgrind: true
     large-stack-usage: true
+    default: true
   - upstream: primary-upstream
     upstream-id: avx2
     supported-platforms:

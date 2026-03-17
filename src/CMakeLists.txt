@@ -51,10 +51,6 @@ if(OQS_ENABLE_SIG_FALCON)
     add_subdirectory(sig/falcon)
     set(SIG_OBJS ${SIG_OBJS} ${FALCON_OBJS})
 endif()
-if(OQS_ENABLE_SIG_SPHINCS)
-    add_subdirectory(sig/sphincs)
-    set(SIG_OBJS ${SIG_OBJS} ${SPHINCS_OBJS})
-endif()
 if(OQS_ENABLE_SIG_MAYO)
     add_subdirectory(sig/mayo)
     set(SIG_OBJS ${SIG_OBJS} ${MAYO_OBJS})
@@ -145,6 +141,10 @@ set_target_properties(oqs
     SOVERSION 9
     # For Windows DLLs
     RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
+
+set_property(TARGET oqs
+    APPEND PROPERTY
+    INTERFACE_INCLUDE_DIRECTORIES "$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>")
 
 set_target_properties(oqs-internal
     PROPERTIES

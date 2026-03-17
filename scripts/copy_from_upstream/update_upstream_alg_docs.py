@@ -115,7 +115,7 @@ def update_upstream_kem_alg_docs(liboqs_root, kems, upstream_info, write_changes
             if 'upstream' in oqs_yaml:
                 del oqs_yaml['upstream']
                 del oqs_yaml['spdx-license-identifier']
-            
+
             if ouis:
                 for upstream in ouis:
                     optimized_upstream_base_url = ouis[upstream]['git_url'][:-len(".git")]
@@ -212,6 +212,8 @@ def update_upstream_kem_alg_docs(liboqs_root, kems, upstream_info, write_changes
                             impl['supported-platforms'] = rhs_if_not_equal(impl['supported-platforms'], upstream_impl['supported_platforms'], "supported-platforms")
                         else:
                             impl['supported-platforms'] = rhs_if_not_equal(impl['supported-platforms'], "all", "supported-platforms")
+                        if 'default_implementation' in kem and impl['upstream-id'] == kem['default_implementation']:
+                            impl['default'] = True
                         oqs_scheme_yaml['implementations'][impl_index] = impl
 
                 oqs_yaml['parameter-sets'][index] = oqs_scheme_yaml
@@ -377,12 +379,7 @@ def update_upstream_sig_alg_docs(liboqs_root, sigs, upstream_info, write_changes
 
                 index, oqs_scheme_yaml = get_oqs_yaml(oqs_yaml['parameter-sets'], scheme['pretty_name_full'])
 
-                # TODO: PQClean and liboqs pretty-naming conventions for the
-                # following algorithms are out of sync.
-                if sig['name'] == 'sphincs':
-                    oqs_scheme_yaml['name'] = rhs_if_not_equal(oqs_scheme_yaml['name'], scheme['pretty_name_full'], "scheme pretty name")
-                else:
-                    oqs_scheme_yaml['name'] = rhs_if_not_equal(oqs_scheme_yaml['name'], upstream_yaml['name'], "scheme pretty name")
+                oqs_scheme_yaml['name'] = rhs_if_not_equal(oqs_scheme_yaml['name'], upstream_yaml['name'], "scheme pretty name")
 
                 oqs_scheme_yaml['claimed-nist-level'] = rhs_if_not_equal(oqs_scheme_yaml['claimed-nist-level'], upstream_yaml['claimed-nist-level'], "claimed-nist-level")
                 if oqs_scheme_yaml['claimed-security'] not in ["EUF-CMA", "SUF-CMA"]:
@@ -437,6 +434,8 @@ def update_upstream_sig_alg_docs(liboqs_root, sigs, upstream_info, write_changes
                         impl['supported-platforms'] = rhs_if_not_equal(impl['supported-platforms'], upstream_impl['supported_platforms'], "supported-platforms")
                     else:
                         impl['supported-platforms'] = rhs_if_not_equal(impl['supported-platforms'], "all", "supported-platforms")
+                    if 'default_implementation' in sig and impl['upstream-id'] == sig['default_implementation']:
+                        impl['default'] = True
                     oqs_scheme_yaml['implementations'][impl_index] = impl
 
                 oqs_yaml['parameter-sets'][index] = oqs_scheme_yaml
