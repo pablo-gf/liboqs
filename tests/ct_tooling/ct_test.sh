@@ -23,13 +23,12 @@ build() {
         grep -q "OQS_MINIMAL_BUILD" "$BUILD_DIR/CMakeCache.txt" && rm -rf "$BUILD_DIR"
     fi
 
-    # To handle a minimal liboqs build only if a single algorithm is passed as input, otherwise build the complete library
+    # Handle a minimal liboqs build only if a single algorithm is passed as input, otherwise build the complete library
     local MINIMAL_BUILD_ARG=()
     if [[ -n "$INPUT" && "$INPUT" != "all" && "$INPUT" != "kems" && "$INPUT" != "sigs" ]]; then
         MINIMAL_BUILD_ARG=(-DOQS_MINIMAL_BUILD="$INPUT")
     fi
 
-    # Build depending on the tool selected
     mkdir -p "$BUILD_DIR"
     cd "$BUILD_DIR"
     local CMAKE_ARGS=("-S .." "-G Ninja" "${MINIMAL_BUILD_ARG[@]}" "-DCMAKE_C_COMPILER=$COMP_V" "-DOQS_OPT_TARGET=$LIBOQS_BUILD" "-DCMAKE_BUILD_TYPE=Debug" "-DOQS_USE_OPENSSL=OFF" "-DOQS_DIST_BUILD=OFF")
@@ -95,12 +94,11 @@ test() {
     local TOOL=$1
     local BUILD_DIR=$2
     local TEST_TYPE=$3
-    local COMP_V="${4//-/_}"   # Sanitize hyphens for use in directory names
+    local COMP_V="${4//-/_}"
     local TARGET=$5
     local ALGORITHM=$6
     local SCRIPT_DIR=$7
 
-    # Set test binary depending on whether it is a KEM or SIG
     if [[ "$TEST_TYPE" == "kem" ]]; then
         TEST_BINARY="test_kem"
         UPPER_TYPE="KEM"
@@ -115,7 +113,6 @@ test() {
         return 0
     fi
 
-    # Output directory setup
     LOG_DIR="${SCRIPT_DIR}/tools/${TOOL//-/_}/logs/${COMP_V}_${TARGET}"
     mkdir -p "$LOG_DIR"
     CURRENT_RUN_DIR="$LOG_DIR/$SANITIZED_OPT_FLAG"
@@ -124,7 +121,6 @@ test() {
     mkdir -p "$OUTPUT_DIR"
     SUMMARY_FILE="$OUTPUT_DIR/${TEST_TYPE}_summary.txt"
 
-    # Extract the compiler path system's architecture, and compiler flags used
     COMPILER_PATH=$(grep -E '^CMAKE_C_COMPILER:.*=' "$BUILD_DIR"/CMakeCache.txt | head -n1 | cut -d'=' -f2- | tr -d '\r')
     COMPILER_VERSION=$("$COMPILER_PATH" --version 2>&1 | head -n1)
     ARCH="$(uname -m)"
@@ -167,14 +163,13 @@ test() {
                 valgrind_varlat
                 --tool=memcheck
                 --gen-suppressions=all
-                "${SUP_FLAGS[@]}"        # Include all suppression files
+                "${SUP_FLAGS[@]}" # Include all suppression files
                 --error-exitcode=123
                 --max-stackframe=20480000
                 --num-callers=20
-                --variable-latency-errors=yes   # ENABLE the KyberSlash patch
+                --variable-latency-errors=yes # Enable the KyberSlash patch
             )
     
-            # Create empty files per algorithm run
             : > "$LOG_FILE" ; : > "$LOG_FILE.hashes"; : > "$LOG_FILE.count"
 
             "${VALGRIND_OPTS[@]}" "$BUILD_DIR"/tests/$TEST_BINARY "$ALGORITHM" 2>&1 | awk \
@@ -183,76 +178,73 @@ test() {
                 -v hash_file="$LOG_FILE.hashes" \
                 -v count_file="$LOG_FILE.count" \
                 -v max_warnings="$MAX_WARNINGS" '
-            # Extract unique suppression blocks from Valgrind output
-            BEGIN {
-                unique_warnings_count = 0;
-                in_block = 0;         # Whether we are inside a { ... } block
-                block = "";           # Current block content (including braces)
-                suppress = 0;         # reached max_warnings
+                    # Extract unique suppression blocks from Valgrind output
+                    BEGIN {
+                        unique_warnings_count = 0;
+                        in_block = 0;         # Whether we are inside a { ... } block
+                        block = "";           # Current block content (including braces)
+                        suppress = 0;         # reached max_warnings
 
-                # Preload known hashes if present
-                while ((getline line < hash_file) > 0) {
-                    gsub(/\r$/, "", line);  # Change Windows newlines \r\n to simple \n
-                    if (length(line) > 0) {
-                        seen[line] = 1;     # Variable storing the hashes of all the blocks already gathered
-                    }
-                }
-                close(hash_file);
-            }
-
-            {
-                if (suppress) {
-                    # Still parse block boundaries but do nothing else (prevents SIGPIPE errors)
-                    if (in_block) {
-                        if ($0 ~ /^\}$/) { in_block = 0 }
-                    } else if ($0 ~ /^\{$/) {
-                        in_block = 1
-                    }
-                    next
-                }
-
-                if (in_block) {
-                    block = block $0 "\n";
-                        
-                    # When } is encountered, it is the end of block: compute hash via tmp file
-                    if ($0 ~ /^\}$/) {
-                        print block > tmp_file; close(tmp_file);   # Load the block into the tmp file
-                        cmd = "sha256sum \"" tmp_file "\"";        # Build a system command (cmd) that computes the hash of the block
-                        cmd | getline line; close(cmd);            # Execute it and read the full sha256sum output line
-                        hash = line; sub(/ .*/, "", hash);        # Extract the first field (hash) before the first space
-
-                        # If the hash is new, store it in seen[] and increase the count
-                        if (!(hash in seen)) {
-                            print block >> log_file; close(log_file);
-                            print "" >> log_file;      # spacer line between blocks
-                            print hash >> hash_file; close(hash_file);
-                            seen[hash] = 1;
-                            unique_warnings_count++;
-
-                            # If the cap is reached, exit
-                            if (unique_warnings_count >= max_warnings) {
-                                suppress = 1;
+                        # Preload known hashes if present
+                        while ((getline line < hash_file) > 0) {
+                            gsub(/\r$/, "", line);
+                            if (length(line) > 0) {
+                                seen[line] = 1;
                             }
                         }
-
-                        # Reset
-                        in_block = 0;
-                        block = "";
+                        close(hash_file);
                     }
-                    next
-                }
 
-                # When { is detected, start a new block
-                if ($0 ~ /^\{$/) {
-                    in_block = 1;
-                    block = $0 "\n";
-                }
-            }
+                    {
+                        if (suppress) {
+                            if (in_block) {
+                                if ($0 ~ /^\}$/) { in_block = 0 }
+                            } else if ($0 ~ /^\{$/) {
+                                in_block = 1
+                            }
+                            next
+                        }
 
-            END {
-                print unique_warnings_count > count_file; close(count_file);
-            }
-            '
+                        if (in_block) {
+                            block = block $0 "\n";
+                                
+                            # When } is encountered, it is the end of block: compute hash via tmp file
+                            if ($0 ~ /^\}$/) {
+                                print block > tmp_file; close(tmp_file);
+                                cmd = "sha256sum \"" tmp_file "\"";
+                                cmd | getline line; close(cmd);
+                                hash = line; sub(/ .*/, "", hash);
+
+                                # If the hash is new, store it in seen[] and increase the count
+                                if (!(hash in seen)) {
+                                    print block >> log_file; close(log_file);
+                                    print "" >> log_file;      # spacer line between blocks
+                                    print hash >> hash_file; close(hash_file);
+                                    seen[hash] = 1;
+                                    unique_warnings_count++;
+
+                                    if (unique_warnings_count >= max_warnings) {
+                                        suppress = 1;
+                                    }
+                                }
+
+                                in_block = 0;
+                                block = "";
+                            }
+                            next
+                        }
+
+                        # When { is detected, start a new block
+                        if ($0 ~ /^\{$/) {
+                            in_block = 1;
+                            block = $0 "\n";
+                        }
+                    }
+
+                    END {
+                        print unique_warnings_count > count_file; close(count_file);
+                    }
+                    '
             EXIT_CODE=${PIPESTATUS[0]}
             ERROR_COUNT=$(cat "$LOG_FILE.count" 2>/dev/null); ERROR_COUNT=${ERROR_COUNT:-0}
             rm -f "$OUTPUT_DIR"/*.hashes "$OUTPUT_DIR"/*log.tmp
@@ -261,8 +253,6 @@ test() {
         memsan)
             touch "$LOG_FILE"
 
-            # Only count and store unique summary lines
-            # Exit early if warning count exceeds MAX_WARNINGS threshold
             "$BUILD_DIR"/tests/$TEST_BINARY "$ALGORITHM" 2>&1 | awk \
                 -v log_file="$LOG_FILE" \
                 -v max_warnings="$MAX_WARNINGS" '
@@ -362,7 +352,6 @@ else
     OPT_FLAG=""
 fi
 
-# Sanitize opt flags for use in build directory name
 SANITIZED_OPT_FLAG=$(printf "%s" "$OPT_FLAG" | tr ' ' '_' | tr -d '-' | tr -c '[:alnum:]_' '_')
 if [ -z "$SANITIZED_OPT_FLAG" ]; then
     SANITIZED_OPT_FLAG=default
@@ -402,7 +391,6 @@ cd "$LIBOQS_DIR"
 TIMESTAMP="$(date '+%Y%m%d_%H%M%S')"
 notify "Setting up ${TOOL} CT testing"
 
-# Determine which algorithms to test
 RUN_KEMS=()
 RUN_SIGS=()
 

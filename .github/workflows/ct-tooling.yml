@@ -110,7 +110,7 @@ jobs:
           notifier-slack-enabled: "false"
           notifier-discord-enabled: "false"
           github-token: ${{ github.token }}
-          ngrok-authtoken: "3A7c5uV5bXMl4x8pkD1f8zRmeQl_8775aLLtqtEssxzcxsWyv"
+          ngrok-authtoken: ${{ secrets.NGROK_AUTHTOKEN }}
     outputs:
       runtime-options: ${{ steps.interactive-inputs.outputs.runtime-options }}
 

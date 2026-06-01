@@ -20,28 +20,18 @@ import numpy as np
 import argparse
 import sys
 
-# Parse command-line arguments
 parser = argparse.ArgumentParser(description='Analyze constant-time test results')
-parser.add_argument('--tool', '-t', type=str,
-                               help='Constant-time tool used for analysis')
-# Update the input directory structure to handle general folders
-parser.add_argument('--input', '-i', type=str,
-                    help='General input directory containing build information')
-parser.add_argument('--output', '-o', type=str, default='.',
-                    help='Output directory for analysis results')
+parser.add_argument('--tool', '-t', type=str, help='Constant-time tool used for analysis')
+parser.add_argument('--input', '-i', type=str, help='General input directory containing build information')
+parser.add_argument('--output', '-o', type=str, default='.', help='Output directory for analysis results')
 args = parser.parse_args()
 
 cwd = os.getcwd()
-# Update LOG_BASE_DIR to dynamically process all subdirectories
 LOG_BASE_DIR = os.path.abspath(os.path.join(cwd, args.input)) if args.input else cwd
 OUTPUT_DIR = os.path.abspath(os.path.join(cwd, args.output)) if args.output else cwd
 
 def parse_summary_file(filepath):
     """
-    Parse a summary file and extract algorithm results.
-
-    Returns dict: {algorithm_name: warnings_count}
-
     Pattern to match Valgrind test results:
         Example:  "Testing KEM: Kyber512 ... FAIL (Valgrind/MemSan warnings)"
                   "  → Found 150 Valgrind warnings"
@@ -51,16 +41,7 @@ def parse_summary_file(filepath):
     with open(filepath, 'r') as f:
         content = f.read()
     
-    # (...) captures as default, but (?:...) does not capture
-        # Find each "Testing KEM/SIG: <alg> ... PASS/FAIL" line (anchored by line start)
-        # For the block following that line (until the next "Testing" line), search for either "Found <n>" or "Reached cap ... <n>" and capture the numeric value.
     header_re = re.compile(r'^Testing (?:KEM|SIG): (\S+) \.\.\. (?:PASS|FAIL)', re.MULTILINE)
-    count_re = re.compile(r'(?:→|->)?\s*(?:Found|Reached cap).*?(\d+).*?warnings', re.IGNORECASE)
-
-    matches = list(header_re.finditer(content))
-    for idx, m in enumerate(matches):
-        alg_name = m.group(1)
-
         # Skip SPHINCS and SLH_DSA algorithms
         if 'SPHINCS' in alg_name or 'SLH_DSA' in alg_name:
             continue
@@ -83,12 +64,9 @@ def parse_summary_file(filepath):
 def analyze_logs():
     """Walk input log directories and aggregate warning counts dynamically.
 
-    Expected layout:
-        <LOG_BASE_DIR>/<BUILD_NAME>/<OPT_LEVEL>/kem/kem_summary_*.txt
-        <LOG_BASE_DIR>/<BUILD_NAME>/<OPT_LEVEL>/sig/sig_summary_*.txt
+=======
     """
 
-    kem_data = defaultdict(lambda: defaultdict(dict))  # {build: {opt: {alg: warnings}}}
     sig_data = defaultdict(lambda: defaultdict(dict))
 
     if not os.path.isdir(LOG_BASE_DIR):
@@ -114,7 +92,6 @@ def analyze_logs():
     return kem_data, sig_data
 
 def sort_optimization_levels(opt_levels):
-    """Sort optimization levels in logical order: O0, O1, O2-novec, O2, Os, O3-novec, O3, Ofast"""
     priority = {
         'O0': 0, 
         'O1': 1, 
@@ -128,7 +105,6 @@ def sort_optimization_levels(opt_levels):
     return sorted(opt_levels, key=lambda x: priority.get(x.upper(), 99))
 
 def generate_csv_file(data, alg_type, opt_levels, output_dir):
-    """ Generate a CSV file with the warnings information per algorithm and optimization level """
 
     csv_path = os.path.join(output_dir, f'{alg_type}_warnings_per_opt_level.csv')
     with open(csv_path, 'w', newline='') as csvfile:
@@ -147,31 +123,26 @@ def generate_csv_file(data, alg_type, opt_levels, output_dir):
             writer.writerow(row)
 
 def heatmap_warnings_per_alg_and_opt_level(data, opt_levels, alg_type, tool, output_dir):
-    """ Generate heatmap showing error patterns across ALL algorithms and optimizations """
     
     # Sort algorithms by total warnings (descending). For ties, sort alphabetically ascending
     def _norm_name(n):
         return re.sub(r'[^0-9a-z]', '', n.lower())
     
-    # Build full algorithm list and compute total warnings per algorithm (sum across opt levels)
     all_algs = set()
     for opt in opt_levels:
         all_algs.update(data.get(opt, {}).keys())
         alg_total = {alg: sum([data.get(opt, {}).get(alg, 0) for opt in opt_levels]) for alg in all_algs}
     alg_names = [a for a, _ in sorted(alg_total.items(), key=lambda x: (-x[1], _norm_name(x[0])))]
     
-    # Create matrix (alg x opt)
     matrix = np.zeros((len(alg_names), len(opt_levels)), dtype=int)
     for i, alg in enumerate(alg_names):
         for j, opt in enumerate(opt_levels):
             matrix[i, j] = data.get(opt, {}).get(alg, 0)
 
-    # Choose color map by algorithm type
     CMAP_BY_TYPE = {'KEM': 'Blues', 'SIG': 'Oranges'}
     cmap = CMAP_BY_TYPE.get(alg_type.upper(), 'YlOrRd')
 
-    # Plot with a sensible size; increase height for many algorithms
-    fig_height = max(8, len(alg_names) * 0.25)  # 0.25 inch per algorithm
+    fig_height = max(8, len(alg_names) * 0.25)
     fig, ax = plt.subplots(figsize=(12, fig_height))
 
     max_val = int(matrix.max()) if matrix.size else 0
@@ -200,13 +171,11 @@ def heatmap_warnings_per_alg_and_opt_level(data, opt_levels, alg_type, tool, out
     ax.set_ylabel(f'{alg_type.upper()} Algorithms', fontsize=12)
     plt.tight_layout()
 
-    # Update graph paths to use the specific build_output_dir
     graph_path = os.path.join(output_dir, f"{alg_type.upper()}_total_warnings_per_alg_by_opt_level.png")
     plt.savefig(graph_path, dpi=300, bbox_inches='tight')
     plt.close()
 
 def bar_chart_total_warnings_per_opt_level(kem_data, sig_data, opt_levels, tool, output_dir):
-    """ Bar chart showing total errors (of all KEM and SIG algorithms) by optimization level """
 
     fig, ax = plt.subplots(figsize=(14, 6))
     
@@ -230,7 +199,6 @@ def bar_chart_total_warnings_per_opt_level(kem_data, sig_data, opt_levels, tool,
     plt.close()
 
 def line_chart_avg_warnings_per_opt_level(kem_data, sig_data, opt_levels, tool, output_dir):
-    """ Line chart showing the average warnings (of all KEM or SIG algorithms) per optimization level """
 
     kem_avgs = [np.mean(list(kem_data.get(opt, {}).values())) if kem_data.get(opt) else 0 for opt in opt_levels]
     sig_avgs = [np.mean(list(sig_data.get(opt, {}).values())) if sig_data.get(opt) else 0 for opt in opt_levels]
@@ -248,9 +216,7 @@ def line_chart_avg_warnings_per_opt_level(kem_data, sig_data, opt_levels, tool, 
     plt.savefig(outpath, dpi=300, bbox_inches='tight')
     plt.close()
 
-# Update generate_reports to handle the new data structure
 def generate_reports(kem_data, sig_data):
-    """Generate CSV files and visualizations for all builds."""
     for build_name in kem_data.keys():
         build_output_dir = os.path.join(OUTPUT_DIR, build_name)
         os.makedirs(build_output_dir, exist_ok=True)
