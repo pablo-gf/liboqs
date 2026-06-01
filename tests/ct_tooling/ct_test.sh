@@ -65,15 +65,6 @@ build() {
     esac
 }
 
-cleanup() {
-    mv "$LIBOQS_DIR/tests/CMakeLists.txt.bak" "$LIBOQS_DIR/tests/CMakeLists.txt" 2>/dev/null || true
-    mv "$LIBOQS_DIR/tests/test_kem.c.bak" "$LIBOQS_DIR/tests/test_kem.c" 2>/dev/null || true
-    mv "$LIBOQS_DIR/tests/test_sig.c.bak" "$LIBOQS_DIR/tests/test_sig.c" 2>/dev/null || true
-    rm "$LIBOQS_DIR/tests/rng_poison_memsan.c" 2>/dev/null || true
-}
-
-trap cleanup EXIT INT
-
 test() {
     local TOOL=$1
     local BUILD_DIR=$2
