@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1781414642714,
+  "lastUpdate": 1781414700167,
   "repoUrl": "https://github.com/pablo-gf/liboqs",
   "entries": {
     "BIKE-L1": [
@@ -46192,6 +46192,46 @@ window.BENCHMARK_DATA = {
             "value": 225595,
             "unit": "cycles",
             "extra": "Target platform: x86_64-Linux-6.17.0-1015-azure | Compiler: gcc (13.3.0) | Compile options: [-Wa,--noexecstack;-fomit-frame-pointer;-fdata-sections;-ffunction-sections;-Wl,--gc-sections;-Wbad-function-cast] | OQS version: 0.15.0 (major: 0, minor: 15, patch: 0) | Git commit: 48f1063271ff57e03e97f7c98d3639f6680d3ed4 | OpenSSL enabled: Yes (OpenSSL 3.0.13 30 Jan 2024) | AES: NI | SHA-2: OpenSSL | SHA-3: AVX2 | OQS build flags: OQS_DIST_BUILD OQS_LIBJADE_BUILD OQS_OPT_TARGET=generic CMAKE_BUILD_TYPE=Release | CPU exts active: ADX AES AVX AVX2 BMI1 BMI2 PCLMULQDQ POPCNT SSE SSE2 SSE3 | "
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Pablo Gutiérrez",
+            "username": "pablo-gf",
+            "email": "pablogf@uma.es"
+          },
+          "committer": {
+            "name": "Pablo Gutiérrez",
+            "username": "pablo-gf",
+            "email": "pablogf@uma.es"
+          },
+          "id": "239a289367eedec897e4e655b1a32b885ea41891",
+          "message": "Add to weekly tests and minor editing\n\nSigned-off-by: Pablo Gutiérrez <pablogf@uma.es>",
+          "timestamp": "2026-06-08T09:34:02Z",
+          "url": "https://github.com/pablo-gf/liboqs/commit/239a289367eedec897e4e655b1a32b885ea41891"
+        },
+        "date": 1781414699044,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "Classic-McEliece-8192128f keygen",
+            "value": 346959282,
+            "unit": "cycles",
+            "extra": "Target platform: x86_64-Linux-6.17.0-1018-azure | Compiler: gcc (13.3.0) | Compile options: [-Wa,--noexecstack;-fomit-frame-pointer;-fdata-sections;-ffunction-sections;-Wl,--gc-sections;-Wbad-function-cast] | OQS version: 0.15.0 (major: 0, minor: 15, patch: 0) | Git commit: 239a289367eedec897e4e655b1a32b885ea41891 | OpenSSL enabled: Yes (OpenSSL 3.0.13 30 Jan 2024) | AES: NI | SHA-2: OpenSSL | SHA-3: AVX2 | OQS build flags: OQS_DIST_BUILD OQS_LIBJADE_BUILD OQS_OPT_TARGET=generic CMAKE_BUILD_TYPE=Release | CPU exts active: ADX AES AVX AVX2 BMI1 BMI2 PCLMULQDQ POPCNT SSE SSE2 SSE3 | "
+          },
+          {
+            "name": "Classic-McEliece-8192128f encaps",
+            "value": 169467,
+            "unit": "cycles",
+            "extra": "Target platform: x86_64-Linux-6.17.0-1018-azure | Compiler: gcc (13.3.0) | Compile options: [-Wa,--noexecstack;-fomit-frame-pointer;-fdata-sections;-ffunction-sections;-Wl,--gc-sections;-Wbad-function-cast] | OQS version: 0.15.0 (major: 0, minor: 15, patch: 0) | Git commit: 239a289367eedec897e4e655b1a32b885ea41891 | OpenSSL enabled: Yes (OpenSSL 3.0.13 30 Jan 2024) | AES: NI | SHA-2: OpenSSL | SHA-3: AVX2 | OQS build flags: OQS_DIST_BUILD OQS_LIBJADE_BUILD OQS_OPT_TARGET=generic CMAKE_BUILD_TYPE=Release | CPU exts active: ADX AES AVX AVX2 BMI1 BMI2 PCLMULQDQ POPCNT SSE SSE2 SSE3 | "
+          },
+          {
+            "name": "Classic-McEliece-8192128f decaps",
+            "value": 225546,
+            "unit": "cycles",
+            "extra": "Target platform: x86_64-Linux-6.17.0-1018-azure | Compiler: gcc (13.3.0) | Compile options: [-Wa,--noexecstack;-fomit-frame-pointer;-fdata-sections;-ffunction-sections;-Wl,--gc-sections;-Wbad-function-cast] | OQS version: 0.15.0 (major: 0, minor: 15, patch: 0) | Git commit: 239a289367eedec897e4e655b1a32b885ea41891 | OpenSSL enabled: Yes (OpenSSL 3.0.13 30 Jan 2024) | AES: NI | SHA-2: OpenSSL | SHA-3: AVX2 | OQS build flags: OQS_DIST_BUILD OQS_LIBJADE_BUILD OQS_OPT_TARGET=generic CMAKE_BUILD_TYPE=Release | CPU exts active: ADX AES AVX AVX2 BMI1 BMI2 PCLMULQDQ POPCNT SSE SSE2 SSE3 | "
           }
         ]
       }
