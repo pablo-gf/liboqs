@@ -150,6 +150,115 @@ tests/ct_tooling/tools/<tool>/logs/
 
 The summary file for each run includes the compiler path, compiler version, target architecture, and compilation flags used, followed by a pass/fail line for each algorithm tested.
 
+### Suppression files for false positive handling
+
+- Valgrind-Varlat:
+
+Here is an example of a suppression file:
+
+```text
+    {
+    Rejection sampling to produce public "A" matrix
+    Memcheck:Cond
+    fun:rej_uniform
+    fun:PQCLEAN_KYBER*_CLEAN_gen_matrix
+    }
+```
+
+The brackets wrap a single error that is to be suppressed. Within the brackets, the first line is a comment. The remaining lines tell Valgrind to ignore any "Memcheck:Cond" errors that occur when a function named rej_uniform is called from a function whose name matches the glob pattern PQCLEAN_KYBER*_CLEAN_gen_matrix.
+
+Before this suppression file was written, a run of this script produced the following output.
+```text
+    ==594== Conditional jump or move depends on uninitialised value(s)
+    ==594==    at 0x22550D: rej_uniform (indcpa.c:133)
+    ==594==    by 0x225654: PQCLEAN_KYBER512_CLEAN_gen_matrix (indcpa.c:177)
+    ==594==    by 0x2257D1: PQCLEAN_KYBER512_CLEAN_indcpa_keypair (indcpa.c:216)
+    ==594==    by 0x1B6C1E: PQCLEAN_KYBER512_CLEAN_crypto_kem_keypair (kem.c:26)
+    ==594==    by 0x1B6B9F: OQS_KEM_kyber_512_keypair (kem_kyber_512.c:56)
+    ==594==    by 0x10D123: OQS_KEM_keypair (kem.c:818)
+    ==594==    by 0x10AD07: kem_test_correctness (test_kem.c:103)
+    ==594==    by 0x10B4E7: test_wrapper (test_kem.c:186)
+    ==594==    by 0x4CDAFA2: start_thread (pthread_create.c:486)
+    ==594==    by 0x4DED4CE: clone (clone.S:95)
+    ==594==
+    {
+       <insert_a_suppression_name_here>
+       Memcheck:Cond
+       fun:rej_uniform
+       fun:PQCLEAN_KYBER512_CLEAN_gen_matrix
+       fun:PQCLEAN_KYBER512_CLEAN_indcpa_keypair
+       fun:PQCLEAN_KYBER512_CLEAN_crypto_kem_keypair
+       fun:OQS_KEM_kyber_512_keypair
+       fun:OQS_KEM_keypair
+       fun:kem_test_correctness
+       fun:test_wrapper
+       fun:start_thread
+       fun:clone
+    }
+```
+The lines beginning with "==" are a Valgrind error message. The bracketed text is a suppression file template. To produce the final suppression file we added a comment, replaced "512" with a  wildcard (since an identical error occurs in other Kyber parameter sets), and truncated the backtrace (since the extra lines provide no interesting information to auditors).
+
+The "fun:rej_uniform" line says to ignore _all_ Memcheck:Cond errors in rej_uniform, but Valgrind told us that line 133 was the problem. Any "fun:name" line in the backtrace can be replaced by an equivalent "src:file:line", so we could have narrowed the scope of our suppression:
+```text
+    {
+       Rejection sampling to produce public "A" matrix
+       Memcheck:Cond
+       src:indcpa.c:133 # fun:rej_uniform
+       fun:PQCLEAN_KYBER*_CLEAN_gen_matrix
+    }
+```
+Here "# fun:rej_uniform" is a comment. An update to the Kyber source code might break our suppression file by changing the line number, and leaving the function name as a comment might help a future reviewer.
+
+An ellipsis (...) can serve as a wildcard for a portion of the backtrace. We could have written:
+```text
+    {
+       Rejection sampling to produce public "A" matrix
+       Memcheck:Cond
+       ...
+       fun:PQCLEAN_KYBER*_CLEAN_gen_matrix
+    }
+```
+But this is perhaps too concise. Remember that the goal here is to help auditors.
+
+Further information can be found in Valgrind's manual. See
+    https://www.valgrind.org/docs/manual/manual-core.html#manual-core.suppress
+and
+    https://www.valgrind.org/docs/manual/mc-manual.html#mc-manual.suppfiles
+
+- MemSan:
+
+MemSan follows a similar suppression mechanism to that of Valgrind-Varlat.Users can specify entities to ignore during testing by listing them in a suppression file, using a prefix that defines the entity's type. For this framework, the `fun:` prefix is used (although there are others too), since the observed false-positivesoriginate from specific functions. The suppression file is then passed to clang at compile-time using the `-fsanitize-ignorelist` flag.
+
+MemSan's output also includes a full stack trace leading to the root cause. To successfully suppress a warning, the suppression file must target the exact function listed in the report's SUMMARY line. For example, given an output of the form:
+
+```text
+==9793==WARNING: MemorySanitizer: use-of-uninitialized-value
+    #0 0x7eb79d2bf3f2 in sampling.c:62:9
+    #1 0x7eb79d2bf3f2 in sampling.c:138:10
+    #2 0x7eb79d2bf3f2 in sampling.c:174:12
+    #3 0x7eb79d2bd57d in indcpa.c:278:5
+    #4 0x7eb79d2bd57d in indcpa.c:508:3
+    #5 0x7eb79d2be04a in kem.c:416:9
+    #6 0x5d25bce8bce2 in test_kem.c:63:7
+    #7 0x5d25bce8bce2 in test_kem.c:293:15
+    #8 0x5d25bce8b4a5 in test_kem.c:391:12
+    #9 0x7eb79ce9caa3 in pthread_create.c:447:8
+    #10 0x7eb79cf29c6b in clone3.S:78
+
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /home/pablogf/liboqs/src/kem/ml_kem/mlkem-native_ml-kem-512_ref/mlkem/src/sampling.c:62:9 in mlk_rej_uniform_c
+==9793==WARNING: MemorySanitizer: use-of-uninitialized-value
+```
+
+The framework will disregard this warning on future executions by including the following line in the suppression file:
+```text
+fun:mlk_rej_uniform_c
+```
+MemSan also enables the use of the wildcard (*) within the suppression files.
+
+Each family of algorithms will have a specific suppression block listing the functions that output false-positives. The framework includes all suppression files by default during testing.
+
+For further information see https://clang.llvm.org/docs/MemorySanitizer.html and https://clang.llvm.org/docs/SanitizerSpecialCaseList.html
+
 ### Simultaneous testing
 Since MemSan requires to replace several files within liboqs/tests, it is not recommended to run both tests at the same time. This would cause Valgrind_Varlat tests to fail because of using MemSan-oriented files.
 
