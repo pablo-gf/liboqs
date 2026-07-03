@@ -150,11 +150,15 @@ tests/ct_tooling/tools/<tool>/logs/
 
 The summary file for each run includes the compiler path, compiler version, target architecture, and compilation flags used, followed by a pass/fail line for each algorithm tested.
 
-### Suppression files for false positive handling
+### Cathegorizing warnings and false positive handling
+
+This framework does not directly differentiate between false positives and issues directly. It must be manually maintained by contributors, who carefully analyze the framework's output and label them.  The label is for auditors. We assign "false positive" to a warning that is known not to be a security threat, and we store its suppression file in the corresponding file and subdirectory. We "raise an issue" about any other error, and we store the corresponding suppression file in the "issues" subdirectory. These can be found in `liboqs/tests/ct_tooling/tools/{valgrind_varlat, memsan}/{false_positives, issues}`. If you are unsure where your suppression file belongs, then save it to the "issues" subdirectory.
+
+The handling of false positives slightly differs between tools, with both using the output returned by the tool during execution to generate the final suppression files.
 
 - Valgrind-Varlat:
 
-Here is an example of a suppression file:
+Here is an example of a suppression file of a known false-positive for the Kyber algorithm:
 
 ```text
     {
@@ -227,7 +231,7 @@ and
 
 - MemSan:
 
-MemSan follows a similar suppression mechanism to that of Valgrind-Varlat.Users can specify entities to ignore during testing by listing them in a suppression file, using a prefix that defines the entity's type. For this framework, the `fun:` prefix is used (although there are others too), since the observed false-positivesoriginate from specific functions. The suppression file is then passed to clang at compile-time using the `-fsanitize-ignorelist` flag.
+MemSan follows a similar suppression mechanism to that of Valgrind-Varlat. Users can specify entities to ignore during testing by listing them in a suppression file, using a prefix that defines the entity's type. For this framework, the `fun:` prefix is used (although there are others too), since the observed false-positives originate from specific functions. The suppression file is then passed to clang at compile-time using the `-fsanitize-ignorelist` flag.
 
 MemSan's output also includes a full stack trace leading to the root cause. To successfully suppress a warning, the suppression file must target the exact function listed in the report's SUMMARY line. For example, given an output of the form:
 
@@ -255,12 +259,9 @@ fun:mlk_rej_uniform_c
 ```
 MemSan also enables the use of the wildcard (*) within the suppression files.
 
-Each family of algorithms will have a specific suppression block listing the functions that output false-positives. The framework includes all suppression files by default during testing.
+Each family of algorithms will have a specific suppression block listing the functions that output false-positives. The framework automatically includes all suppression files within the respective subdirectories so that known false positives are not returned during testing.
 
 For further information see https://clang.llvm.org/docs/MemorySanitizer.html and https://clang.llvm.org/docs/SanitizerSpecialCaseList.html
-
-### Simultaneous testing
-Since MemSan requires to replace several files within liboqs/tests, it is not recommended to run both tests at the same time. This would cause Valgrind_Varlat tests to fail because of using MemSan-oriented files.
 
 ### Analyzing Results
 
